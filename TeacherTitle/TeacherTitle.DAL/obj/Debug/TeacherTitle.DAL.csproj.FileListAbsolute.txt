@@ -1,0 +1,6 @@
+E:\程序猿\网站\TeacherProfessional\TeacherTitle\DynamicLink\TeacherTitle.DAL.dll
+E:\程序猿\网站\TeacherProfessional\TeacherTitle\DynamicLink\TeacherTitle.DAL.pdb
+E:\程序猿\网站\TeacherProfessional\TeacherTitle\TeacherTitle.DAL\obj\Debug\ResolveAssemblyReference.cache
+E:\程序猿\网站\TeacherProfessional\TeacherTitle\TeacherTitle.DAL\obj\Debug\TeacherTitle.DAL.dll
+E:\程序猿\网站\TeacherProfessional\TeacherTitle\TeacherTitle.DAL\obj\Debug\TeacherTitle.DAL.pdb
+E:\程序猿\网站\TeacherProfessional\TeacherTitle\DynamicLink\TeacherTitle.DAL.dll.config

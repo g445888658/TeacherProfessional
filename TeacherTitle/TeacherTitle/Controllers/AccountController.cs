@@ -6,11 +6,21 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using TeacherTitle.Models;
+using TeacherTitle.BAL.Infrastructure;
+using TeacherTitle.BAL.Service;
 
 namespace TeacherTitle.Controllers
 {
     public class AccountController : Controller
     {
+        public IUserService UserService { get; set; }
+
+        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        {
+            if (UserService == null)
+                UserService = new UserService();
+            base.Initialize(requestContext);
+        }
 
         //
         // GET: /Account/LogOn
@@ -24,27 +34,28 @@ namespace TeacherTitle.Controllers
         // POST: /Account/LogOn
 
         [HttpPost]
-        public ActionResult LogOn(LogOnModel model, string returnUrl)
+        public ActionResult LogOn(LogOnModel model)
         {
             if (ModelState.IsValid)
             {
-                if (Membership.ValidateUser(model.UserName, model.Password))
+                if (UserService.LogOn(model.UserName,model.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
-                    {
-                        return Redirect(returnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
+
                 }
                 else
                 {
                     ModelState.AddModelError("", "提供的用户名或密码不正确。");
                 }
+                //记住我
+                if (model.RememberMe)
+                {
+
+                }
+                else
+                { 
+                    
+                }
+                
             }
 
             // 如果我们进行到这一步时某个地方出错，则重新显示表单

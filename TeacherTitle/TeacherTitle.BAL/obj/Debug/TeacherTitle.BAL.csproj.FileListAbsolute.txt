@@ -1,0 +1,5 @@
+E:\程序猿\网站\TeacherProfessional\TeacherTitle\DynamicLink\TeacherTitle.BAL.dll
+E:\程序猿\网站\TeacherProfessional\TeacherTitle\DynamicLink\TeacherTitle.BAL.pdb
+E:\程序猿\网站\TeacherProfessional\TeacherTitle\TeacherTitle.BAL\obj\Debug\ResolveAssemblyReference.cache
+E:\程序猿\网站\TeacherProfessional\TeacherTitle\TeacherTitle.BAL\obj\Debug\TeacherTitle.BAL.dll
+E:\程序猿\网站\TeacherProfessional\TeacherTitle\TeacherTitle.BAL\obj\Debug\TeacherTitle.BAL.pdb

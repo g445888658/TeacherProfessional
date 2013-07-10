@@ -4,18 +4,19 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
+using TeacherTitle.Infrastructure;
 
 namespace TeacherTitle.Models
 {
-
+    [ValidationModel.PropertiesMatch("NewPassword", "ConfirmPassword")]
     public class ChangePasswordModel
     {
-        [Required]
+        [Required(ErrorMessage = "请输入密码")]
         [DataType(DataType.Password)]
         [Display(Name = "当前密码")]
         public string OldPassword { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "请输入新密码")]
         [StringLength(100, ErrorMessage = "{0} 必须至少包含 {2} 个字符。", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "新密码")]
@@ -29,11 +30,11 @@ namespace TeacherTitle.Models
 
     public class LogOnModel
     {
-        [Required]
+        [Required(ErrorMessage = "请输入用户名")]
         [Display(Name = "用户名")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "请输入密码")]
         [DataType(DataType.Password)]
         [Display(Name = "密码")]
         public string Password { get; set; }

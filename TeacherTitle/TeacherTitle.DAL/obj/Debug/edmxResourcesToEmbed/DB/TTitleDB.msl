@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TTitleDBModelStoreContainer" CdmEntityContainer="TTitleDBEntities">
+    <EntitySetMapping Name="ActivityAttachment">
+      <EntityTypeMapping TypeName="TTitleDBModel.ActivityAttachment">
+        <MappingFragment StoreEntitySet="ActivityAttachment">
+          <ScalarProperty Name="AA_Code" ColumnName="AA_Code" />
+          <ScalarProperty Name="AP_Code" ColumnName="AP_Code" />
+          <ScalarProperty Name="AA_Name" ColumnName="AA_Name" />
+          <ScalarProperty Name="AA_Path" ColumnName="AA_Path" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ActivityMaterial">
+      <EntityTypeMapping TypeName="TTitleDBModel.ActivityMaterial">
+        <MappingFragment StoreEntitySet="ActivityMaterial">
+          <ScalarProperty Name="AM_Code" ColumnName="AM_Code" />
+          <ScalarProperty Name="CH_Code" ColumnName="CH_Code" />
+          <ScalarProperty Name="AM_Name" ColumnName="AM_Name" />
+          <ScalarProperty Name="AM_SavePath" ColumnName="AM_SavePath" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ActPlan">
+      <EntityTypeMapping TypeName="TTitleDBModel.ActPlan">
+        <MappingFragment StoreEntitySet="ActPlan">
+          <ScalarProperty Name="AP_Code" ColumnName="AP_Code" />
+          <ScalarProperty Name="TA_Code" ColumnName="TA_Code" />
+          <ScalarProperty Name="AP_Theme" ColumnName="AP_Theme" />
+          <ScalarProperty Name="AP_StartTime" ColumnName="AP_StartTime" />
+          <ScalarProperty Name="AP_EndTime" ColumnName="AP_EndTime" />
+          <ScalarProperty Name="AP_Place" ColumnName="AP_Place" />
+          <ScalarProperty Name="AP_Limit" ColumnName="AP_Limit" />
+          <ScalarProperty Name="AP_Left" ColumnName="AP_Left" />
+          <ScalarProperty Name="AP_Candidate" ColumnName="AP_Candidate" />
+          <ScalarProperty Name="AP_StatusKey" ColumnName="AP_StatusKey" />
+          <ScalarProperty Name="AP_StatusValue" ColumnName="AP_StatusValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ClassHourSum">
+      <EntityTypeMapping TypeName="TTitleDBModel.ClassHourSum">
+        <MappingFragment StoreEntitySet="ClassHourSum">
+          <ScalarProperty Name="CH_Code" ColumnName="CH_Code" />
+          <ScalarProperty Name="U_Code" ColumnName="U_Code" />
+          <ScalarProperty Name="AP_Code" ColumnName="AP_Code" />
+          <ScalarProperty Name="CH_GetTime" ColumnName="CH_GetTime" />
+          <ScalarProperty Name="CH_GetHour" ColumnName="CH_GetHour" />
+          <ScalarProperty Name="CH_Remark" ColumnName="CH_Remark" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Institute">
+      <EntityTypeMapping TypeName="TTitleDBModel.Institute">
+        <MappingFragment StoreEntitySet="Institute">
+          <ScalarProperty Name="I_Code" ColumnName="I_Code" />
+          <ScalarProperty Name="I_Name" ColumnName="I_Name" />
+          <ScalarProperty Name="I_IsValid" ColumnName="I_IsValid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Major">
+      <EntityTypeMapping TypeName="TTitleDBModel.Major">
+        <MappingFragment StoreEntitySet="Major">
+          <ScalarProperty Name="M_Code" ColumnName="M_Code" />
+          <ScalarProperty Name="M_Name" ColumnName="M_Name" />
+          <ScalarProperty Name="M_IsValid" ColumnName="M_IsValid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TeachingActivity">
+      <EntityTypeMapping TypeName="TTitleDBModel.TeachingActivity">
+        <MappingFragment StoreEntitySet="TeachingActivity">
+          <ScalarProperty Name="TA_Code" ColumnName="TA_Code" />
+          <ScalarProperty Name="TA_Form" ColumnName="TA_Form" />
+          <ScalarProperty Name="TA_Way" ColumnName="TA_Way" />
+          <ScalarProperty Name="TA_Material" ColumnName="TA_Material" />
+          <ScalarProperty Name="TA_ClassHour" ColumnName="TA_ClassHour" />
+          <ScalarProperty Name="TA_PlaceKey" ColumnName="TA_PlaceKey" />
+          <ScalarProperty Name="TA_PlaceValue" ColumnName="TA_PlaceValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="TTitleDBModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="U_Code" ColumnName="U_Code" />
+          <ScalarProperty Name="U_Account" ColumnName="U_Account" />
+          <ScalarProperty Name="U_PassWord" ColumnName="U_PassWord" />
+          <ScalarProperty Name="U_Name" ColumnName="U_Name" />
+          <ScalarProperty Name="I_Code" ColumnName="I_Code" />
+          <ScalarProperty Name="M_Code" ColumnName="M_Code" />
+          <ScalarProperty Name="UT_Code" ColumnName="UT_Code" />
+          <ScalarProperty Name="U_Degree" ColumnName="U_Degree" />
+          <ScalarProperty Name="U_Title" ColumnName="U_Title" />
+          <ScalarProperty Name="U_Mail" ColumnName="U_Mail" />
+          <ScalarProperty Name="U_Phone" ColumnName="U_Phone" />
+          <ScalarProperty Name="U_Remark" ColumnName="U_Remark" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserType">
+      <EntityTypeMapping TypeName="TTitleDBModel.UserType">
+        <MappingFragment StoreEntitySet="UserType">
+          <ScalarProperty Name="UT_Code" ColumnName="UT_Code" />
+          <ScalarProperty Name="UTTtype" ColumnName="UTTtype" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
