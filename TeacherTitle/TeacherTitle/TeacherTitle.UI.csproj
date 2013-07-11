@@ -59,6 +59,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="ValueHelper">
+      <HintPath>..\..\..\..\类库\guzhehang\Value.Helper\DynamicLink\ValueHelper.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
@@ -66,6 +69,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Basehandle.cs" />
+    <Compile Include="Infrastructure\UserModelBinding.cs" />
     <Compile Include="Infrastructure\ValidationModel.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -150,6 +155,10 @@
     <ProjectReference Include="..\TeacherTitle.BAL\TeacherTitle.BAL.csproj">
       <Project>{9DD75972-C1FD-4C0F-A604-EB066A573A6B}</Project>
       <Name>TeacherTitle.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TeacherTitle.DAL\TeacherTitle.DAL.csproj">
+      <Project>{B08CC80B-65FE-41AF-97EE-2E9BBA3CA569}</Project>
+      <Name>TeacherTitle.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

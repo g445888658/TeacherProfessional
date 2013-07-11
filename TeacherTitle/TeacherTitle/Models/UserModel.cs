@@ -7,5 +7,6 @@ namespace TeacherTitle.Models
 {
     public class UserModel
     {
+        public TeacherTitle.DAL.Model.UserModel userModel { get; set; }
     }
 }

@@ -5,6 +5,9 @@ using System.Web;
 using System.Globalization;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using System.Web.Routing;
+using TeacherTitle.Models;
 
 namespace TeacherTitle.Infrastructure
 {
@@ -58,8 +61,21 @@ namespace TeacherTitle.Infrastructure
             }
         }
 
-
-        
+        /// <summary>
+        /// 验证用户是否已登录
+        /// </summary>
+        public sealed class LoginValidate : ActionFilterAttribute
+        {
+            public override void OnActionExecuting(ActionExecutingContext filterContext)
+            {
+                var userModel = (UserModel)filterContext.HttpContext.Session["_userModel"];
+                if (userModel == null || userModel.userModel == null)
+                {
+                    filterContext.Result = new RedirectToRouteResult("Index", new RouteValueDictionary(new { controller = "Home", action = "Index" }));
+                    filterContext.Result = new HttpUnauthorizedResult();
+                }
+            }
+        }
 
 
     }

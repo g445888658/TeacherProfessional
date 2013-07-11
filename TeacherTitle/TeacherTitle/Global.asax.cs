@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using TeacherTitle.Models;
+using TeacherTitle.Infrastructure;
 
 namespace TeacherTitle
 {
@@ -35,6 +37,8 @@ namespace TeacherTitle
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            ModelBinders.Binders.Add(typeof(UserModel), new UserModelBinding());
         }
     }
 }

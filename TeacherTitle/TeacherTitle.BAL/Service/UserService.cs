@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using TeacherTitle.BAL.Infrastructure;
 using TeacherTitle.DAL.DAO;
+using TeacherTitle.DAL.Model;
 
 namespace TeacherTitle.BAL.Service
 {
@@ -17,7 +18,7 @@ namespace TeacherTitle.BAL.Service
         /// <param name="Account"></param>
         /// <param name="PassWord"></param>
         /// <returns></returns>
-        public bool LogOn(string Account, string PassWord)
+        public UserModel LogOn(string Account, string PassWord)
         {
             return userDAO.LogOn(Account, PassWord);
         }

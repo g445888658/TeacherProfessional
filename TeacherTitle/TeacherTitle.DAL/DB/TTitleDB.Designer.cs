@@ -2322,12 +2322,12 @@ namespace TeacherTitle.DAL.DB
         /// 创建新的 UserType 对象。
         /// </summary>
         /// <param name="uT_Code">UT_Code 属性的初始值。</param>
-        /// <param name="uTTtype">UTTtype 属性的初始值。</param>
-        public static UserType CreateUserType(global::System.Int32 uT_Code, global::System.String uTTtype)
+        /// <param name="uTType">UTType 属性的初始值。</param>
+        public static UserType CreateUserType(global::System.Int32 uT_Code, global::System.String uTType)
         {
             UserType userType = new UserType();
             userType.UT_Code = uT_Code;
-            userType.UTTtype = uTTtype;
+            userType.UTType = uTType;
             return userType;
         }
 
@@ -2366,24 +2366,24 @@ namespace TeacherTitle.DAL.DB
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String UTTtype
+        public global::System.String UTType
         {
             get
             {
-                return _UTTtype;
+                return _UTType;
             }
             set
             {
-                OnUTTtypeChanging(value);
-                ReportPropertyChanging("UTTtype");
-                _UTTtype = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("UTTtype");
-                OnUTTtypeChanged();
+                OnUTTypeChanging(value);
+                ReportPropertyChanging("UTType");
+                _UTType = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("UTType");
+                OnUTTypeChanged();
             }
         }
-        private global::System.String _UTTtype;
-        partial void OnUTTtypeChanging(global::System.String value);
-        partial void OnUTTtypeChanged();
+        private global::System.String _UTType;
+        partial void OnUTTypeChanging(global::System.String value);
+        partial void OnUTTypeChanged();
 
         #endregion
     

@@ -138,7 +138,7 @@
       <PropertyRef Name="UT_Code" />
     </Key>
     <Property Name="UT_Code" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="UTTtype" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="UTType" Type="nvarchar" Nullable="false" MaxLength="10" />
   </EntityType>
   <Association Name="FK_ACTIVITY_REFERENCE_ACTPLAN">
     <End Role="ActPlan" Type="TTitleDBModel.Store.ActPlan" Multiplicity="0..1" />

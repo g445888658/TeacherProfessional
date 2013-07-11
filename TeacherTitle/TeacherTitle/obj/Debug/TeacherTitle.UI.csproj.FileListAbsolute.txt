@@ -9,3 +9,7 @@ E:\程序猿\网站\TeacherProfessional\TeacherTitle\TeacherTitle\bin\TeacherTit
 E:\程序猿\网站\TeacherProfessional\TeacherTitle\TeacherTitle\bin\TeacherTitle.DAL.dll
 E:\程序猿\网站\TeacherProfessional\TeacherTitle\TeacherTitle\bin\TeacherTitle.BAL.pdb
 E:\程序猿\网站\TeacherProfessional\TeacherTitle\TeacherTitle\bin\TeacherTitle.DAL.pdb
+E:\程序猿\网站\TeacherProfessional\TeacherTitle\TeacherTitle\bin\ValueHelper.dll
+E:\程序猿\网站\TeacherProfessional\TeacherTitle\TeacherTitle\bin\Interop.ADOX.dll
+E:\程序猿\网站\TeacherProfessional\TeacherTitle\TeacherTitle\bin\Interop.ADODB.dll
+E:\程序猿\网站\TeacherProfessional\TeacherTitle\TeacherTitle\bin\ValueHelper.pdb

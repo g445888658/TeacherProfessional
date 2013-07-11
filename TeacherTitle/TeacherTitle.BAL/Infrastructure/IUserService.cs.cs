@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TeacherTitle.DAL.Model;
 
 namespace TeacherTitle.BAL.Infrastructure
 {
     public interface IUserService
     {
-        bool LogOn(string Account, string PassWord);
+        UserModel LogOn(string Account, string PassWord);
     }
 }

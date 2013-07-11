@@ -5,121 +5,191 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using TeacherTitle.Infrastructure;
 using TeacherTitle.Models;
 using TeacherTitle.BAL.Infrastructure;
 using TeacherTitle.BAL.Service;
+using TeacherTitle.DAL.Infrastructure;
 
 namespace TeacherTitle.Controllers
 {
+
     public class AccountController : Controller
     {
         public IUserService UserService { get; set; }
+        public IBaseService BaseService { get; set; }
 
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             if (UserService == null)
                 UserService = new UserService();
+            if (BaseService == null)
+                BaseService = new BaseService();
             base.Initialize(requestContext);
         }
 
-        //
-        // GET: /Account/LogOn
 
-        public ActionResult LogOn()
+        /// <summary>
+        /// 基础数据
+        /// </summary>
+        private void SetRegisterUI()
         {
+            var AllUserType = BaseService.GetAllUserType();
+            ViewData["AllTypeList"] = Basehandle.ProduceTypeList(AllUserType);
+
+            var AllInstitute = BaseService.GetAllInstitute();
+            ViewData["AllInstituteList"] = Basehandle.ProduceInstituteList(AllInstitute);
+
+            var AllMajor = BaseService.GetAllMajor();
+            ViewData["AllMajorList"] = Basehandle.ProduceMajorList(AllMajor);
+
+            List<KeyValueModel> AllTitle = new List<KeyValueModel>()
+            {
+
+            };
+
+        }
+
+        /// <summary>
+        /// 移除cookie
+        /// </summary>
+        private void RemoveCookie()
+        {
+            HttpCookie cookie = new HttpCookie(userCookie);
+            cookie.Expires = DateTime.Now.AddDays(-1d);
+            HttpContext.Response.Cookies.Add(cookie);
+        }
+
+
+        private const string userCookie = "userInfoCookie";
+
+        /// <summary>
+        /// GET 登陆
+        /// </summary>
+        /// <param name="userModel"></param>
+        /// <returns></returns>
+        public ActionResult LogOn(UserModel userModel)
+        {
+            if (HttpContext.Request.Cookies[userCookie] != null)
+            {
+                var user = UserService.LogOn(HttpContext.Request.Cookies[userCookie]["UserName"], HttpContext.Request.Cookies[userCookie]["PassWord"]);
+                userModel.userModel = user;
+            }
             return View();
         }
 
-        //
-        // POST: /Account/LogOn
 
+        /// <summary>
+        /// POST 登陆
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="userModel"></param>
+        /// <returns></returns>
         [HttpPost]
-        public ActionResult LogOn(LogOnModel model)
+        public ActionResult LogOn(LogOnModel model, UserModel userModel)
         {
             if (ModelState.IsValid)
             {
-                if (UserService.LogOn(model.UserName,model.Password))
+                var user = UserService.LogOn(model.UserName, model.Password);
+                if (user != null)
                 {
-
+                    //记住我
+                    if (model.RememberMe)
+                    {
+                        HttpCookie cookie = new HttpCookie(userCookie);
+                        cookie.Values["UserName"] = user.U_Account;
+                        cookie.Values["PassWord"] = user.U_PassWord;
+                        cookie.Expires = DateTime.Now.AddDays(7);
+                        HttpContext.Response.Cookies.Add(cookie);
+                    }
+                    else
+                    {
+                        if (HttpContext.Request.Cookies[userCookie] != null)
+                        {
+                            RemoveCookie();
+                        }
+                    }
+                    userModel.userModel = user;
+                    return View();
                 }
                 else
                 {
-                    ModelState.AddModelError("", "提供的用户名或密码不正确。");
+                    ModelState.AddModelError("UserName", "提供的用户名或密码不正确");
+                    return View(model);
                 }
-                //记住我
-                if (model.RememberMe)
-                {
-
-                }
-                else
-                { 
-                    
-                }
-                
             }
-
-            // 如果我们进行到这一步时某个地方出错，则重新显示表单
-            return View(model);
+            else
+                // 如果我们进行到这一步时某个地方出错，则重新显示表单
+                return View(model);
         }
 
-        //
-        // GET: /Account/LogOff
-
+        /// <summary>
+        /// GET 退出
+        /// </summary>
+        /// <returns></returns>
         public ActionResult LogOff()
         {
-            FormsAuthentication.SignOut();
+            RemoveCookie();
 
             return RedirectToAction("Index", "Home");
         }
 
-        //
-        // GET: /Account/Register
 
+        /// <summary>
+        /// GET 注册
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Register()
         {
+            SetRegisterUI();
             return View();
         }
 
-        //
-        // POST: /Account/Register
 
+        /// <summary>
+        /// POST 注册
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
-                // 尝试注册用户
-                MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
+                //// 尝试注册用户
+                //MembershipCreateStatus createStatus;
+                //Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
 
-                if (createStatus == MembershipCreateStatus.Success)
-                {
-                    FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", ErrorCodeToString(createStatus));
-                }
+                //if (createStatus == MembershipCreateStatus.Success)
+                //{
+                //    FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+                //    return RedirectToAction("Index", "Home");
+                //}
+                //else
+                //{
+                //    ModelState.AddModelError("", ErrorCodeToString(createStatus));
+                //}
             }
 
             // 如果我们进行到这一步时某个地方出错，则重新显示表单
             return View(model);
         }
 
-        //
-        // GET: /Account/ChangePassword
-
-        [Authorize]
+        /// <summary>
+        /// GET 修改密码
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ChangePassword()
         {
             return View();
         }
 
-        //
-        // POST: /Account/ChangePassword
 
-        [Authorize]
+        /// <summary>
+        /// POST 修改密码
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordModel model)
         {
@@ -153,52 +223,6 @@ namespace TeacherTitle.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/ChangePasswordSuccess
 
-        public ActionResult ChangePasswordSuccess()
-        {
-            return View();
-        }
-
-        #region Status Codes
-        private static string ErrorCodeToString(MembershipCreateStatus createStatus)
-        {
-            // 请参见 http://go.microsoft.com/fwlink/?LinkID=177550 以查看
-            // 状态代码的完整列表。
-            switch (createStatus)
-            {
-                case MembershipCreateStatus.DuplicateUserName:
-                    return "用户名已存在。请输入不同的用户名。";
-
-                case MembershipCreateStatus.DuplicateEmail:
-                    return "该电子邮件地址的用户名已存在。请输入不同的电子邮件地址。";
-
-                case MembershipCreateStatus.InvalidPassword:
-                    return "提供的密码无效。请输入有效的密码值。";
-
-                case MembershipCreateStatus.InvalidEmail:
-                    return "提供的电子邮件地址无效。请检查该值并重试。";
-
-                case MembershipCreateStatus.InvalidAnswer:
-                    return "提供的密码取回答案无效。请检查该值并重试。";
-
-                case MembershipCreateStatus.InvalidQuestion:
-                    return "提供的密码取回问题无效。请检查该值并重试。";
-
-                case MembershipCreateStatus.InvalidUserName:
-                    return "提供的用户名无效。请检查该值并重试。";
-
-                case MembershipCreateStatus.ProviderError:
-                    return "身份验证提供程序返回了错误。请验证您的输入并重试。如果问题仍然存在，请与系统管理员联系。";
-
-                case MembershipCreateStatus.UserRejected:
-                    return "已取消用户创建请求。请验证您的输入并重试。如果问题仍然存在，请与系统管理员联系。";
-
-                default:
-                    return "发生未知错误。请验证您的输入并重试。如果问题仍然存在，请与系统管理员联系。";
-            }
-        }
-        #endregion
     }
 }

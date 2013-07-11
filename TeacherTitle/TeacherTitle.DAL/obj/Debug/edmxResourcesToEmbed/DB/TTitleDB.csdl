@@ -153,8 +153,8 @@
       <PropertyRef Name="UT_Code" />
     </Key>
     <Property Name="UT_Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UTTtype" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="User" Relationship="TTitleDBModel.FK_USER_REFERENCE_USERTYPE" FromRole="UserType" ToRole="User" />
+    <Property Type="String" Name="UTType" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK_ACTIVITY_REFERENCE_ACTPLAN">
     <End Role="ActPlan" Type="TTitleDBModel.ActPlan" Multiplicity="0..1" />

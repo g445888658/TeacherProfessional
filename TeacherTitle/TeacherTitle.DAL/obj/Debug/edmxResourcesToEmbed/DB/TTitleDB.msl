@@ -102,8 +102,8 @@
     <EntitySetMapping Name="UserType">
       <EntityTypeMapping TypeName="TTitleDBModel.UserType">
         <MappingFragment StoreEntitySet="UserType">
+          <ScalarProperty Name="UTType" ColumnName="UTType" />
           <ScalarProperty Name="UT_Code" ColumnName="UT_Code" />
-          <ScalarProperty Name="UTTtype" ColumnName="UTTtype" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
