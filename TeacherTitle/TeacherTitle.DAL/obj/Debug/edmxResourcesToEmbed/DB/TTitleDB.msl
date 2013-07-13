@@ -21,9 +21,10 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ActPlan">
-      <EntityTypeMapping TypeName="TTitleDBModel.ActPlan">
-        <MappingFragment StoreEntitySet="ActPlan">
+    <EntitySetMapping Name="ActivityPlan">
+      <EntityTypeMapping TypeName="TTitleDBModel.ActivityPlan">
+        <MappingFragment StoreEntitySet="ActivityPlan">
+          <ScalarProperty Name="AP_ReleaseTime" ColumnName="AP_ReleaseTime" />
           <ScalarProperty Name="AP_Code" ColumnName="AP_Code" />
           <ScalarProperty Name="TA_Code" ColumnName="TA_Code" />
           <ScalarProperty Name="AP_Theme" ColumnName="AP_Theme" />
@@ -38,12 +39,29 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ActivityRemark">
+      <EntityTypeMapping TypeName="TTitleDBModel.ActivityRemark">
+        <MappingFragment StoreEntitySet="ActivityRemark">
+          <ScalarProperty Name="AR_Code" ColumnName="AR_Code" />
+          <ScalarProperty Name="AR_Content" ColumnName="AR_Content" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ActivitySignUp">
+      <EntityTypeMapping TypeName="TTitleDBModel.ActivitySignUp">
+        <MappingFragment StoreEntitySet="ActivitySignUp">
+          <ScalarProperty Name="ASU_Code" ColumnName="ASU_Code" />
+          <ScalarProperty Name="U_Code" ColumnName="U_Code" />
+          <ScalarProperty Name="AP_Code" ColumnName="AP_Code" />
+          <ScalarProperty Name="ASU_Time" ColumnName="ASU_Time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ClassHourSum">
       <EntityTypeMapping TypeName="TTitleDBModel.ClassHourSum">
         <MappingFragment StoreEntitySet="ClassHourSum">
           <ScalarProperty Name="CH_Code" ColumnName="CH_Code" />
-          <ScalarProperty Name="U_Code" ColumnName="U_Code" />
-          <ScalarProperty Name="AP_Code" ColumnName="AP_Code" />
+          <ScalarProperty Name="ASU_Code" ColumnName="ASU_Code" />
           <ScalarProperty Name="CH_GetTime" ColumnName="CH_GetTime" />
           <ScalarProperty Name="CH_GetHour" ColumnName="CH_GetHour" />
           <ScalarProperty Name="CH_Remark" ColumnName="CH_Remark" />
@@ -81,9 +99,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="User">
-      <EntityTypeMapping TypeName="TTitleDBModel.User">
-        <MappingFragment StoreEntitySet="User">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="TTitleDBModel.Users">
+        <MappingFragment StoreEntitySet="Users">
           <ScalarProperty Name="U_Code" ColumnName="U_Code" />
           <ScalarProperty Name="U_Account" ColumnName="U_Account" />
           <ScalarProperty Name="U_PassWord" ColumnName="U_PassWord" />
@@ -102,8 +120,8 @@
     <EntitySetMapping Name="UserType">
       <EntityTypeMapping TypeName="TTitleDBModel.UserType">
         <MappingFragment StoreEntitySet="UserType">
-          <ScalarProperty Name="UTType" ColumnName="UTType" />
           <ScalarProperty Name="UT_Code" ColumnName="UT_Code" />
+          <ScalarProperty Name="UTType" ColumnName="UTType" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

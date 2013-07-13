@@ -1,7 +1,22 @@
-﻿@if(Request.IsAuthenticated) {
-    <text>欢迎 <strong>@User.Identity.Name</strong>!
-    [ @Html.ActionLink("注销", "LogOff", "Account") ]</text>
-}
-else {
-    @:[ @Html.ActionLink("登录", "LogOn", "Account") ]
+﻿@model TeacherTitle.Models.LogOnModel
+<script type="text/javascript">
+    //登陆
+    function LogIn() {
+        $("#LogInForm").submit();
+    }
+</script>
+@Html.ValidationSummary(true)
+@using (Ajax.BeginForm("LogOn", "Account", null, new AjaxOptions { UpdateTargetId = "LogOnDiv", HttpMethod = "POST" }, new { id = "LogInForm" }))
+{
+    <div class="topline_l">
+        欢迎访问 温州医科大学 高校教师学习档案系统！<span id="timeSpan"> </span>
+    </div>
+    <div class="topline_r">
+        账号：@Html.TextBoxFor(x => x.UserName)
+        @Html.ValidationMessageFor(x => x.UserName)
+        &nbsp;&nbsp;密码：@Html.PasswordFor(x => x.Password)&nbsp;&nbsp; <a href="#" onclick="LogIn();">
+            登陆</a> | <a href="#">忘记密码</a>
+        @Html.ValidationMessageFor(x => x.Password)
+    </div>
+  
 }

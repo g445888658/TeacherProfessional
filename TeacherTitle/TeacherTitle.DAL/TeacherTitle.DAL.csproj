@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="DAO\ActivityDAO.cs" />
     <Compile Include="DAO\BaseDAO.cs" />
+    <Compile Include="DAO\ClassHourDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="DB\TTitleDB.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -56,6 +57,7 @@
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EntityDeploy Include="DB\TTitleDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -65,7 +67,6 @@
   <ItemGroup>
     <None Include="App.Config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

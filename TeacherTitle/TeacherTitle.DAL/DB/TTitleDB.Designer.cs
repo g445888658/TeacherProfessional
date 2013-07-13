@@ -18,14 +18,15 @@ using System.Runtime.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM 关系源元数据
 
-[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_ACTPLAN", "ActPlan", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TeacherTitle.DAL.DB.ActPlan), "ActivityAttachment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.ActivityAttachment), true)]
-[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_CLASSHOU", "ClassHourSum", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.ClassHourSum), "ActivityMaterial", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.ActivityMaterial), true)]
-[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_ACTPLAN_REFERENCE_TEACHING", "TeachingActivity", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.TeachingActivity), "ActPlan", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.ActPlan), true)]
-[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_CLASSHOU_REFERENCE_ACTPLAN", "ActPlan", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.ActPlan), "ClassHourSum", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.ClassHourSum), true)]
-[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_CLASSHOU_REFERENCE_USER", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.User), "ClassHourSum", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.ClassHourSum), true)]
-[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_USER_REFERENCE_INSTITUT", "Institute", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.Institute), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.User), true)]
-[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_USER_REFERENCE_MAJOR", "Major", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.Major), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.User), true)]
-[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_USER_REFERENCE_USERTYPE", "UserType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.UserType), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.User), true)]
+[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_ACTIVITY", "ActivityPlan", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.ActivityPlan), "ActivityAttachment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.ActivityAttachment), true)]
+[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_CLASSHOU", "ClassHourSum", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TeacherTitle.DAL.DB.ClassHourSum), "ActivityMaterial", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.ActivityMaterial), true)]
+[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_ACTPLAN_1", "ActivityPlan", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TeacherTitle.DAL.DB.ActivityPlan), "ActivitySignUp", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.ActivitySignUp), true)]
+[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_TEACHING", "TeachingActivity", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.TeachingActivity), "ActivityPlan", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.ActivityPlan), true)]
+[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_USERS", "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.Users), "ActivitySignUp", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.ActivitySignUp), true)]
+[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_CLASSHOU_REFERENCE_ACTIVITY", "ActivitySignUp", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TeacherTitle.DAL.DB.ActivitySignUp), "ClassHourSum", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.ClassHourSum), true)]
+[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_USERS_REFERENCE_INSTITUT", "Institute", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.Institute), "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.Users), true)]
+[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_USERS_REFERENCE_MAJOR", "Major", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.Major), "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.Users), true)]
+[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_USERS_REFERENCE_USERTYPE", "UserType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.UserType), "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.Users), true)]
 
 #endregion
 
@@ -112,18 +113,50 @@ namespace TeacherTitle.DAL.DB
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        public ObjectSet<ActPlan> ActPlan
+        public ObjectSet<ActivityPlan> ActivityPlan
         {
             get
             {
-                if ((_ActPlan == null))
+                if ((_ActivityPlan == null))
                 {
-                    _ActPlan = base.CreateObjectSet<ActPlan>("ActPlan");
+                    _ActivityPlan = base.CreateObjectSet<ActivityPlan>("ActivityPlan");
                 }
-                return _ActPlan;
+                return _ActivityPlan;
             }
         }
-        private ObjectSet<ActPlan> _ActPlan;
+        private ObjectSet<ActivityPlan> _ActivityPlan;
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        public ObjectSet<ActivityRemark> ActivityRemark
+        {
+            get
+            {
+                if ((_ActivityRemark == null))
+                {
+                    _ActivityRemark = base.CreateObjectSet<ActivityRemark>("ActivityRemark");
+                }
+                return _ActivityRemark;
+            }
+        }
+        private ObjectSet<ActivityRemark> _ActivityRemark;
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        public ObjectSet<ActivitySignUp> ActivitySignUp
+        {
+            get
+            {
+                if ((_ActivitySignUp == null))
+                {
+                    _ActivitySignUp = base.CreateObjectSet<ActivitySignUp>("ActivitySignUp");
+                }
+                return _ActivitySignUp;
+            }
+        }
+        private ObjectSet<ActivitySignUp> _ActivitySignUp;
     
         /// <summary>
         /// 没有元数据文档可用。
@@ -192,18 +225,18 @@ namespace TeacherTitle.DAL.DB
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        public ObjectSet<User> User
+        public ObjectSet<Users> Users
         {
             get
             {
-                if ((_User == null))
+                if ((_Users == null))
                 {
-                    _User = base.CreateObjectSet<User>("User");
+                    _Users = base.CreateObjectSet<Users>("Users");
                 }
-                return _User;
+                return _Users;
             }
         }
-        private ObjectSet<User> _User;
+        private ObjectSet<Users> _Users;
     
         /// <summary>
         /// 没有元数据文档可用。
@@ -241,11 +274,27 @@ namespace TeacherTitle.DAL.DB
         }
     
         /// <summary>
-        /// 用于向 ActPlan EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
+        /// 用于向 ActivityPlan EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
         /// </summary>
-        public void AddToActPlan(ActPlan actPlan)
+        public void AddToActivityPlan(ActivityPlan activityPlan)
         {
-            base.AddObject("ActPlan", actPlan);
+            base.AddObject("ActivityPlan", activityPlan);
+        }
+    
+        /// <summary>
+        /// 用于向 ActivityRemark EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
+        /// </summary>
+        public void AddToActivityRemark(ActivityRemark activityRemark)
+        {
+            base.AddObject("ActivityRemark", activityRemark);
+        }
+    
+        /// <summary>
+        /// 用于向 ActivitySignUp EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
+        /// </summary>
+        public void AddToActivitySignUp(ActivitySignUp activitySignUp)
+        {
+            base.AddObject("ActivitySignUp", activitySignUp);
         }
     
         /// <summary>
@@ -281,11 +330,11 @@ namespace TeacherTitle.DAL.DB
         }
     
         /// <summary>
-        /// 用于向 User EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
+        /// 用于向 Users EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
         /// </summary>
-        public void AddToUser(User user)
+        public void AddToUsers(Users users)
         {
-            base.AddObject("User", user);
+            base.AddObject("Users", users);
         }
     
         /// <summary>
@@ -318,12 +367,14 @@ namespace TeacherTitle.DAL.DB
         /// 创建新的 ActivityAttachment 对象。
         /// </summary>
         /// <param name="aA_Code">AA_Code 属性的初始值。</param>
+        /// <param name="aP_Code">AP_Code 属性的初始值。</param>
         /// <param name="aA_Name">AA_Name 属性的初始值。</param>
         /// <param name="aA_Path">AA_Path 属性的初始值。</param>
-        public static ActivityAttachment CreateActivityAttachment(global::System.Int32 aA_Code, global::System.String aA_Name, global::System.String aA_Path)
+        public static ActivityAttachment CreateActivityAttachment(global::System.Int32 aA_Code, global::System.Int32 aP_Code, global::System.String aA_Name, global::System.String aA_Path)
         {
             ActivityAttachment activityAttachment = new ActivityAttachment();
             activityAttachment.AA_Code = aA_Code;
+            activityAttachment.AP_Code = aP_Code;
             activityAttachment.AA_Name = aA_Name;
             activityAttachment.AA_Path = aA_Path;
             return activityAttachment;
@@ -362,9 +413,9 @@ namespace TeacherTitle.DAL.DB
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> AP_Code
+        public global::System.Int32 AP_Code
         {
             get
             {
@@ -379,8 +430,8 @@ namespace TeacherTitle.DAL.DB
                 OnAP_CodeChanged();
             }
         }
-        private Nullable<global::System.Int32> _AP_Code;
-        partial void OnAP_CodeChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _AP_Code;
+        partial void OnAP_CodeChanging(global::System.Int32 value);
         partial void OnAP_CodeChanged();
     
         /// <summary>
@@ -441,16 +492,16 @@ namespace TeacherTitle.DAL.DB
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_ACTPLAN", "ActPlan")]
-        public ActPlan ActPlan
+        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_ACTIVITY", "ActivityPlan")]
+        public ActivityPlan ActivityPlan
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ActPlan>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN", "ActPlan").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ActivityPlan>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY", "ActivityPlan").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ActPlan>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN", "ActPlan").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ActivityPlan>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY", "ActivityPlan").Value = value;
             }
         }
         /// <summary>
@@ -458,17 +509,17 @@ namespace TeacherTitle.DAL.DB
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<ActPlan> ActPlanReference
+        public EntityReference<ActivityPlan> ActivityPlanReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ActPlan>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN", "ActPlan");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ActivityPlan>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY", "ActivityPlan");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ActPlan>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN", "ActPlan", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ActivityPlan>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY", "ActivityPlan", value);
                 }
             }
         }
@@ -490,14 +541,12 @@ namespace TeacherTitle.DAL.DB
         /// 创建新的 ActivityMaterial 对象。
         /// </summary>
         /// <param name="aM_Code">AM_Code 属性的初始值。</param>
-        /// <param name="cH_Code">CH_Code 属性的初始值。</param>
         /// <param name="aM_Name">AM_Name 属性的初始值。</param>
         /// <param name="aM_SavePath">AM_SavePath 属性的初始值。</param>
-        public static ActivityMaterial CreateActivityMaterial(global::System.Int32 aM_Code, global::System.Int32 cH_Code, global::System.String aM_Name, global::System.String aM_SavePath)
+        public static ActivityMaterial CreateActivityMaterial(global::System.Int32 aM_Code, global::System.String aM_Name, global::System.String aM_SavePath)
         {
             ActivityMaterial activityMaterial = new ActivityMaterial();
             activityMaterial.AM_Code = aM_Code;
-            activityMaterial.CH_Code = cH_Code;
             activityMaterial.AM_Name = aM_Name;
             activityMaterial.AM_SavePath = aM_SavePath;
             return activityMaterial;
@@ -536,9 +585,9 @@ namespace TeacherTitle.DAL.DB
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 CH_Code
+        public Nullable<global::System.Int32> CH_Code
         {
             get
             {
@@ -553,8 +602,8 @@ namespace TeacherTitle.DAL.DB
                 OnCH_CodeChanged();
             }
         }
-        private global::System.Int32 _CH_Code;
-        partial void OnCH_CodeChanging(global::System.Int32 value);
+        private Nullable<global::System.Int32> _CH_Code;
+        partial void OnCH_CodeChanging(Nullable<global::System.Int32> value);
         partial void OnCH_CodeChanged();
     
         /// <summary>
@@ -653,15 +702,15 @@ namespace TeacherTitle.DAL.DB
     /// <summary>
     /// 没有元数据文档可用。
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="TTitleDBModel", Name="ActPlan")]
+    [EdmEntityTypeAttribute(NamespaceName="TTitleDBModel", Name="ActivityPlan")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class ActPlan : EntityObject
+    public partial class ActivityPlan : EntityObject
     {
         #region 工厂方法
     
         /// <summary>
-        /// 创建新的 ActPlan 对象。
+        /// 创建新的 ActivityPlan 对象。
         /// </summary>
         /// <param name="aP_Code">AP_Code 属性的初始值。</param>
         /// <param name="tA_Code">TA_Code 属性的初始值。</param>
@@ -670,23 +719,23 @@ namespace TeacherTitle.DAL.DB
         /// <param name="aP_EndTime">AP_EndTime 属性的初始值。</param>
         /// <param name="aP_Place">AP_Place 属性的初始值。</param>
         /// <param name="aP_Limit">AP_Limit 属性的初始值。</param>
-        /// <param name="aP_Left">AP_Left 属性的初始值。</param>
         /// <param name="aP_StatusKey">AP_StatusKey 属性的初始值。</param>
         /// <param name="aP_StatusValue">AP_StatusValue 属性的初始值。</param>
-        public static ActPlan CreateActPlan(global::System.Int32 aP_Code, global::System.Int32 tA_Code, global::System.String aP_Theme, global::System.String aP_StartTime, global::System.String aP_EndTime, global::System.String aP_Place, global::System.Int32 aP_Limit, global::System.Int32 aP_Left, global::System.Int32 aP_StatusKey, global::System.String aP_StatusValue)
+        /// <param name="aP_ReleaseTime">AP_ReleaseTime 属性的初始值。</param>
+        public static ActivityPlan CreateActivityPlan(global::System.Int32 aP_Code, global::System.Int32 tA_Code, global::System.String aP_Theme, global::System.String aP_StartTime, global::System.String aP_EndTime, global::System.String aP_Place, global::System.Int32 aP_Limit, global::System.Int32 aP_StatusKey, global::System.String aP_StatusValue, global::System.String aP_ReleaseTime)
         {
-            ActPlan actPlan = new ActPlan();
-            actPlan.AP_Code = aP_Code;
-            actPlan.TA_Code = tA_Code;
-            actPlan.AP_Theme = aP_Theme;
-            actPlan.AP_StartTime = aP_StartTime;
-            actPlan.AP_EndTime = aP_EndTime;
-            actPlan.AP_Place = aP_Place;
-            actPlan.AP_Limit = aP_Limit;
-            actPlan.AP_Left = aP_Left;
-            actPlan.AP_StatusKey = aP_StatusKey;
-            actPlan.AP_StatusValue = aP_StatusValue;
-            return actPlan;
+            ActivityPlan activityPlan = new ActivityPlan();
+            activityPlan.AP_Code = aP_Code;
+            activityPlan.TA_Code = tA_Code;
+            activityPlan.AP_Theme = aP_Theme;
+            activityPlan.AP_StartTime = aP_StartTime;
+            activityPlan.AP_EndTime = aP_EndTime;
+            activityPlan.AP_Place = aP_Place;
+            activityPlan.AP_Limit = aP_Limit;
+            activityPlan.AP_StatusKey = aP_StatusKey;
+            activityPlan.AP_StatusValue = aP_StatusValue;
+            activityPlan.AP_ReleaseTime = aP_ReleaseTime;
+            return activityPlan;
         }
 
         #endregion
@@ -866,9 +915,9 @@ namespace TeacherTitle.DAL.DB
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 AP_Left
+        public Nullable<global::System.Int32> AP_Left
         {
             get
             {
@@ -883,8 +932,8 @@ namespace TeacherTitle.DAL.DB
                 OnAP_LeftChanged();
             }
         }
-        private global::System.Int32 _AP_Left;
-        partial void OnAP_LeftChanging(global::System.Int32 value);
+        private Nullable<global::System.Int32> _AP_Left;
+        partial void OnAP_LeftChanging(Nullable<global::System.Int32> value);
         partial void OnAP_LeftChanged();
     
         /// <summary>
@@ -958,6 +1007,30 @@ namespace TeacherTitle.DAL.DB
         private global::System.String _AP_StatusValue;
         partial void OnAP_StatusValueChanging(global::System.String value);
         partial void OnAP_StatusValueChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String AP_ReleaseTime
+        {
+            get
+            {
+                return _AP_ReleaseTime;
+            }
+            set
+            {
+                OnAP_ReleaseTimeChanging(value);
+                ReportPropertyChanging("AP_ReleaseTime");
+                _AP_ReleaseTime = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("AP_ReleaseTime");
+                OnAP_ReleaseTimeChanged();
+            }
+        }
+        private global::System.String _AP_ReleaseTime;
+        partial void OnAP_ReleaseTimeChanging(global::System.String value);
+        partial void OnAP_ReleaseTimeChanged();
 
         #endregion
     
@@ -969,18 +1042,18 @@ namespace TeacherTitle.DAL.DB
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_ACTPLAN", "ActivityAttachment")]
+        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_ACTIVITY", "ActivityAttachment")]
         public EntityCollection<ActivityAttachment> ActivityAttachment
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ActivityAttachment>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN", "ActivityAttachment");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ActivityAttachment>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY", "ActivityAttachment");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ActivityAttachment>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN", "ActivityAttachment", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ActivityAttachment>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY", "ActivityAttachment", value);
                 }
             }
         }
@@ -991,16 +1064,38 @@ namespace TeacherTitle.DAL.DB
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_ACTPLAN_REFERENCE_TEACHING", "TeachingActivity")]
+        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_ACTPLAN_1", "ActivitySignUp")]
+        public EntityCollection<ActivitySignUp> ActivitySignUp
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ActivitySignUp>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN_1", "ActivitySignUp");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ActivitySignUp>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN_1", "ActivitySignUp", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_TEACHING", "TeachingActivity")]
         public TeachingActivity TeachingActivity
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TeachingActivity>("TTitleDBModel.FK_ACTPLAN_REFERENCE_TEACHING", "TeachingActivity").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TeachingActivity>("TTitleDBModel.FK_ACTIVITY_REFERENCE_TEACHING", "TeachingActivity").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TeachingActivity>("TTitleDBModel.FK_ACTPLAN_REFERENCE_TEACHING", "TeachingActivity").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TeachingActivity>("TTitleDBModel.FK_ACTIVITY_REFERENCE_TEACHING", "TeachingActivity").Value = value;
             }
         }
         /// <summary>
@@ -1012,13 +1107,262 @@ namespace TeacherTitle.DAL.DB
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TeachingActivity>("TTitleDBModel.FK_ACTPLAN_REFERENCE_TEACHING", "TeachingActivity");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TeachingActivity>("TTitleDBModel.FK_ACTIVITY_REFERENCE_TEACHING", "TeachingActivity");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<TeachingActivity>("TTitleDBModel.FK_ACTPLAN_REFERENCE_TEACHING", "TeachingActivity", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<TeachingActivity>("TTitleDBModel.FK_ACTIVITY_REFERENCE_TEACHING", "TeachingActivity", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// 没有元数据文档可用。
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="TTitleDBModel", Name="ActivityRemark")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ActivityRemark : EntityObject
+    {
+        #region 工厂方法
+    
+        /// <summary>
+        /// 创建新的 ActivityRemark 对象。
+        /// </summary>
+        /// <param name="aR_Code">AR_Code 属性的初始值。</param>
+        public static ActivityRemark CreateActivityRemark(global::System.Decimal aR_Code)
+        {
+            ActivityRemark activityRemark = new ActivityRemark();
+            activityRemark.AR_Code = aR_Code;
+            return activityRemark;
+        }
+
+        #endregion
+        #region 基元属性
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Decimal AR_Code
+        {
+            get
+            {
+                return _AR_Code;
+            }
+            set
+            {
+                if (_AR_Code != value)
+                {
+                    OnAR_CodeChanging(value);
+                    ReportPropertyChanging("AR_Code");
+                    _AR_Code = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("AR_Code");
+                    OnAR_CodeChanged();
+                }
+            }
+        }
+        private global::System.Decimal _AR_Code;
+        partial void OnAR_CodeChanging(global::System.Decimal value);
+        partial void OnAR_CodeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String AR_Content
+        {
+            get
+            {
+                return _AR_Content;
+            }
+            set
+            {
+                OnAR_ContentChanging(value);
+                ReportPropertyChanging("AR_Content");
+                _AR_Content = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("AR_Content");
+                OnAR_ContentChanged();
+            }
+        }
+        private global::System.String _AR_Content;
+        partial void OnAR_ContentChanging(global::System.String value);
+        partial void OnAR_ContentChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// 没有元数据文档可用。
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="TTitleDBModel", Name="ActivitySignUp")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ActivitySignUp : EntityObject
+    {
+        #region 工厂方法
+    
+        /// <summary>
+        /// 创建新的 ActivitySignUp 对象。
+        /// </summary>
+        /// <param name="aSU_Code">ASU_Code 属性的初始值。</param>
+        /// <param name="u_Code">U_Code 属性的初始值。</param>
+        public static ActivitySignUp CreateActivitySignUp(global::System.Int32 aSU_Code, global::System.Int32 u_Code)
+        {
+            ActivitySignUp activitySignUp = new ActivitySignUp();
+            activitySignUp.ASU_Code = aSU_Code;
+            activitySignUp.U_Code = u_Code;
+            return activitySignUp;
+        }
+
+        #endregion
+        #region 基元属性
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ASU_Code
+        {
+            get
+            {
+                return _ASU_Code;
+            }
+            set
+            {
+                if (_ASU_Code != value)
+                {
+                    OnASU_CodeChanging(value);
+                    ReportPropertyChanging("ASU_Code");
+                    _ASU_Code = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ASU_Code");
+                    OnASU_CodeChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ASU_Code;
+        partial void OnASU_CodeChanging(global::System.Int32 value);
+        partial void OnASU_CodeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 U_Code
+        {
+            get
+            {
+                return _U_Code;
+            }
+            set
+            {
+                OnU_CodeChanging(value);
+                ReportPropertyChanging("U_Code");
+                _U_Code = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("U_Code");
+                OnU_CodeChanged();
+            }
+        }
+        private global::System.Int32 _U_Code;
+        partial void OnU_CodeChanging(global::System.Int32 value);
+        partial void OnU_CodeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> AP_Code
+        {
+            get
+            {
+                return _AP_Code;
+            }
+            set
+            {
+                OnAP_CodeChanging(value);
+                ReportPropertyChanging("AP_Code");
+                _AP_Code = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AP_Code");
+                OnAP_CodeChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _AP_Code;
+        partial void OnAP_CodeChanging(Nullable<global::System.Int32> value);
+        partial void OnAP_CodeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ASU_Time
+        {
+            get
+            {
+                return _ASU_Time;
+            }
+            set
+            {
+                OnASU_TimeChanging(value);
+                ReportPropertyChanging("ASU_Time");
+                _ASU_Time = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ASU_Time");
+                OnASU_TimeChanged();
+            }
+        }
+        private global::System.String _ASU_Time;
+        partial void OnASU_TimeChanging(global::System.String value);
+        partial void OnASU_TimeChanged();
+
+        #endregion
+    
+        #region 导航属性
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_ACTPLAN_1", "ActivityPlan")]
+        public ActivityPlan ActivityPlan
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ActivityPlan>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN_1", "ActivityPlan").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ActivityPlan>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN_1", "ActivityPlan").Value = value;
+            }
+        }
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ActivityPlan> ActivityPlanReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ActivityPlan>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN_1", "ActivityPlan");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ActivityPlan>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN_1", "ActivityPlan", value);
                 }
             }
         }
@@ -1029,18 +1373,56 @@ namespace TeacherTitle.DAL.DB
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_CLASSHOU_REFERENCE_ACTPLAN", "ClassHourSum")]
-        public EntityCollection<ClassHourSum> ClassHourSum
+        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_USERS", "Users")]
+        public Users Users
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClassHourSum>("TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTPLAN", "ClassHourSum");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("TTitleDBModel.FK_ACTIVITY_REFERENCE_USERS", "Users").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("TTitleDBModel.FK_ACTIVITY_REFERENCE_USERS", "Users").Value = value;
+            }
+        }
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Users> UsersReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("TTitleDBModel.FK_ACTIVITY_REFERENCE_USERS", "Users");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClassHourSum>("TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTPLAN", "ClassHourSum", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Users>("TTitleDBModel.FK_ACTIVITY_REFERENCE_USERS", "Users", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_CLASSHOU_REFERENCE_ACTIVITY", "ClassHourSum")]
+        public EntityCollection<ClassHourSum> ClassHourSum
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClassHourSum>("TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTIVITY", "ClassHourSum");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClassHourSum>("TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTIVITY", "ClassHourSum", value);
                 }
             }
         }
@@ -1062,16 +1444,10 @@ namespace TeacherTitle.DAL.DB
         /// 创建新的 ClassHourSum 对象。
         /// </summary>
         /// <param name="cH_Code">CH_Code 属性的初始值。</param>
-        /// <param name="u_Code">U_Code 属性的初始值。</param>
-        /// <param name="aP_Code">AP_Code 属性的初始值。</param>
-        /// <param name="cH_GetHour">CH_GetHour 属性的初始值。</param>
-        public static ClassHourSum CreateClassHourSum(global::System.Int32 cH_Code, global::System.Int32 u_Code, global::System.Int32 aP_Code, global::System.Int32 cH_GetHour)
+        public static ClassHourSum CreateClassHourSum(global::System.Int32 cH_Code)
         {
             ClassHourSum classHourSum = new ClassHourSum();
             classHourSum.CH_Code = cH_Code;
-            classHourSum.U_Code = u_Code;
-            classHourSum.AP_Code = aP_Code;
-            classHourSum.CH_GetHour = cH_GetHour;
             return classHourSum;
         }
 
@@ -1108,50 +1484,26 @@ namespace TeacherTitle.DAL.DB
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 U_Code
+        public Nullable<global::System.Int32> ASU_Code
         {
             get
             {
-                return _U_Code;
+                return _ASU_Code;
             }
             set
             {
-                OnU_CodeChanging(value);
-                ReportPropertyChanging("U_Code");
-                _U_Code = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("U_Code");
-                OnU_CodeChanged();
+                OnASU_CodeChanging(value);
+                ReportPropertyChanging("ASU_Code");
+                _ASU_Code = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ASU_Code");
+                OnASU_CodeChanged();
             }
         }
-        private global::System.Int32 _U_Code;
-        partial void OnU_CodeChanging(global::System.Int32 value);
-        partial void OnU_CodeChanged();
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 AP_Code
-        {
-            get
-            {
-                return _AP_Code;
-            }
-            set
-            {
-                OnAP_CodeChanging(value);
-                ReportPropertyChanging("AP_Code");
-                _AP_Code = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("AP_Code");
-                OnAP_CodeChanged();
-            }
-        }
-        private global::System.Int32 _AP_Code;
-        partial void OnAP_CodeChanging(global::System.Int32 value);
-        partial void OnAP_CodeChanged();
+        private Nullable<global::System.Int32> _ASU_Code;
+        partial void OnASU_CodeChanging(Nullable<global::System.Int32> value);
+        partial void OnASU_CodeChanged();
     
         /// <summary>
         /// 没有元数据文档可用。
@@ -1180,9 +1532,9 @@ namespace TeacherTitle.DAL.DB
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 CH_GetHour
+        public Nullable<global::System.Int32> CH_GetHour
         {
             get
             {
@@ -1197,8 +1549,8 @@ namespace TeacherTitle.DAL.DB
                 OnCH_GetHourChanged();
             }
         }
-        private global::System.Int32 _CH_GetHour;
-        partial void OnCH_GetHourChanging(global::System.Int32 value);
+        private Nullable<global::System.Int32> _CH_GetHour;
+        partial void OnCH_GetHourChanging(Nullable<global::System.Int32> value);
         partial void OnCH_GetHourChanged();
     
         /// <summary>
@@ -1257,16 +1609,16 @@ namespace TeacherTitle.DAL.DB
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_CLASSHOU_REFERENCE_ACTPLAN", "ActPlan")]
-        public ActPlan ActPlan
+        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_CLASSHOU_REFERENCE_ACTIVITY", "ActivitySignUp")]
+        public ActivitySignUp ActivitySignUp
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ActPlan>("TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTPLAN", "ActPlan").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ActivitySignUp>("TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTIVITY", "ActivitySignUp").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ActPlan>("TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTPLAN", "ActPlan").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ActivitySignUp>("TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTIVITY", "ActivitySignUp").Value = value;
             }
         }
         /// <summary>
@@ -1274,55 +1626,17 @@ namespace TeacherTitle.DAL.DB
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<ActPlan> ActPlanReference
+        public EntityReference<ActivitySignUp> ActivitySignUpReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ActPlan>("TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTPLAN", "ActPlan");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ActivitySignUp>("TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTIVITY", "ActivitySignUp");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ActPlan>("TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTPLAN", "ActPlan", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_CLASSHOU_REFERENCE_USER", "User")]
-        public User User
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("TTitleDBModel.FK_CLASSHOU_REFERENCE_USER", "User").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("TTitleDBModel.FK_CLASSHOU_REFERENCE_USER", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("TTitleDBModel.FK_CLASSHOU_REFERENCE_USER", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("TTitleDBModel.FK_CLASSHOU_REFERENCE_USER", "User", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ActivitySignUp>("TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTIVITY", "ActivitySignUp", value);
                 }
             }
         }
@@ -1443,18 +1757,18 @@ namespace TeacherTitle.DAL.DB
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_USER_REFERENCE_INSTITUT", "User")]
-        public EntityCollection<User> User
+        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_USERS_REFERENCE_INSTITUT", "Users")]
+        public EntityCollection<Users> Users
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<User>("TTitleDBModel.FK_USER_REFERENCE_INSTITUT", "User");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Users>("TTitleDBModel.FK_USERS_REFERENCE_INSTITUT", "Users");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<User>("TTitleDBModel.FK_USER_REFERENCE_INSTITUT", "User", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Users>("TTitleDBModel.FK_USERS_REFERENCE_INSTITUT", "Users", value);
                 }
             }
         }
@@ -1575,18 +1889,18 @@ namespace TeacherTitle.DAL.DB
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_USER_REFERENCE_MAJOR", "User")]
-        public EntityCollection<User> User
+        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_USERS_REFERENCE_MAJOR", "Users")]
+        public EntityCollection<Users> Users
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<User>("TTitleDBModel.FK_USER_REFERENCE_MAJOR", "User");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Users>("TTitleDBModel.FK_USERS_REFERENCE_MAJOR", "Users");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<User>("TTitleDBModel.FK_USER_REFERENCE_MAJOR", "User", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Users>("TTitleDBModel.FK_USERS_REFERENCE_MAJOR", "Users", value);
                 }
             }
         }
@@ -1811,18 +2125,18 @@ namespace TeacherTitle.DAL.DB
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_ACTPLAN_REFERENCE_TEACHING", "ActPlan")]
-        public EntityCollection<ActPlan> ActPlan
+        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_TEACHING", "ActivityPlan")]
+        public EntityCollection<ActivityPlan> ActivityPlan
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ActPlan>("TTitleDBModel.FK_ACTPLAN_REFERENCE_TEACHING", "ActPlan");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ActivityPlan>("TTitleDBModel.FK_ACTIVITY_REFERENCE_TEACHING", "ActivityPlan");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ActPlan>("TTitleDBModel.FK_ACTPLAN_REFERENCE_TEACHING", "ActPlan", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ActivityPlan>("TTitleDBModel.FK_ACTIVITY_REFERENCE_TEACHING", "ActivityPlan", value);
                 }
             }
         }
@@ -1833,15 +2147,15 @@ namespace TeacherTitle.DAL.DB
     /// <summary>
     /// 没有元数据文档可用。
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="TTitleDBModel", Name="User")]
+    [EdmEntityTypeAttribute(NamespaceName="TTitleDBModel", Name="Users")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class User : EntityObject
+    public partial class Users : EntityObject
     {
         #region 工厂方法
     
         /// <summary>
-        /// 创建新的 User 对象。
+        /// 创建新的 Users 对象。
         /// </summary>
         /// <param name="u_Code">U_Code 属性的初始值。</param>
         /// <param name="u_Account">U_Account 属性的初始值。</param>
@@ -1854,21 +2168,21 @@ namespace TeacherTitle.DAL.DB
         /// <param name="u_Title">U_Title 属性的初始值。</param>
         /// <param name="u_Mail">U_Mail 属性的初始值。</param>
         /// <param name="u_Phone">U_Phone 属性的初始值。</param>
-        public static User CreateUser(global::System.Int32 u_Code, global::System.String u_Account, global::System.String u_PassWord, global::System.String u_Name, global::System.Int32 i_Code, global::System.Int32 m_Code, global::System.Int32 uT_Code, global::System.String u_Degree, global::System.String u_Title, global::System.String u_Mail, global::System.String u_Phone)
+        public static Users CreateUsers(global::System.Int32 u_Code, global::System.String u_Account, global::System.String u_PassWord, global::System.String u_Name, global::System.Int32 i_Code, global::System.Int32 m_Code, global::System.Int32 uT_Code, global::System.String u_Degree, global::System.String u_Title, global::System.String u_Mail, global::System.String u_Phone)
         {
-            User user = new User();
-            user.U_Code = u_Code;
-            user.U_Account = u_Account;
-            user.U_PassWord = u_PassWord;
-            user.U_Name = u_Name;
-            user.I_Code = i_Code;
-            user.M_Code = m_Code;
-            user.UT_Code = uT_Code;
-            user.U_Degree = u_Degree;
-            user.U_Title = u_Title;
-            user.U_Mail = u_Mail;
-            user.U_Phone = u_Phone;
-            return user;
+            Users users = new Users();
+            users.U_Code = u_Code;
+            users.U_Account = u_Account;
+            users.U_PassWord = u_PassWord;
+            users.U_Name = u_Name;
+            users.I_Code = i_Code;
+            users.M_Code = m_Code;
+            users.UT_Code = uT_Code;
+            users.U_Degree = u_Degree;
+            users.U_Title = u_Title;
+            users.U_Mail = u_Mail;
+            users.U_Phone = u_Phone;
+            return users;
         }
 
         #endregion
@@ -2175,18 +2489,18 @@ namespace TeacherTitle.DAL.DB
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_CLASSHOU_REFERENCE_USER", "ClassHourSum")]
-        public EntityCollection<ClassHourSum> ClassHourSum
+        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_USERS", "ActivitySignUp")]
+        public EntityCollection<ActivitySignUp> ActivitySignUp
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ClassHourSum>("TTitleDBModel.FK_CLASSHOU_REFERENCE_USER", "ClassHourSum");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ActivitySignUp>("TTitleDBModel.FK_ACTIVITY_REFERENCE_USERS", "ActivitySignUp");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ClassHourSum>("TTitleDBModel.FK_CLASSHOU_REFERENCE_USER", "ClassHourSum", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ActivitySignUp>("TTitleDBModel.FK_ACTIVITY_REFERENCE_USERS", "ActivitySignUp", value);
                 }
             }
         }
@@ -2197,16 +2511,16 @@ namespace TeacherTitle.DAL.DB
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_USER_REFERENCE_INSTITUT", "Institute")]
+        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_USERS_REFERENCE_INSTITUT", "Institute")]
         public Institute Institute
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Institute>("TTitleDBModel.FK_USER_REFERENCE_INSTITUT", "Institute").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Institute>("TTitleDBModel.FK_USERS_REFERENCE_INSTITUT", "Institute").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Institute>("TTitleDBModel.FK_USER_REFERENCE_INSTITUT", "Institute").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Institute>("TTitleDBModel.FK_USERS_REFERENCE_INSTITUT", "Institute").Value = value;
             }
         }
         /// <summary>
@@ -2218,13 +2532,13 @@ namespace TeacherTitle.DAL.DB
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Institute>("TTitleDBModel.FK_USER_REFERENCE_INSTITUT", "Institute");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Institute>("TTitleDBModel.FK_USERS_REFERENCE_INSTITUT", "Institute");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Institute>("TTitleDBModel.FK_USER_REFERENCE_INSTITUT", "Institute", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Institute>("TTitleDBModel.FK_USERS_REFERENCE_INSTITUT", "Institute", value);
                 }
             }
         }
@@ -2235,16 +2549,16 @@ namespace TeacherTitle.DAL.DB
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_USER_REFERENCE_MAJOR", "Major")]
+        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_USERS_REFERENCE_MAJOR", "Major")]
         public Major Major
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Major>("TTitleDBModel.FK_USER_REFERENCE_MAJOR", "Major").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Major>("TTitleDBModel.FK_USERS_REFERENCE_MAJOR", "Major").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Major>("TTitleDBModel.FK_USER_REFERENCE_MAJOR", "Major").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Major>("TTitleDBModel.FK_USERS_REFERENCE_MAJOR", "Major").Value = value;
             }
         }
         /// <summary>
@@ -2256,13 +2570,13 @@ namespace TeacherTitle.DAL.DB
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Major>("TTitleDBModel.FK_USER_REFERENCE_MAJOR", "Major");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Major>("TTitleDBModel.FK_USERS_REFERENCE_MAJOR", "Major");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Major>("TTitleDBModel.FK_USER_REFERENCE_MAJOR", "Major", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Major>("TTitleDBModel.FK_USERS_REFERENCE_MAJOR", "Major", value);
                 }
             }
         }
@@ -2273,16 +2587,16 @@ namespace TeacherTitle.DAL.DB
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_USER_REFERENCE_USERTYPE", "UserType")]
+        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_USERS_REFERENCE_USERTYPE", "UserType")]
         public UserType UserType
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserType>("TTitleDBModel.FK_USER_REFERENCE_USERTYPE", "UserType").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserType>("TTitleDBModel.FK_USERS_REFERENCE_USERTYPE", "UserType").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserType>("TTitleDBModel.FK_USER_REFERENCE_USERTYPE", "UserType").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserType>("TTitleDBModel.FK_USERS_REFERENCE_USERTYPE", "UserType").Value = value;
             }
         }
         /// <summary>
@@ -2294,13 +2608,13 @@ namespace TeacherTitle.DAL.DB
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserType>("TTitleDBModel.FK_USER_REFERENCE_USERTYPE", "UserType");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserType>("TTitleDBModel.FK_USERS_REFERENCE_USERTYPE", "UserType");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<UserType>("TTitleDBModel.FK_USER_REFERENCE_USERTYPE", "UserType", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<UserType>("TTitleDBModel.FK_USERS_REFERENCE_USERTYPE", "UserType", value);
                 }
             }
         }
@@ -2395,18 +2709,18 @@ namespace TeacherTitle.DAL.DB
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_USER_REFERENCE_USERTYPE", "User")]
-        public EntityCollection<User> User
+        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_USERS_REFERENCE_USERTYPE", "Users")]
+        public EntityCollection<Users> Users
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<User>("TTitleDBModel.FK_USER_REFERENCE_USERTYPE", "User");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Users>("TTitleDBModel.FK_USERS_REFERENCE_USERTYPE", "Users");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<User>("TTitleDBModel.FK_USER_REFERENCE_USERTYPE", "User", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Users>("TTitleDBModel.FK_USERS_REFERENCE_USERTYPE", "Users", value);
                 }
             }
         }

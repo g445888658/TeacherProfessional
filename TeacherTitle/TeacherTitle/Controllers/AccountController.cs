@@ -43,10 +43,9 @@ namespace TeacherTitle.Controllers
             var AllMajor = BaseService.GetAllMajor();
             ViewData["AllMajorList"] = Basehandle.ProduceMajorList(AllMajor);
 
-            List<KeyValueModel> AllTitle = new List<KeyValueModel>()
-            {
+            ViewData["AllDegreeList"] = Basehandle.ProduceSelectList(Basehandle.AllDegree);
 
-            };
+            ViewData["AllTitleList"] = Basehandle.ProduceSelectList(Basehandle.AllTitle);
 
         }
 
@@ -68,14 +67,18 @@ namespace TeacherTitle.Controllers
         /// </summary>
         /// <param name="userModel"></param>
         /// <returns></returns>
-        public ActionResult LogOn(UserModel userModel)
+        public PartialViewResult LogOn(UserModel userModel)
         {
+            if (userModel.userModel != null)
+            {
+                return PartialView("_LogOutPartial", userModel);
+            }
             if (HttpContext.Request.Cookies[userCookie] != null)
             {
                 var user = UserService.LogOn(HttpContext.Request.Cookies[userCookie]["UserName"], HttpContext.Request.Cookies[userCookie]["PassWord"]);
                 userModel.userModel = user;
             }
-            return View();
+            return PartialView("_LogOnPartial");
         }
 
 
@@ -86,8 +89,9 @@ namespace TeacherTitle.Controllers
         /// <param name="userModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult LogOn(LogOnModel model, UserModel userModel)
+        public PartialViewResult LogOn(LogOnModel model, UserModel userModel)
         {
+
             if (ModelState.IsValid)
             {
                 var user = UserService.LogOn(model.UserName, model.Password);
@@ -110,17 +114,17 @@ namespace TeacherTitle.Controllers
                         }
                     }
                     userModel.userModel = user;
-                    return View();
+                    return PartialView("_LogOutPartial", userModel);
                 }
                 else
                 {
                     ModelState.AddModelError("UserName", "提供的用户名或密码不正确");
-                    return View(model);
+                    return PartialView("_LogOnPartial");
                 }
             }
             else
                 // 如果我们进行到这一步时某个地方出错，则重新显示表单
-                return View(model);
+                return PartialView("_LogOnPartial");
         }
 
         /// <summary>
@@ -130,8 +134,8 @@ namespace TeacherTitle.Controllers
         public ActionResult LogOff()
         {
             RemoveCookie();
-
-            return RedirectToAction("Index", "Home");
+            HttpContext.Session.Remove(UserModelBinding.SessionKey);
+            return PartialView("_LogOnPartial");
         }
 
 

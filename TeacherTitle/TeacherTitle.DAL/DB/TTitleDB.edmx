@@ -8,44 +8,50 @@
         <EntityContainer Name="TTitleDBModelStoreContainer">
           <EntitySet Name="ActivityAttachment" EntityType="TTitleDBModel.Store.ActivityAttachment" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ActivityMaterial" EntityType="TTitleDBModel.Store.ActivityMaterial" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="ActPlan" EntityType="TTitleDBModel.Store.ActPlan" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ActivityPlan" EntityType="TTitleDBModel.Store.ActivityPlan" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ActivityRemark" EntityType="TTitleDBModel.Store.ActivityRemark" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ActivitySignUp" EntityType="TTitleDBModel.Store.ActivitySignUp" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ClassHourSum" EntityType="TTitleDBModel.Store.ClassHourSum" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Institute" EntityType="TTitleDBModel.Store.Institute" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Major" EntityType="TTitleDBModel.Store.Major" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TeachingActivity" EntityType="TTitleDBModel.Store.TeachingActivity" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="User" EntityType="TTitleDBModel.Store.User" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="TTitleDBModel.Store.Users" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserType" EntityType="TTitleDBModel.Store.UserType" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_ACTIVITY_REFERENCE_ACTPLAN" Association="TTitleDBModel.Store.FK_ACTIVITY_REFERENCE_ACTPLAN">
-            <End Role="ActPlan" EntitySet="ActPlan" />
+          <AssociationSet Name="FK_ACTIVITY_REFERENCE_ACTIVITY" Association="TTitleDBModel.Store.FK_ACTIVITY_REFERENCE_ACTIVITY">
+            <End Role="ActivityPlan" EntitySet="ActivityPlan" />
             <End Role="ActivityAttachment" EntitySet="ActivityAttachment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACTIVITY_REFERENCE_ACTPLAN_1" Association="TTitleDBModel.Store.FK_ACTIVITY_REFERENCE_ACTPLAN_1">
+            <End Role="ActivityPlan" EntitySet="ActivityPlan" />
+            <End Role="ActivitySignUp" EntitySet="ActivitySignUp" />
           </AssociationSet>
           <AssociationSet Name="FK_ACTIVITY_REFERENCE_CLASSHOU" Association="TTitleDBModel.Store.FK_ACTIVITY_REFERENCE_CLASSHOU">
             <End Role="ClassHourSum" EntitySet="ClassHourSum" />
             <End Role="ActivityMaterial" EntitySet="ActivityMaterial" />
           </AssociationSet>
-          <AssociationSet Name="FK_ACTPLAN_REFERENCE_TEACHING" Association="TTitleDBModel.Store.FK_ACTPLAN_REFERENCE_TEACHING">
+          <AssociationSet Name="FK_ACTIVITY_REFERENCE_TEACHING" Association="TTitleDBModel.Store.FK_ACTIVITY_REFERENCE_TEACHING">
             <End Role="TeachingActivity" EntitySet="TeachingActivity" />
-            <End Role="ActPlan" EntitySet="ActPlan" />
+            <End Role="ActivityPlan" EntitySet="ActivityPlan" />
           </AssociationSet>
-          <AssociationSet Name="FK_CLASSHOU_REFERENCE_ACTPLAN" Association="TTitleDBModel.Store.FK_CLASSHOU_REFERENCE_ACTPLAN">
-            <End Role="ActPlan" EntitySet="ActPlan" />
+          <AssociationSet Name="FK_ACTIVITY_REFERENCE_USERS" Association="TTitleDBModel.Store.FK_ACTIVITY_REFERENCE_USERS">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ActivitySignUp" EntitySet="ActivitySignUp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLASSHOU_REFERENCE_ACTIVITY" Association="TTitleDBModel.Store.FK_CLASSHOU_REFERENCE_ACTIVITY">
+            <End Role="ActivitySignUp" EntitySet="ActivitySignUp" />
             <End Role="ClassHourSum" EntitySet="ClassHourSum" />
           </AssociationSet>
-          <AssociationSet Name="FK_CLASSHOU_REFERENCE_USER" Association="TTitleDBModel.Store.FK_CLASSHOU_REFERENCE_USER">
-            <End Role="User" EntitySet="User" />
-            <End Role="ClassHourSum" EntitySet="ClassHourSum" />
-          </AssociationSet>
-          <AssociationSet Name="FK_USER_REFERENCE_INSTITUT" Association="TTitleDBModel.Store.FK_USER_REFERENCE_INSTITUT">
+          <AssociationSet Name="FK_USERS_REFERENCE_INSTITUT" Association="TTitleDBModel.Store.FK_USERS_REFERENCE_INSTITUT">
             <End Role="Institute" EntitySet="Institute" />
-            <End Role="User" EntitySet="User" />
+            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK_USER_REFERENCE_MAJOR" Association="TTitleDBModel.Store.FK_USER_REFERENCE_MAJOR">
+          <AssociationSet Name="FK_USERS_REFERENCE_MAJOR" Association="TTitleDBModel.Store.FK_USERS_REFERENCE_MAJOR">
             <End Role="Major" EntitySet="Major" />
-            <End Role="User" EntitySet="User" />
+            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK_USER_REFERENCE_USERTYPE" Association="TTitleDBModel.Store.FK_USER_REFERENCE_USERTYPE">
+          <AssociationSet Name="FK_USERS_REFERENCE_USERTYPE" Association="TTitleDBModel.Store.FK_USERS_REFERENCE_USERTYPE">
             <End Role="UserType" EntitySet="UserType" />
-            <End Role="User" EntitySet="User" />
+            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="ActivityAttachment">
@@ -53,7 +59,7 @@
             <PropertyRef Name="AA_Code" />
           </Key>
           <Property Name="AA_Code" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="AP_Code" Type="int" />
+          <Property Name="AP_Code" Type="int" Nullable="false" />
           <Property Name="AA_Name" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="AA_Path" Type="nvarchar" Nullable="false" MaxLength="200" />
         </EntityType>
@@ -62,11 +68,11 @@
             <PropertyRef Name="AM_Code" />
           </Key>
           <Property Name="AM_Code" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="CH_Code" Type="int" Nullable="false" />
+          <Property Name="CH_Code" Type="int" />
           <Property Name="AM_Name" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="AM_SavePath" Type="nvarchar" Nullable="false" MaxLength="200" />
         </EntityType>
-        <EntityType Name="ActPlan">
+        <EntityType Name="ActivityPlan">
           <Key>
             <PropertyRef Name="AP_Code" />
           </Key>
@@ -77,20 +83,36 @@
           <Property Name="AP_EndTime" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="AP_Place" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="AP_Limit" Type="int" Nullable="false" />
-          <Property Name="AP_Left" Type="int" Nullable="false" />
+          <Property Name="AP_Left" Type="int" />
           <Property Name="AP_Candidate" Type="int" />
+          <Property Name="AP_ReleaseTime" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="AP_StatusKey" Type="int" Nullable="false" />
           <Property Name="AP_StatusValue" Type="nvarchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="ActivityRemark">
+          <Key>
+            <PropertyRef Name="AR_Code" />
+          </Key>
+          <Property Name="AR_Code" Type="numeric" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AR_Content" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ActivitySignUp">
+          <Key>
+            <PropertyRef Name="ASU_Code" />
+          </Key>
+          <Property Name="ASU_Code" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="U_Code" Type="int" Nullable="false" />
+          <Property Name="AP_Code" Type="int" />
+          <Property Name="ASU_Time" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="ClassHourSum">
           <Key>
             <PropertyRef Name="CH_Code" />
           </Key>
           <Property Name="CH_Code" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="U_Code" Type="int" Nullable="false" />
-          <Property Name="AP_Code" Type="int" Nullable="false" />
+          <Property Name="ASU_Code" Type="int" />
           <Property Name="CH_GetTime" Type="nvarchar" MaxLength="20" />
-          <Property Name="CH_GetHour" Type="int" Nullable="false" />
+          <Property Name="CH_GetHour" Type="int" />
           <Property Name="CH_Remark" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="Institute">
@@ -121,14 +143,14 @@
           <Property Name="TA_PlaceKey" Type="int" Nullable="false" />
           <Property Name="TA_PlaceValue" Type="nvarchar" Nullable="false" MaxLength="10" />
         </EntityType>
-        <EntityType Name="User">
+        <EntityType Name="Users">
           <Key>
             <PropertyRef Name="U_Code" />
           </Key>
           <Property Name="U_Code" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="U_Account" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="U_PassWord" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="U_Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="U_Account" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="U_PassWord" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="U_Name" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="I_Code" Type="int" Nullable="false" />
           <Property Name="M_Code" Type="int" Nullable="false" />
           <Property Name="UT_Code" Type="int" Nullable="false" />
@@ -145,11 +167,11 @@
           <Property Name="UT_Code" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="UTType" Type="nvarchar" Nullable="false" MaxLength="10" />
         </EntityType>
-        <Association Name="FK_ACTIVITY_REFERENCE_ACTPLAN">
-          <End Role="ActPlan" Type="TTitleDBModel.Store.ActPlan" Multiplicity="0..1" />
+        <Association Name="FK_ACTIVITY_REFERENCE_ACTIVITY">
+          <End Role="ActivityPlan" Type="TTitleDBModel.Store.ActivityPlan" Multiplicity="1" />
           <End Role="ActivityAttachment" Type="TTitleDBModel.Store.ActivityAttachment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ActPlan">
+            <Principal Role="ActivityPlan">
               <PropertyRef Name="AP_Code" />
             </Principal>
             <Dependent Role="ActivityAttachment">
@@ -157,8 +179,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ACTIVITY_REFERENCE_ACTPLAN_1">
+          <End Role="ActivityPlan" Type="TTitleDBModel.Store.ActivityPlan" Multiplicity="0..1" />
+          <End Role="ActivitySignUp" Type="TTitleDBModel.Store.ActivitySignUp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActivityPlan">
+              <PropertyRef Name="AP_Code" />
+            </Principal>
+            <Dependent Role="ActivitySignUp">
+              <PropertyRef Name="AP_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ACTIVITY_REFERENCE_CLASSHOU">
-          <End Role="ClassHourSum" Type="TTitleDBModel.Store.ClassHourSum" Multiplicity="1" />
+          <End Role="ClassHourSum" Type="TTitleDBModel.Store.ClassHourSum" Multiplicity="0..1" />
           <End Role="ActivityMaterial" Type="TTitleDBModel.Store.ActivityMaterial" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ClassHourSum">
@@ -169,74 +203,74 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ACTPLAN_REFERENCE_TEACHING">
+        <Association Name="FK_ACTIVITY_REFERENCE_TEACHING">
           <End Role="TeachingActivity" Type="TTitleDBModel.Store.TeachingActivity" Multiplicity="1" />
-          <End Role="ActPlan" Type="TTitleDBModel.Store.ActPlan" Multiplicity="*" />
+          <End Role="ActivityPlan" Type="TTitleDBModel.Store.ActivityPlan" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TeachingActivity">
               <PropertyRef Name="TA_Code" />
             </Principal>
-            <Dependent Role="ActPlan">
+            <Dependent Role="ActivityPlan">
               <PropertyRef Name="TA_Code" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CLASSHOU_REFERENCE_ACTPLAN">
-          <End Role="ActPlan" Type="TTitleDBModel.Store.ActPlan" Multiplicity="1" />
-          <End Role="ClassHourSum" Type="TTitleDBModel.Store.ClassHourSum" Multiplicity="*" />
+        <Association Name="FK_ACTIVITY_REFERENCE_USERS">
+          <End Role="Users" Type="TTitleDBModel.Store.Users" Multiplicity="1" />
+          <End Role="ActivitySignUp" Type="TTitleDBModel.Store.ActivitySignUp" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ActPlan">
-              <PropertyRef Name="AP_Code" />
-            </Principal>
-            <Dependent Role="ClassHourSum">
-              <PropertyRef Name="AP_Code" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CLASSHOU_REFERENCE_USER">
-          <End Role="User" Type="TTitleDBModel.Store.User" Multiplicity="1" />
-          <End Role="ClassHourSum" Type="TTitleDBModel.Store.ClassHourSum" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="U_Code" />
             </Principal>
-            <Dependent Role="ClassHourSum">
+            <Dependent Role="ActivitySignUp">
               <PropertyRef Name="U_Code" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_USER_REFERENCE_INSTITUT">
+        <Association Name="FK_CLASSHOU_REFERENCE_ACTIVITY">
+          <End Role="ActivitySignUp" Type="TTitleDBModel.Store.ActivitySignUp" Multiplicity="0..1" />
+          <End Role="ClassHourSum" Type="TTitleDBModel.Store.ClassHourSum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActivitySignUp">
+              <PropertyRef Name="ASU_Code" />
+            </Principal>
+            <Dependent Role="ClassHourSum">
+              <PropertyRef Name="ASU_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USERS_REFERENCE_INSTITUT">
           <End Role="Institute" Type="TTitleDBModel.Store.Institute" Multiplicity="1" />
-          <End Role="User" Type="TTitleDBModel.Store.User" Multiplicity="*" />
+          <End Role="Users" Type="TTitleDBModel.Store.Users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Institute">
               <PropertyRef Name="I_Code" />
             </Principal>
-            <Dependent Role="User">
+            <Dependent Role="Users">
               <PropertyRef Name="I_Code" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_USER_REFERENCE_MAJOR">
+        <Association Name="FK_USERS_REFERENCE_MAJOR">
           <End Role="Major" Type="TTitleDBModel.Store.Major" Multiplicity="1" />
-          <End Role="User" Type="TTitleDBModel.Store.User" Multiplicity="*" />
+          <End Role="Users" Type="TTitleDBModel.Store.Users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Major">
               <PropertyRef Name="M_Code" />
             </Principal>
-            <Dependent Role="User">
+            <Dependent Role="Users">
               <PropertyRef Name="M_Code" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_USER_REFERENCE_USERTYPE">
+        <Association Name="FK_USERS_REFERENCE_USERTYPE">
           <End Role="UserType" Type="TTitleDBModel.Store.UserType" Multiplicity="1" />
-          <End Role="User" Type="TTitleDBModel.Store.User" Multiplicity="*" />
+          <End Role="Users" Type="TTitleDBModel.Store.Users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserType">
               <PropertyRef Name="UT_Code" />
             </Principal>
-            <Dependent Role="User">
+            <Dependent Role="Users">
               <PropertyRef Name="UT_Code" />
             </Dependent>
           </ReferentialConstraint>
@@ -248,44 +282,50 @@
         <EntityContainer Name="TTitleDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ActivityAttachment" EntityType="TTitleDBModel.ActivityAttachment" />
           <EntitySet Name="ActivityMaterial" EntityType="TTitleDBModel.ActivityMaterial" />
-          <EntitySet Name="ActPlan" EntityType="TTitleDBModel.ActPlan" />
+          <EntitySet Name="ActivityPlan" EntityType="TTitleDBModel.ActivityPlan" />
+          <EntitySet Name="ActivityRemark" EntityType="TTitleDBModel.ActivityRemark" />
+          <EntitySet Name="ActivitySignUp" EntityType="TTitleDBModel.ActivitySignUp" />
           <EntitySet Name="ClassHourSum" EntityType="TTitleDBModel.ClassHourSum" />
           <EntitySet Name="Institute" EntityType="TTitleDBModel.Institute" />
           <EntitySet Name="Major" EntityType="TTitleDBModel.Major" />
           <EntitySet Name="TeachingActivity" EntityType="TTitleDBModel.TeachingActivity" />
-          <EntitySet Name="User" EntityType="TTitleDBModel.User" />
+          <EntitySet Name="Users" EntityType="TTitleDBModel.Users" />
           <EntitySet Name="UserType" EntityType="TTitleDBModel.UserType" />
-          <AssociationSet Name="FK_ACTIVITY_REFERENCE_ACTPLAN" Association="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN">
-            <End Role="ActPlan" EntitySet="ActPlan" />
+          <AssociationSet Name="FK_ACTIVITY_REFERENCE_ACTIVITY" Association="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY">
+            <End Role="ActivityPlan" EntitySet="ActivityPlan" />
             <End Role="ActivityAttachment" EntitySet="ActivityAttachment" />
           </AssociationSet>
           <AssociationSet Name="FK_ACTIVITY_REFERENCE_CLASSHOU" Association="TTitleDBModel.FK_ACTIVITY_REFERENCE_CLASSHOU">
             <End Role="ClassHourSum" EntitySet="ClassHourSum" />
             <End Role="ActivityMaterial" EntitySet="ActivityMaterial" />
           </AssociationSet>
-          <AssociationSet Name="FK_ACTPLAN_REFERENCE_TEACHING" Association="TTitleDBModel.FK_ACTPLAN_REFERENCE_TEACHING">
+          <AssociationSet Name="FK_ACTIVITY_REFERENCE_ACTPLAN_1" Association="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN_1">
+            <End Role="ActivityPlan" EntitySet="ActivityPlan" />
+            <End Role="ActivitySignUp" EntitySet="ActivitySignUp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACTIVITY_REFERENCE_TEACHING" Association="TTitleDBModel.FK_ACTIVITY_REFERENCE_TEACHING">
             <End Role="TeachingActivity" EntitySet="TeachingActivity" />
-            <End Role="ActPlan" EntitySet="ActPlan" />
+            <End Role="ActivityPlan" EntitySet="ActivityPlan" />
           </AssociationSet>
-          <AssociationSet Name="FK_CLASSHOU_REFERENCE_ACTPLAN" Association="TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTPLAN">
-            <End Role="ActPlan" EntitySet="ActPlan" />
+          <AssociationSet Name="FK_ACTIVITY_REFERENCE_USERS" Association="TTitleDBModel.FK_ACTIVITY_REFERENCE_USERS">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ActivitySignUp" EntitySet="ActivitySignUp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLASSHOU_REFERENCE_ACTIVITY" Association="TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTIVITY">
+            <End Role="ActivitySignUp" EntitySet="ActivitySignUp" />
             <End Role="ClassHourSum" EntitySet="ClassHourSum" />
           </AssociationSet>
-          <AssociationSet Name="FK_CLASSHOU_REFERENCE_USER" Association="TTitleDBModel.FK_CLASSHOU_REFERENCE_USER">
-            <End Role="User" EntitySet="User" />
-            <End Role="ClassHourSum" EntitySet="ClassHourSum" />
-          </AssociationSet>
-          <AssociationSet Name="FK_USER_REFERENCE_INSTITUT" Association="TTitleDBModel.FK_USER_REFERENCE_INSTITUT">
+          <AssociationSet Name="FK_USERS_REFERENCE_INSTITUT" Association="TTitleDBModel.FK_USERS_REFERENCE_INSTITUT">
             <End Role="Institute" EntitySet="Institute" />
-            <End Role="User" EntitySet="User" />
+            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK_USER_REFERENCE_MAJOR" Association="TTitleDBModel.FK_USER_REFERENCE_MAJOR">
+          <AssociationSet Name="FK_USERS_REFERENCE_MAJOR" Association="TTitleDBModel.FK_USERS_REFERENCE_MAJOR">
             <End Role="Major" EntitySet="Major" />
-            <End Role="User" EntitySet="User" />
+            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK_USER_REFERENCE_USERTYPE" Association="TTitleDBModel.FK_USER_REFERENCE_USERTYPE">
+          <AssociationSet Name="FK_USERS_REFERENCE_USERTYPE" Association="TTitleDBModel.FK_USERS_REFERENCE_USERTYPE">
             <End Role="UserType" EntitySet="UserType" />
-            <End Role="User" EntitySet="User" />
+            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="ActivityAttachment">
@@ -293,22 +333,22 @@
             <PropertyRef Name="AA_Code" />
           </Key>
           <Property Name="AA_Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AP_Code" Type="Int32" />
+          <Property Name="AP_Code" Type="Int32" Nullable="false" />
           <Property Name="AA_Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="AA_Path" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="ActPlan" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN" FromRole="ActivityAttachment" ToRole="ActPlan" />
+          <NavigationProperty Name="ActivityPlan" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY" FromRole="ActivityAttachment" ToRole="ActivityPlan" />
         </EntityType>
         <EntityType Name="ActivityMaterial">
           <Key>
             <PropertyRef Name="AM_Code" />
           </Key>
           <Property Name="AM_Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CH_Code" Type="Int32" Nullable="false" />
+          <Property Name="CH_Code" Type="Int32" />
           <Property Name="AM_Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="AM_SavePath" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="ClassHourSum" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_CLASSHOU" FromRole="ActivityMaterial" ToRole="ClassHourSum" />
         </EntityType>
-        <EntityType Name="ActPlan">
+        <EntityType Name="ActivityPlan">
           <Key>
             <PropertyRef Name="AP_Code" />
           </Key>
@@ -319,27 +359,45 @@
           <Property Name="AP_EndTime" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
           <Property Name="AP_Place" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="AP_Limit" Type="Int32" Nullable="false" />
-          <Property Name="AP_Left" Type="Int32" Nullable="false" />
+          <Property Name="AP_Left" Type="Int32" />
           <Property Name="AP_Candidate" Type="Int32" />
           <Property Name="AP_StatusKey" Type="Int32" Nullable="false" />
           <Property Name="AP_StatusValue" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="ActivityAttachment" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN" FromRole="ActPlan" ToRole="ActivityAttachment" />
-          <NavigationProperty Name="TeachingActivity" Relationship="TTitleDBModel.FK_ACTPLAN_REFERENCE_TEACHING" FromRole="ActPlan" ToRole="TeachingActivity" />
-          <NavigationProperty Name="ClassHourSum" Relationship="TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTPLAN" FromRole="ActPlan" ToRole="ClassHourSum" />
+          <NavigationProperty Name="ActivityAttachment" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY" FromRole="ActivityPlan" ToRole="ActivityAttachment" />
+          <NavigationProperty Name="ActivitySignUp" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN_1" FromRole="ActivityPlan" ToRole="ActivitySignUp" />
+          <NavigationProperty Name="TeachingActivity" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_TEACHING" FromRole="ActivityPlan" ToRole="TeachingActivity" />
+          <Property Type="String" Name="AP_ReleaseTime" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ActivityRemark">
+          <Key>
+            <PropertyRef Name="AR_Code" />
+          </Key>
+          <Property Name="AR_Code" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AR_Content" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="ActivitySignUp">
+          <Key>
+            <PropertyRef Name="ASU_Code" />
+          </Key>
+          <Property Name="ASU_Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="U_Code" Type="Int32" Nullable="false" />
+          <Property Name="AP_Code" Type="Int32" />
+          <Property Name="ASU_Time" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="ActivityPlan" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN_1" FromRole="ActivitySignUp" ToRole="ActivityPlan" />
+          <NavigationProperty Name="Users" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_USERS" FromRole="ActivitySignUp" ToRole="Users" />
+          <NavigationProperty Name="ClassHourSum" Relationship="TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTIVITY" FromRole="ActivitySignUp" ToRole="ClassHourSum" />
         </EntityType>
         <EntityType Name="ClassHourSum">
           <Key>
             <PropertyRef Name="CH_Code" />
           </Key>
           <Property Name="CH_Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="U_Code" Type="Int32" Nullable="false" />
-          <Property Name="AP_Code" Type="Int32" Nullable="false" />
+          <Property Name="ASU_Code" Type="Int32" />
           <Property Name="CH_GetTime" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
-          <Property Name="CH_GetHour" Type="Int32" Nullable="false" />
+          <Property Name="CH_GetHour" Type="Int32" />
           <Property Name="CH_Remark" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="ActivityMaterial" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_CLASSHOU" FromRole="ClassHourSum" ToRole="ActivityMaterial" />
-          <NavigationProperty Name="ActPlan" Relationship="TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTPLAN" FromRole="ClassHourSum" ToRole="ActPlan" />
-          <NavigationProperty Name="User" Relationship="TTitleDBModel.FK_CLASSHOU_REFERENCE_USER" FromRole="ClassHourSum" ToRole="User" />
+          <NavigationProperty Name="ActivitySignUp" Relationship="TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTIVITY" FromRole="ClassHourSum" ToRole="ActivitySignUp" />
         </EntityType>
         <EntityType Name="Institute">
           <Key>
@@ -348,7 +406,7 @@
           <Property Name="I_Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="I_Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="I_IsValid" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="TTitleDBModel.FK_USER_REFERENCE_INSTITUT" FromRole="Institute" ToRole="User" />
+          <NavigationProperty Name="Users" Relationship="TTitleDBModel.FK_USERS_REFERENCE_INSTITUT" FromRole="Institute" ToRole="Users" />
         </EntityType>
         <EntityType Name="Major">
           <Key>
@@ -357,7 +415,7 @@
           <Property Name="M_Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="M_Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="M_IsValid" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="TTitleDBModel.FK_USER_REFERENCE_MAJOR" FromRole="Major" ToRole="User" />
+          <NavigationProperty Name="Users" Relationship="TTitleDBModel.FK_USERS_REFERENCE_MAJOR" FromRole="Major" ToRole="Users" />
         </EntityType>
         <EntityType Name="TeachingActivity">
           <Key>
@@ -370,16 +428,16 @@
           <Property Name="TA_ClassHour" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
           <Property Name="TA_PlaceKey" Type="Int32" Nullable="false" />
           <Property Name="TA_PlaceValue" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="ActPlan" Relationship="TTitleDBModel.FK_ACTPLAN_REFERENCE_TEACHING" FromRole="TeachingActivity" ToRole="ActPlan" />
+          <NavigationProperty Name="ActivityPlan" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_TEACHING" FromRole="TeachingActivity" ToRole="ActivityPlan" />
         </EntityType>
-        <EntityType Name="User">
+        <EntityType Name="Users">
           <Key>
             <PropertyRef Name="U_Code" />
           </Key>
           <Property Name="U_Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="U_Account" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="U_PassWord" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="U_Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="U_Account" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="U_PassWord" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="U_Name" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
           <Property Name="I_Code" Type="Int32" Nullable="false" />
           <Property Name="M_Code" Type="Int32" Nullable="false" />
           <Property Name="UT_Code" Type="Int32" Nullable="false" />
@@ -388,24 +446,24 @@
           <Property Name="U_Mail" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
           <Property Name="U_Phone" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
           <Property Name="U_Remark" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="ClassHourSum" Relationship="TTitleDBModel.FK_CLASSHOU_REFERENCE_USER" FromRole="User" ToRole="ClassHourSum" />
-          <NavigationProperty Name="Institute" Relationship="TTitleDBModel.FK_USER_REFERENCE_INSTITUT" FromRole="User" ToRole="Institute" />
-          <NavigationProperty Name="Major" Relationship="TTitleDBModel.FK_USER_REFERENCE_MAJOR" FromRole="User" ToRole="Major" />
-          <NavigationProperty Name="UserType" Relationship="TTitleDBModel.FK_USER_REFERENCE_USERTYPE" FromRole="User" ToRole="UserType" />
+          <NavigationProperty Name="ActivitySignUp" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_USERS" FromRole="Users" ToRole="ActivitySignUp" />
+          <NavigationProperty Name="Institute" Relationship="TTitleDBModel.FK_USERS_REFERENCE_INSTITUT" FromRole="Users" ToRole="Institute" />
+          <NavigationProperty Name="Major" Relationship="TTitleDBModel.FK_USERS_REFERENCE_MAJOR" FromRole="Users" ToRole="Major" />
+          <NavigationProperty Name="UserType" Relationship="TTitleDBModel.FK_USERS_REFERENCE_USERTYPE" FromRole="Users" ToRole="UserType" />
         </EntityType>
         <EntityType Name="UserType">
           <Key>
             <PropertyRef Name="UT_Code" />
           </Key>
           <Property Name="UT_Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="User" Relationship="TTitleDBModel.FK_USER_REFERENCE_USERTYPE" FromRole="UserType" ToRole="User" />
-          <Property Type="String" Name="UTType" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UTType" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Users" Relationship="TTitleDBModel.FK_USERS_REFERENCE_USERTYPE" FromRole="UserType" ToRole="Users" />
         </EntityType>
-        <Association Name="FK_ACTIVITY_REFERENCE_ACTPLAN">
-          <End Role="ActPlan" Type="TTitleDBModel.ActPlan" Multiplicity="0..1" />
+        <Association Name="FK_ACTIVITY_REFERENCE_ACTIVITY">
+          <End Role="ActivityPlan" Type="TTitleDBModel.ActivityPlan" Multiplicity="1" />
           <End Role="ActivityAttachment" Type="TTitleDBModel.ActivityAttachment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ActPlan">
+            <Principal Role="ActivityPlan">
               <PropertyRef Name="AP_Code" />
             </Principal>
             <Dependent Role="ActivityAttachment">
@@ -414,7 +472,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ACTIVITY_REFERENCE_CLASSHOU">
-          <End Role="ClassHourSum" Type="TTitleDBModel.ClassHourSum" Multiplicity="1" />
+          <End Role="ClassHourSum" Type="TTitleDBModel.ClassHourSum" Multiplicity="0..1" />
           <End Role="ActivityMaterial" Type="TTitleDBModel.ActivityMaterial" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ClassHourSum">
@@ -425,74 +483,86 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ACTPLAN_REFERENCE_TEACHING">
+        <Association Name="FK_ACTIVITY_REFERENCE_ACTPLAN_1">
+          <End Role="ActivityPlan" Type="TTitleDBModel.ActivityPlan" Multiplicity="0..1" />
+          <End Role="ActivitySignUp" Type="TTitleDBModel.ActivitySignUp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActivityPlan">
+              <PropertyRef Name="AP_Code" />
+            </Principal>
+            <Dependent Role="ActivitySignUp">
+              <PropertyRef Name="AP_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACTIVITY_REFERENCE_TEACHING">
           <End Role="TeachingActivity" Type="TTitleDBModel.TeachingActivity" Multiplicity="1" />
-          <End Role="ActPlan" Type="TTitleDBModel.ActPlan" Multiplicity="*" />
+          <End Role="ActivityPlan" Type="TTitleDBModel.ActivityPlan" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TeachingActivity">
               <PropertyRef Name="TA_Code" />
             </Principal>
-            <Dependent Role="ActPlan">
+            <Dependent Role="ActivityPlan">
               <PropertyRef Name="TA_Code" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CLASSHOU_REFERENCE_ACTPLAN">
-          <End Role="ActPlan" Type="TTitleDBModel.ActPlan" Multiplicity="1" />
-          <End Role="ClassHourSum" Type="TTitleDBModel.ClassHourSum" Multiplicity="*" />
+        <Association Name="FK_ACTIVITY_REFERENCE_USERS">
+          <End Role="Users" Type="TTitleDBModel.Users" Multiplicity="1" />
+          <End Role="ActivitySignUp" Type="TTitleDBModel.ActivitySignUp" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ActPlan">
-              <PropertyRef Name="AP_Code" />
-            </Principal>
-            <Dependent Role="ClassHourSum">
-              <PropertyRef Name="AP_Code" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CLASSHOU_REFERENCE_USER">
-          <End Role="User" Type="TTitleDBModel.User" Multiplicity="1" />
-          <End Role="ClassHourSum" Type="TTitleDBModel.ClassHourSum" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="U_Code" />
             </Principal>
-            <Dependent Role="ClassHourSum">
+            <Dependent Role="ActivitySignUp">
               <PropertyRef Name="U_Code" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_USER_REFERENCE_INSTITUT">
+        <Association Name="FK_CLASSHOU_REFERENCE_ACTIVITY">
+          <End Role="ActivitySignUp" Type="TTitleDBModel.ActivitySignUp" Multiplicity="0..1" />
+          <End Role="ClassHourSum" Type="TTitleDBModel.ClassHourSum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActivitySignUp">
+              <PropertyRef Name="ASU_Code" />
+            </Principal>
+            <Dependent Role="ClassHourSum">
+              <PropertyRef Name="ASU_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USERS_REFERENCE_INSTITUT">
           <End Role="Institute" Type="TTitleDBModel.Institute" Multiplicity="1" />
-          <End Role="User" Type="TTitleDBModel.User" Multiplicity="*" />
+          <End Role="Users" Type="TTitleDBModel.Users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Institute">
               <PropertyRef Name="I_Code" />
             </Principal>
-            <Dependent Role="User">
+            <Dependent Role="Users">
               <PropertyRef Name="I_Code" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_USER_REFERENCE_MAJOR">
+        <Association Name="FK_USERS_REFERENCE_MAJOR">
           <End Role="Major" Type="TTitleDBModel.Major" Multiplicity="1" />
-          <End Role="User" Type="TTitleDBModel.User" Multiplicity="*" />
+          <End Role="Users" Type="TTitleDBModel.Users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Major">
               <PropertyRef Name="M_Code" />
             </Principal>
-            <Dependent Role="User">
+            <Dependent Role="Users">
               <PropertyRef Name="M_Code" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_USER_REFERENCE_USERTYPE">
+        <Association Name="FK_USERS_REFERENCE_USERTYPE">
           <End Role="UserType" Type="TTitleDBModel.UserType" Multiplicity="1" />
-          <End Role="User" Type="TTitleDBModel.User" Multiplicity="*" />
+          <End Role="Users" Type="TTitleDBModel.Users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserType">
               <PropertyRef Name="UT_Code" />
             </Principal>
-            <Dependent Role="User">
+            <Dependent Role="Users">
               <PropertyRef Name="UT_Code" />
             </Dependent>
           </ReferentialConstraint>
@@ -515,8 +585,9 @@
             <ScalarProperty Name="AM_Name" ColumnName="AM_Name" />
             <ScalarProperty Name="AM_SavePath" ColumnName="AM_SavePath" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="ActPlan"><EntityTypeMapping TypeName="TTitleDBModel.ActPlan"><MappingFragment StoreEntitySet="ActPlan">
-            <ScalarProperty Name="AP_Code" ColumnName="AP_Code" />
+          <EntitySetMapping Name="ActivityPlan"><EntityTypeMapping TypeName="TTitleDBModel.ActivityPlan"><MappingFragment StoreEntitySet="ActivityPlan">
+            <ScalarProperty Name="AP_ReleaseTime" ColumnName="AP_ReleaseTime" />
+                <ScalarProperty Name="AP_Code" ColumnName="AP_Code" />
             <ScalarProperty Name="TA_Code" ColumnName="TA_Code" />
             <ScalarProperty Name="AP_Theme" ColumnName="AP_Theme" />
             <ScalarProperty Name="AP_StartTime" ColumnName="AP_StartTime" />
@@ -528,10 +599,19 @@
             <ScalarProperty Name="AP_StatusKey" ColumnName="AP_StatusKey" />
             <ScalarProperty Name="AP_StatusValue" ColumnName="AP_StatusValue" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="ClassHourSum"><EntityTypeMapping TypeName="TTitleDBModel.ClassHourSum"><MappingFragment StoreEntitySet="ClassHourSum">
-            <ScalarProperty Name="CH_Code" ColumnName="CH_Code" />
+          <EntitySetMapping Name="ActivityRemark"><EntityTypeMapping TypeName="TTitleDBModel.ActivityRemark"><MappingFragment StoreEntitySet="ActivityRemark">
+            <ScalarProperty Name="AR_Code" ColumnName="AR_Code" />
+            <ScalarProperty Name="AR_Content" ColumnName="AR_Content" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ActivitySignUp"><EntityTypeMapping TypeName="TTitleDBModel.ActivitySignUp"><MappingFragment StoreEntitySet="ActivitySignUp">
+            <ScalarProperty Name="ASU_Code" ColumnName="ASU_Code" />
             <ScalarProperty Name="U_Code" ColumnName="U_Code" />
             <ScalarProperty Name="AP_Code" ColumnName="AP_Code" />
+            <ScalarProperty Name="ASU_Time" ColumnName="ASU_Time" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ClassHourSum"><EntityTypeMapping TypeName="TTitleDBModel.ClassHourSum"><MappingFragment StoreEntitySet="ClassHourSum">
+            <ScalarProperty Name="CH_Code" ColumnName="CH_Code" />
+            <ScalarProperty Name="ASU_Code" ColumnName="ASU_Code" />
             <ScalarProperty Name="CH_GetTime" ColumnName="CH_GetTime" />
             <ScalarProperty Name="CH_GetHour" ColumnName="CH_GetHour" />
             <ScalarProperty Name="CH_Remark" ColumnName="CH_Remark" />
@@ -555,7 +635,7 @@
             <ScalarProperty Name="TA_PlaceKey" ColumnName="TA_PlaceKey" />
             <ScalarProperty Name="TA_PlaceValue" ColumnName="TA_PlaceValue" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="User"><EntityTypeMapping TypeName="TTitleDBModel.User"><MappingFragment StoreEntitySet="User">
+          <EntitySetMapping Name="Users"><EntityTypeMapping TypeName="TTitleDBModel.Users"><MappingFragment StoreEntitySet="Users">
             <ScalarProperty Name="U_Code" ColumnName="U_Code" />
             <ScalarProperty Name="U_Account" ColumnName="U_Account" />
             <ScalarProperty Name="U_PassWord" ColumnName="U_PassWord" />
@@ -570,8 +650,8 @@
             <ScalarProperty Name="U_Remark" ColumnName="U_Remark" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="UserType"><EntityTypeMapping TypeName="TTitleDBModel.UserType"><MappingFragment StoreEntitySet="UserType">
+            <ScalarProperty Name="UT_Code" ColumnName="UT_Code" />
             <ScalarProperty Name="UTType" ColumnName="UTType" />
-                <ScalarProperty Name="UT_Code" ColumnName="UT_Code" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
@@ -595,46 +675,52 @@
     <Diagrams>
       <Diagram Name="TTitleDB">
         <EntityTypeShape EntityType="TTitleDBModel.ActivityAttachment" Width="1.5" PointX="5.25" PointY="10.25" Height="1.9700325520833317" IsExpanded="true" />
-        <EntityTypeShape EntityType="TTitleDBModel.ActivityMaterial" Width="1.5" PointX="7.5" PointY="3.25" Height="1.9700325520833335" IsExpanded="true" />
-        <EntityTypeShape EntityType="TTitleDBModel.ActPlan" Width="1.5" PointX="3" PointY="9.375" Height="3.6892097981770817" IsExpanded="true" />
-        <EntityTypeShape EntityType="TTitleDBModel.ClassHourSum" Width="1.5" PointX="5.25" PointY="2.875" Height="2.7341113281249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTitleDBModel.ActivityMaterial" Width="1.5" PointX="9.75" PointY="3.25" Height="1.9700325520833335" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTitleDBModel.ActivityPlan" Width="1.5" PointX="3" PointY="9.375" Height="3.6892097981770853" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTitleDBModel.ActivityRemark" Width="1.5" PointX="5.75" PointY="7" Height="1.3969734700520817" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTitleDBModel.ActivitySignUp" Width="1.5" PointX="5.25" PointY="3.125" Height="2.3520719401041674" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTitleDBModel.ClassHourSum" Width="1.5" PointX="7.5" PointY="3.125" Height="2.3520719401041674" IsExpanded="true" />
         <EntityTypeShape EntityType="TTitleDBModel.Institute" Width="1.5" PointX="0.75" PointY="3.375" Height="1.779012858072917" IsExpanded="true" />
         <EntityTypeShape EntityType="TTitleDBModel.Major" Width="1.5" PointX="0.75" PointY="6.25" Height="1.7790128580729174" IsExpanded="true" />
         <EntityTypeShape EntityType="TTitleDBModel.TeachingActivity" Width="1.5" PointX="0.75" PointY="10" Height="2.5430916341145817" IsExpanded="true" />
-        <EntityTypeShape EntityType="TTitleDBModel.User" Width="1.5" PointX="3" PointY="2.25" Height="4.0712491861979174" IsExpanded="true" />
-        <EntityTypeShape EntityType="TTitleDBModel.UserType" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5879931640625" IsExpanded="true" />
-        <AssociationConnector Association="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN" ManuallyRouted="false">
+        <EntityTypeShape EntityType="TTitleDBModel.Users" Width="1.5" PointX="3" PointY="2.25" Height="4.071249186197921" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTitleDBModel.UserType" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5879931640625031" IsExpanded="true" />
+        <AssociationConnector Association="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="11.235016276041666" />
           <ConnectorPoint PointX="5.25" PointY="11.235016276041666" />
         </AssociationConnector>
         <AssociationConnector Association="TTitleDBModel.FK_ACTIVITY_REFERENCE_CLASSHOU" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="4.2350162760416667" />
-          <ConnectorPoint PointX="7.5" PointY="4.2350162760416667" />
+          <ConnectorPoint PointX="9" PointY="4.2350162760416667" />
+          <ConnectorPoint PointX="9.75" PointY="4.2350162760416667" />
         </AssociationConnector>
-        <AssociationConnector Association="TTitleDBModel.FK_ACTPLAN_REFERENCE_TEACHING" ManuallyRouted="false">
+        <AssociationConnector Association="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN_1" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="9.3761528461538468" />
+          <ConnectorPoint PointX="4.875" PointY="9.0011528461538468" />
+          <ConnectorPoint PointX="4.875" PointY="4.3010359700520837" />
+          <ConnectorPoint PointX="5.25" PointY="4.3010359700520837" />
+        </AssociationConnector>
+        <AssociationConnector Association="TTitleDBModel.FK_ACTIVITY_REFERENCE_TEACHING" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="11.271545817057291" />
           <ConnectorPoint PointX="3" PointY="11.271545817057291" />
         </AssociationConnector>
-        <AssociationConnector Association="TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTPLAN" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="9.3761528461538468" />
-          <ConnectorPoint PointX="4.875" PointY="9.0011528461538468" />
-          <ConnectorPoint PointX="4.875" PointY="4.2420556640625" />
-          <ConnectorPoint PointX="5.25" PointY="4.2420556640625" />
+        <AssociationConnector Association="TTitleDBModel.FK_ACTIVITY_REFERENCE_USERS" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="3.6505179850260419" />
+          <ConnectorPoint PointX="5.25" PointY="3.6505179850260419" />
         </AssociationConnector>
-        <AssociationConnector Association="TTitleDBModel.FK_CLASSHOU_REFERENCE_USER" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="3.49602783203125" />
-          <ConnectorPoint PointX="5.25" PointY="3.49602783203125" />
+        <AssociationConnector Association="TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTIVITY" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="4.3010359700520837" />
+          <ConnectorPoint PointX="7.5" PointY="4.3010359700520837" />
         </AssociationConnector>
-        <AssociationConnector Association="TTitleDBModel.FK_USER_REFERENCE_INSTITUT" ManuallyRouted="false">
+        <AssociationConnector Association="TTitleDBModel.FK_USERS_REFERENCE_INSTITUT" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="4.2645064290364587" />
           <ConnectorPoint PointX="3" PointY="4.2645064290364587" />
         </AssociationConnector>
-        <AssociationConnector Association="TTitleDBModel.FK_USER_REFERENCE_MAJOR" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="7.1751315221354179" />
-          <ConnectorPoint PointX="3.75" PointY="7.1751315221354179" />
-          <ConnectorPoint PointX="3.75" PointY="6.3212491861979174" />
+        <AssociationConnector Association="TTitleDBModel.FK_USERS_REFERENCE_MAJOR" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="7.17513152213542" />
+          <ConnectorPoint PointX="3.75" PointY="7.17513152213542" />
+          <ConnectorPoint PointX="3.75" PointY="6.321249186197921" />
         </AssociationConnector>
-        <AssociationConnector Association="TTitleDBModel.FK_USER_REFERENCE_USERTYPE" ManuallyRouted="false">
+        <AssociationConnector Association="TTitleDBModel.FK_USERS_REFERENCE_USERTYPE" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="1.4999995" />
           <ConnectorPoint PointX="3.75" PointY="1.4999995" />
           <ConnectorPoint PointX="3.75" PointY="2.25" />

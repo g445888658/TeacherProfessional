@@ -10,18 +10,12 @@ namespace TeacherTitle.Controllers
     {
         public ActionResult Index()
         {
-            //if (Request.Cookies["userCookie"] != null)
-            //{
-
-            //}
-            ViewBag.Message = "欢迎使用 ASP.NET MVC!";
-
             return View();
         }
 
-        public ActionResult About()
+        public PartialViewResult MainPage()
         {
-            return View();
+            return PartialView("_Main");
         }
     }
 }

@@ -10,13 +10,62 @@ namespace TeacherTitle.Infrastructure
 {
     public class Basehandle
     {
+        /// <summary>
+        /// 教师职称
+        /// </summary>
+        public static List<KeyValueModel> AllTitle = new List<KeyValueModel>()
+        {
+            new KeyValueModel()
+            {
+                Key="助教",
+                Value="助教"
+            },
+            new KeyValueModel()
+            {
+                Key="讲师",
+                Value="讲师"
+            },
+            new KeyValueModel()
+            {
+                Key="副教授",
+                Value="副教授"
+            },
+            new KeyValueModel()
+            {
+                Key="教授",
+                Value="教授"
+            }
+        };
+
+        /// <summary>
+        /// 教师学历
+        /// </summary>
+        public static List<KeyValueModel> AllDegree = new List<KeyValueModel>()
+        {
+            new KeyValueModel()
+            {
+                Key="本科",
+                Value="本科"
+            },
+            new KeyValueModel()
+            {
+                Key="硕士",
+                Value="硕士"
+            },
+            new KeyValueModel()
+            {
+                Key="博士",
+                Value="博士"
+            }
+        };
+
         private static IList<SelectListItem> CreateBaseItems()
         {
             List<SelectListItem> items = new List<SelectListItem>();
             items.Add(new SelectListItem
             {
                 Text = "请选择...",
-                Value = "choosePlease"
+                //Value = "choosePlease"
             });
 
             return items;
@@ -25,7 +74,7 @@ namespace TeacherTitle.Infrastructure
         public static SelectList ProduceSelectList(List<KeyValueModel> keyvalmodel)
         {
             var items = CreateBaseItems();
-            if (keyvalmodel != null)
+            if (keyvalmodel != null && keyvalmodel.Count != 0)
             {
                 for (int i = 0; i < keyvalmodel.Count; i++)
                 {
@@ -89,6 +138,8 @@ namespace TeacherTitle.Infrastructure
             }
             return new SelectList(items, "Value", "Text");
         }
+
+
 
     }
 }

@@ -21,7 +21,7 @@ namespace TeacherTitle.DAL.DAO
             using (TTitleDBEntities db = new TTitleDBEntities())
             {
 
-                var user = db.User.FirstOrDefault(x => x.U_Account == Account && x.U_PassWord == PassWord);
+                var user = db.Users.FirstOrDefault(x => x.U_Account == Account && x.U_PassWord == PassWord);
                 if (user != null)
                 {
                     UserModel userModel = new UserModel()

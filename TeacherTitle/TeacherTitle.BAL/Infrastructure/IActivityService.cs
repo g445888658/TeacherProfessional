@@ -10,5 +10,17 @@ namespace TeacherTitle.BAL.Infrastructure
     public interface IActivityService
     {
         ArgsHelper AddActivity(TeachingActivity teachingActivity);
+
+        TeachingActivity[] GetAllActivity();
+
+        List<KeyValueModel> GetAllActForm();
+
+        TeachingActivity[] GetInActivity();
+
+        TeachingActivity[] GetOutActivity();
+
+        ArgsHelper TeacherSignUp(ActivitySignUp activitySignUp);
+
+        ArgsHelper AddActivityPlan(ActivityPlan activityPlan);
     }
 }

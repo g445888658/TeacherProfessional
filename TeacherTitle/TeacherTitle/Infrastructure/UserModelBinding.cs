@@ -9,7 +9,7 @@ namespace TeacherTitle.Infrastructure
 {
     public class UserModelBinding : IModelBinder
     {
-        private const String SessionKey = "_userModel";
+        public const String SessionKey = "_userModel";
 
         #region IModelBinder 成员
 
