@@ -14,6 +14,7 @@
           <EntitySet Name="ClassHourSum" EntityType="TTitleDBModel.Store.ClassHourSum" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Institute" EntityType="TTitleDBModel.Store.Institute" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Major" EntityType="TTitleDBModel.Store.Major" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SysConfig" EntityType="TTitleDBModel.Store.SysConfig" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TeachingActivity" EntityType="TTitleDBModel.Store.TeachingActivity" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="TTitleDBModel.Store.Users" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserType" EntityType="TTitleDBModel.Store.UserType" store:Type="Tables" Schema="dbo" />
@@ -79,12 +80,14 @@
           <Property Name="AP_Code" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="TA_Code" Type="int" Nullable="false" />
           <Property Name="AP_Theme" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="AP_Speaker" Type="nvarchar" MaxLength="20" />
           <Property Name="AP_StartTime" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="AP_EndTime" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="AP_Place" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="AP_Limit" Type="int" Nullable="false" />
+          <Property Name="AP_Limit" Type="int" />
           <Property Name="AP_Left" Type="int" />
           <Property Name="AP_Candidate" Type="int" />
+          <Property Name="AP_CandidateLeft" Type="int" />
           <Property Name="AP_ReleaseTime" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="AP_StatusKey" Type="int" Nullable="false" />
           <Property Name="AP_StatusValue" Type="nvarchar" Nullable="false" MaxLength="10" />
@@ -104,6 +107,10 @@
           <Property Name="U_Code" Type="int" Nullable="false" />
           <Property Name="AP_Code" Type="int" />
           <Property Name="ASU_Time" Type="varchar" MaxLength="20" />
+          <Property Name="ASU_IsCandidateKey" Type="int" Nullable="false" />
+          <Property Name="ASU_IsCandidateVal" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="ASU_StatusKey" Type="int" Nullable="false" />
+          <Property Name="ASU_StatusValue" Type="nvarchar" Nullable="false" MaxLength="10" />
         </EntityType>
         <EntityType Name="ClassHourSum">
           <Key>
@@ -112,6 +119,7 @@
           <Property Name="CH_Code" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ASU_Code" Type="int" />
           <Property Name="CH_GetTime" Type="nvarchar" MaxLength="20" />
+          <Property Name="CH_Content" Type="nvarchar" MaxLength="1000" />
           <Property Name="CH_GetHour" Type="int" />
           <Property Name="CH_Remark" Type="nvarchar" MaxLength="1000" />
         </EntityType>
@@ -130,6 +138,15 @@
           <Property Name="M_Code" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="M_Name" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="M_IsValid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SysConfig">
+          <Key>
+            <PropertyRef Name="SC_Code" />
+          </Key>
+          <Property Name="SC_Code" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SC_FieldName" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="SC_FieldAttr" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="SC_FieldCode" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TeachingActivity">
           <Key>
@@ -288,6 +305,7 @@
           <EntitySet Name="ClassHourSum" EntityType="TTitleDBModel.ClassHourSum" />
           <EntitySet Name="Institute" EntityType="TTitleDBModel.Institute" />
           <EntitySet Name="Major" EntityType="TTitleDBModel.Major" />
+          <EntitySet Name="SysConfig" EntityType="TTitleDBModel.SysConfig" />
           <EntitySet Name="TeachingActivity" EntityType="TTitleDBModel.TeachingActivity" />
           <EntitySet Name="Users" EntityType="TTitleDBModel.Users" />
           <EntitySet Name="UserType" EntityType="TTitleDBModel.UserType" />
@@ -355,18 +373,20 @@
           <Property Name="AP_Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TA_Code" Type="Int32" Nullable="false" />
           <Property Name="AP_Theme" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="AP_Speaker" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
           <Property Name="AP_StartTime" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
           <Property Name="AP_EndTime" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
           <Property Name="AP_Place" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="AP_Limit" Type="Int32" Nullable="false" />
+          <Property Name="AP_Limit" Type="Int32" />
           <Property Name="AP_Left" Type="Int32" />
           <Property Name="AP_Candidate" Type="Int32" />
+          <Property Name="AP_CandidateLeft" Type="Int32" />
+          <Property Name="AP_ReleaseTime" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
           <Property Name="AP_StatusKey" Type="Int32" Nullable="false" />
           <Property Name="AP_StatusValue" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="ActivityAttachment" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY" FromRole="ActivityPlan" ToRole="ActivityAttachment" />
           <NavigationProperty Name="ActivitySignUp" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN_1" FromRole="ActivityPlan" ToRole="ActivitySignUp" />
           <NavigationProperty Name="TeachingActivity" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_TEACHING" FromRole="ActivityPlan" ToRole="TeachingActivity" />
-          <Property Type="String" Name="AP_ReleaseTime" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ActivityRemark">
           <Key>
@@ -386,6 +406,10 @@
           <NavigationProperty Name="ActivityPlan" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN_1" FromRole="ActivitySignUp" ToRole="ActivityPlan" />
           <NavigationProperty Name="Users" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_USERS" FromRole="ActivitySignUp" ToRole="Users" />
           <NavigationProperty Name="ClassHourSum" Relationship="TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTIVITY" FromRole="ActivitySignUp" ToRole="ClassHourSum" />
+          <Property Type="Int32" Name="ASU_IsCandidateKey" Nullable="false" />
+          <Property Type="String" Name="ASU_IsCandidateVal" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ASU_StatusKey" Nullable="false" />
+          <Property Type="String" Name="ASU_StatusValue" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ClassHourSum">
           <Key>
@@ -394,6 +418,7 @@
           <Property Name="CH_Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ASU_Code" Type="Int32" />
           <Property Name="CH_GetTime" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="CH_Content" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
           <Property Name="CH_GetHour" Type="Int32" />
           <Property Name="CH_Remark" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="ActivityMaterial" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_CLASSHOU" FromRole="ClassHourSum" ToRole="ActivityMaterial" />
@@ -416,6 +441,15 @@
           <Property Name="M_Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="M_IsValid" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Users" Relationship="TTitleDBModel.FK_USERS_REFERENCE_MAJOR" FromRole="Major" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="SysConfig">
+          <Key>
+            <PropertyRef Name="SC_Code" />
+          </Key>
+          <Property Name="SC_Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SC_FieldName" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="SC_FieldAttr" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="SC_FieldCode" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="TeachingActivity">
           <Key>
@@ -573,86 +607,147 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TTitleDBModelStoreContainer" CdmEntityContainer="TTitleDBEntities">
-          <EntitySetMapping Name="ActivityAttachment"><EntityTypeMapping TypeName="TTitleDBModel.ActivityAttachment"><MappingFragment StoreEntitySet="ActivityAttachment">
-            <ScalarProperty Name="AA_Code" ColumnName="AA_Code" />
-            <ScalarProperty Name="AP_Code" ColumnName="AP_Code" />
-            <ScalarProperty Name="AA_Name" ColumnName="AA_Name" />
-            <ScalarProperty Name="AA_Path" ColumnName="AA_Path" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="ActivityMaterial"><EntityTypeMapping TypeName="TTitleDBModel.ActivityMaterial"><MappingFragment StoreEntitySet="ActivityMaterial">
-            <ScalarProperty Name="AM_Code" ColumnName="AM_Code" />
-            <ScalarProperty Name="CH_Code" ColumnName="CH_Code" />
-            <ScalarProperty Name="AM_Name" ColumnName="AM_Name" />
-            <ScalarProperty Name="AM_SavePath" ColumnName="AM_SavePath" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="ActivityPlan"><EntityTypeMapping TypeName="TTitleDBModel.ActivityPlan"><MappingFragment StoreEntitySet="ActivityPlan">
-            <ScalarProperty Name="AP_ReleaseTime" ColumnName="AP_ReleaseTime" />
+          <EntitySetMapping Name="ActivityAttachment">
+            <EntityTypeMapping TypeName="TTitleDBModel.ActivityAttachment">
+              <MappingFragment StoreEntitySet="ActivityAttachment">
+                <ScalarProperty Name="AA_Code" ColumnName="AA_Code" />
                 <ScalarProperty Name="AP_Code" ColumnName="AP_Code" />
-            <ScalarProperty Name="TA_Code" ColumnName="TA_Code" />
-            <ScalarProperty Name="AP_Theme" ColumnName="AP_Theme" />
-            <ScalarProperty Name="AP_StartTime" ColumnName="AP_StartTime" />
-            <ScalarProperty Name="AP_EndTime" ColumnName="AP_EndTime" />
-            <ScalarProperty Name="AP_Place" ColumnName="AP_Place" />
-            <ScalarProperty Name="AP_Limit" ColumnName="AP_Limit" />
-            <ScalarProperty Name="AP_Left" ColumnName="AP_Left" />
-            <ScalarProperty Name="AP_Candidate" ColumnName="AP_Candidate" />
-            <ScalarProperty Name="AP_StatusKey" ColumnName="AP_StatusKey" />
-            <ScalarProperty Name="AP_StatusValue" ColumnName="AP_StatusValue" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="ActivityRemark"><EntityTypeMapping TypeName="TTitleDBModel.ActivityRemark"><MappingFragment StoreEntitySet="ActivityRemark">
-            <ScalarProperty Name="AR_Code" ColumnName="AR_Code" />
-            <ScalarProperty Name="AR_Content" ColumnName="AR_Content" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="ActivitySignUp"><EntityTypeMapping TypeName="TTitleDBModel.ActivitySignUp"><MappingFragment StoreEntitySet="ActivitySignUp">
-            <ScalarProperty Name="ASU_Code" ColumnName="ASU_Code" />
-            <ScalarProperty Name="U_Code" ColumnName="U_Code" />
-            <ScalarProperty Name="AP_Code" ColumnName="AP_Code" />
-            <ScalarProperty Name="ASU_Time" ColumnName="ASU_Time" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="ClassHourSum"><EntityTypeMapping TypeName="TTitleDBModel.ClassHourSum"><MappingFragment StoreEntitySet="ClassHourSum">
-            <ScalarProperty Name="CH_Code" ColumnName="CH_Code" />
-            <ScalarProperty Name="ASU_Code" ColumnName="ASU_Code" />
-            <ScalarProperty Name="CH_GetTime" ColumnName="CH_GetTime" />
-            <ScalarProperty Name="CH_GetHour" ColumnName="CH_GetHour" />
-            <ScalarProperty Name="CH_Remark" ColumnName="CH_Remark" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Institute"><EntityTypeMapping TypeName="TTitleDBModel.Institute"><MappingFragment StoreEntitySet="Institute">
-            <ScalarProperty Name="I_Code" ColumnName="I_Code" />
-            <ScalarProperty Name="I_Name" ColumnName="I_Name" />
-            <ScalarProperty Name="I_IsValid" ColumnName="I_IsValid" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Major"><EntityTypeMapping TypeName="TTitleDBModel.Major"><MappingFragment StoreEntitySet="Major">
-            <ScalarProperty Name="M_Code" ColumnName="M_Code" />
-            <ScalarProperty Name="M_Name" ColumnName="M_Name" />
-            <ScalarProperty Name="M_IsValid" ColumnName="M_IsValid" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="TeachingActivity"><EntityTypeMapping TypeName="TTitleDBModel.TeachingActivity"><MappingFragment StoreEntitySet="TeachingActivity">
-            <ScalarProperty Name="TA_Code" ColumnName="TA_Code" />
-            <ScalarProperty Name="TA_Form" ColumnName="TA_Form" />
-            <ScalarProperty Name="TA_Way" ColumnName="TA_Way" />
-            <ScalarProperty Name="TA_Material" ColumnName="TA_Material" />
-            <ScalarProperty Name="TA_ClassHour" ColumnName="TA_ClassHour" />
-            <ScalarProperty Name="TA_PlaceKey" ColumnName="TA_PlaceKey" />
-            <ScalarProperty Name="TA_PlaceValue" ColumnName="TA_PlaceValue" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Users"><EntityTypeMapping TypeName="TTitleDBModel.Users"><MappingFragment StoreEntitySet="Users">
-            <ScalarProperty Name="U_Code" ColumnName="U_Code" />
-            <ScalarProperty Name="U_Account" ColumnName="U_Account" />
-            <ScalarProperty Name="U_PassWord" ColumnName="U_PassWord" />
-            <ScalarProperty Name="U_Name" ColumnName="U_Name" />
-            <ScalarProperty Name="I_Code" ColumnName="I_Code" />
-            <ScalarProperty Name="M_Code" ColumnName="M_Code" />
-            <ScalarProperty Name="UT_Code" ColumnName="UT_Code" />
-            <ScalarProperty Name="U_Degree" ColumnName="U_Degree" />
-            <ScalarProperty Name="U_Title" ColumnName="U_Title" />
-            <ScalarProperty Name="U_Mail" ColumnName="U_Mail" />
-            <ScalarProperty Name="U_Phone" ColumnName="U_Phone" />
-            <ScalarProperty Name="U_Remark" ColumnName="U_Remark" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="UserType"><EntityTypeMapping TypeName="TTitleDBModel.UserType"><MappingFragment StoreEntitySet="UserType">
-            <ScalarProperty Name="UT_Code" ColumnName="UT_Code" />
-            <ScalarProperty Name="UTType" ColumnName="UTType" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+                <ScalarProperty Name="AA_Name" ColumnName="AA_Name" />
+                <ScalarProperty Name="AA_Path" ColumnName="AA_Path" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActivityMaterial">
+            <EntityTypeMapping TypeName="TTitleDBModel.ActivityMaterial">
+              <MappingFragment StoreEntitySet="ActivityMaterial">
+                <ScalarProperty Name="AM_Code" ColumnName="AM_Code" />
+                <ScalarProperty Name="CH_Code" ColumnName="CH_Code" />
+                <ScalarProperty Name="AM_Name" ColumnName="AM_Name" />
+                <ScalarProperty Name="AM_SavePath" ColumnName="AM_SavePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActivityPlan">
+            <EntityTypeMapping TypeName="TTitleDBModel.ActivityPlan">
+              <MappingFragment StoreEntitySet="ActivityPlan">
+                <ScalarProperty Name="AP_Code" ColumnName="AP_Code" />
+                <ScalarProperty Name="TA_Code" ColumnName="TA_Code" />
+                <ScalarProperty Name="AP_Theme" ColumnName="AP_Theme" />
+                <ScalarProperty Name="AP_Speaker" ColumnName="AP_Speaker" />
+                <ScalarProperty Name="AP_StartTime" ColumnName="AP_StartTime" />
+                <ScalarProperty Name="AP_EndTime" ColumnName="AP_EndTime" />
+                <ScalarProperty Name="AP_Place" ColumnName="AP_Place" />
+                <ScalarProperty Name="AP_Limit" ColumnName="AP_Limit" />
+                <ScalarProperty Name="AP_Left" ColumnName="AP_Left" />
+                <ScalarProperty Name="AP_Candidate" ColumnName="AP_Candidate" />
+                <ScalarProperty Name="AP_CandidateLeft" ColumnName="AP_CandidateLeft" />
+                <ScalarProperty Name="AP_ReleaseTime" ColumnName="AP_ReleaseTime" />
+                <ScalarProperty Name="AP_StatusKey" ColumnName="AP_StatusKey" />
+                <ScalarProperty Name="AP_StatusValue" ColumnName="AP_StatusValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActivityRemark">
+            <EntityTypeMapping TypeName="TTitleDBModel.ActivityRemark">
+              <MappingFragment StoreEntitySet="ActivityRemark">
+                <ScalarProperty Name="AR_Code" ColumnName="AR_Code" />
+                <ScalarProperty Name="AR_Content" ColumnName="AR_Content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActivitySignUp">
+            <EntityTypeMapping TypeName="TTitleDBModel.ActivitySignUp">
+              <MappingFragment StoreEntitySet="ActivitySignUp">
+                <ScalarProperty Name="ASU_StatusValue" ColumnName="ASU_StatusValue" />
+                <ScalarProperty Name="ASU_StatusKey" ColumnName="ASU_StatusKey" />
+                <ScalarProperty Name="ASU_IsCandidateVal" ColumnName="ASU_IsCandidateVal" />
+                <ScalarProperty Name="ASU_IsCandidateKey" ColumnName="ASU_IsCandidateKey" />
+                <ScalarProperty Name="ASU_Code" ColumnName="ASU_Code" />
+                <ScalarProperty Name="U_Code" ColumnName="U_Code" />
+                <ScalarProperty Name="AP_Code" ColumnName="AP_Code" />
+                <ScalarProperty Name="ASU_Time" ColumnName="ASU_Time" />
+                </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClassHourSum">
+            <EntityTypeMapping TypeName="TTitleDBModel.ClassHourSum">
+              <MappingFragment StoreEntitySet="ClassHourSum">
+                <ScalarProperty Name="CH_Code" ColumnName="CH_Code" />
+                <ScalarProperty Name="ASU_Code" ColumnName="ASU_Code" />
+                <ScalarProperty Name="CH_GetTime" ColumnName="CH_GetTime" />
+                <ScalarProperty Name="CH_Content" ColumnName="CH_Content" />
+                <ScalarProperty Name="CH_GetHour" ColumnName="CH_GetHour" />
+                <ScalarProperty Name="CH_Remark" ColumnName="CH_Remark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Institute">
+            <EntityTypeMapping TypeName="TTitleDBModel.Institute">
+              <MappingFragment StoreEntitySet="Institute">
+                <ScalarProperty Name="I_Code" ColumnName="I_Code" />
+                <ScalarProperty Name="I_Name" ColumnName="I_Name" />
+                <ScalarProperty Name="I_IsValid" ColumnName="I_IsValid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Major">
+            <EntityTypeMapping TypeName="TTitleDBModel.Major">
+              <MappingFragment StoreEntitySet="Major">
+                <ScalarProperty Name="M_Code" ColumnName="M_Code" />
+                <ScalarProperty Name="M_Name" ColumnName="M_Name" />
+                <ScalarProperty Name="M_IsValid" ColumnName="M_IsValid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SysConfig">
+            <EntityTypeMapping TypeName="TTitleDBModel.SysConfig">
+              <MappingFragment StoreEntitySet="SysConfig">
+                <ScalarProperty Name="SC_Code" ColumnName="SC_Code" />
+                <ScalarProperty Name="SC_FieldName" ColumnName="SC_FieldName" />
+                <ScalarProperty Name="SC_FieldAttr" ColumnName="SC_FieldAttr" />
+                <ScalarProperty Name="SC_FieldCode" ColumnName="SC_FieldCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TeachingActivity">
+            <EntityTypeMapping TypeName="TTitleDBModel.TeachingActivity">
+              <MappingFragment StoreEntitySet="TeachingActivity">
+                <ScalarProperty Name="TA_Code" ColumnName="TA_Code" />
+                <ScalarProperty Name="TA_Form" ColumnName="TA_Form" />
+                <ScalarProperty Name="TA_Way" ColumnName="TA_Way" />
+                <ScalarProperty Name="TA_Material" ColumnName="TA_Material" />
+                <ScalarProperty Name="TA_ClassHour" ColumnName="TA_ClassHour" />
+                <ScalarProperty Name="TA_PlaceKey" ColumnName="TA_PlaceKey" />
+                <ScalarProperty Name="TA_PlaceValue" ColumnName="TA_PlaceValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TTitleDBModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="U_Code" ColumnName="U_Code" />
+                <ScalarProperty Name="U_Account" ColumnName="U_Account" />
+                <ScalarProperty Name="U_PassWord" ColumnName="U_PassWord" />
+                <ScalarProperty Name="U_Name" ColumnName="U_Name" />
+                <ScalarProperty Name="I_Code" ColumnName="I_Code" />
+                <ScalarProperty Name="M_Code" ColumnName="M_Code" />
+                <ScalarProperty Name="UT_Code" ColumnName="UT_Code" />
+                <ScalarProperty Name="U_Degree" ColumnName="U_Degree" />
+                <ScalarProperty Name="U_Title" ColumnName="U_Title" />
+                <ScalarProperty Name="U_Mail" ColumnName="U_Mail" />
+                <ScalarProperty Name="U_Phone" ColumnName="U_Phone" />
+                <ScalarProperty Name="U_Remark" ColumnName="U_Remark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserType">
+            <EntityTypeMapping TypeName="TTitleDBModel.UserType">
+              <MappingFragment StoreEntitySet="UserType">
+                <ScalarProperty Name="UT_Code" ColumnName="UT_Code" />
+                <ScalarProperty Name="UTType" ColumnName="UTType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -676,14 +771,15 @@
       <Diagram Name="TTitleDB">
         <EntityTypeShape EntityType="TTitleDBModel.ActivityAttachment" Width="1.5" PointX="5.25" PointY="10.25" Height="1.9700325520833317" IsExpanded="true" />
         <EntityTypeShape EntityType="TTitleDBModel.ActivityMaterial" Width="1.5" PointX="9.75" PointY="3.25" Height="1.9700325520833335" IsExpanded="true" />
-        <EntityTypeShape EntityType="TTitleDBModel.ActivityPlan" Width="1.5" PointX="3" PointY="9.375" Height="3.6892097981770853" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTitleDBModel.ActivityPlan" Width="1.5" PointX="3" PointY="9.125" Height="4.2622688802083317" IsExpanded="true" />
         <EntityTypeShape EntityType="TTitleDBModel.ActivityRemark" Width="1.5" PointX="5.75" PointY="7" Height="1.3969734700520817" IsExpanded="true" />
-        <EntityTypeShape EntityType="TTitleDBModel.ActivitySignUp" Width="1.5" PointX="5.25" PointY="3.125" Height="2.3520719401041674" IsExpanded="true" />
-        <EntityTypeShape EntityType="TTitleDBModel.ClassHourSum" Width="1.5" PointX="7.5" PointY="3.125" Height="2.3520719401041674" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTitleDBModel.ActivitySignUp" Width="1.5" PointX="5.25" PointY="2.875" Height="2.7341113281249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTitleDBModel.ClassHourSum" Width="1.5" PointX="7.5" PointY="3" Height="2.5430916341145822" IsExpanded="true" />
         <EntityTypeShape EntityType="TTitleDBModel.Institute" Width="1.5" PointX="0.75" PointY="3.375" Height="1.779012858072917" IsExpanded="true" />
         <EntityTypeShape EntityType="TTitleDBModel.Major" Width="1.5" PointX="0.75" PointY="6.25" Height="1.7790128580729174" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTitleDBModel.SysConfig" Width="1.5" PointX="7.75" PointY="7" Height="1.7790128580729174" IsExpanded="true" />
         <EntityTypeShape EntityType="TTitleDBModel.TeachingActivity" Width="1.5" PointX="0.75" PointY="10" Height="2.5430916341145817" IsExpanded="true" />
-        <EntityTypeShape EntityType="TTitleDBModel.Users" Width="1.5" PointX="3" PointY="2.25" Height="4.071249186197921" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTitleDBModel.Users" Width="1.5" PointX="3" PointY="2.25" Height="4.0712491861979245" IsExpanded="true" />
         <EntityTypeShape EntityType="TTitleDBModel.UserType" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5879931640625031" IsExpanded="true" />
         <AssociationConnector Association="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="11.235016276041666" />
@@ -694,31 +790,31 @@
           <ConnectorPoint PointX="9.75" PointY="4.2350162760416667" />
         </AssociationConnector>
         <AssociationConnector Association="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN_1" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="9.3761528461538468" />
-          <ConnectorPoint PointX="4.875" PointY="9.0011528461538468" />
-          <ConnectorPoint PointX="4.875" PointY="4.3010359700520837" />
-          <ConnectorPoint PointX="5.25" PointY="4.3010359700520837" />
+          <ConnectorPoint PointX="4.5" PointY="9.1261528461538468" />
+          <ConnectorPoint PointX="4.875" PointY="8.7511528461538468" />
+          <ConnectorPoint PointX="4.875" PointY="4.70458338813745" />
+          <ConnectorPoint PointX="5.25" PointY="4.70458338813745" />
         </AssociationConnector>
         <AssociationConnector Association="TTitleDBModel.FK_ACTIVITY_REFERENCE_TEACHING" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="11.271545817057291" />
           <ConnectorPoint PointX="3" PointY="11.271545817057291" />
         </AssociationConnector>
         <AssociationConnector Association="TTitleDBModel.FK_ACTIVITY_REFERENCE_USERS" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="3.6505179850260419" />
-          <ConnectorPoint PointX="5.25" PointY="3.6505179850260419" />
+          <ConnectorPoint PointX="4.5" PointY="3.7272916940687248" />
+          <ConnectorPoint PointX="5.25" PointY="3.7272916940687248" />
         </AssociationConnector>
         <AssociationConnector Association="TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTIVITY" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="4.3010359700520837" />
-          <ConnectorPoint PointX="7.5" PointY="4.3010359700520837" />
+          <ConnectorPoint PointX="6.75" PointY="4.2715458170572909" />
+          <ConnectorPoint PointX="7.5" PointY="4.2715458170572909" />
         </AssociationConnector>
         <AssociationConnector Association="TTitleDBModel.FK_USERS_REFERENCE_INSTITUT" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="4.2645064290364587" />
           <ConnectorPoint PointX="3" PointY="4.2645064290364587" />
         </AssociationConnector>
         <AssociationConnector Association="TTitleDBModel.FK_USERS_REFERENCE_MAJOR" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="7.17513152213542" />
-          <ConnectorPoint PointX="3.75" PointY="7.17513152213542" />
-          <ConnectorPoint PointX="3.75" PointY="6.321249186197921" />
+          <ConnectorPoint PointX="2.25" PointY="7.1751315221354215" />
+          <ConnectorPoint PointX="3.75" PointY="7.1751315221354215" />
+          <ConnectorPoint PointX="3.75" PointY="6.3212491861979245" />
         </AssociationConnector>
         <AssociationConnector Association="TTitleDBModel.FK_USERS_REFERENCE_USERTYPE" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="1.4999995" />

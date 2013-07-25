@@ -3,3 +3,13 @@ E:\程序猿\网站\TeacherProfessional\TeacherTitle\DynamicLink\TeacherTitle.BA
 E:\程序猿\网站\TeacherProfessional\TeacherTitle\TeacherTitle.BAL\obj\Debug\ResolveAssemblyReference.cache
 E:\程序猿\网站\TeacherProfessional\TeacherTitle\TeacherTitle.BAL\obj\Debug\TeacherTitle.BAL.dll
 E:\程序猿\网站\TeacherProfessional\TeacherTitle\TeacherTitle.BAL\obj\Debug\TeacherTitle.BAL.pdb
+C:\Users\Administrator\Desktop\TeacherProfessional\TeacherProfessional\TeacherTitle\DynamicLink\TeacherTitle.BAL.dll
+C:\Users\Administrator\Desktop\TeacherProfessional\TeacherProfessional\TeacherTitle\DynamicLink\TeacherTitle.BAL.pdb
+C:\Users\Administrator\Desktop\TeacherProfessional\TeacherProfessional\TeacherTitle\TeacherTitle.BAL\obj\Debug\TeacherTitle.BAL.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\TeacherProfessional\TeacherProfessional\TeacherTitle\TeacherTitle.BAL\obj\Debug\TeacherTitle.BAL.dll
+C:\Users\Administrator\Desktop\TeacherProfessional\TeacherProfessional\TeacherTitle\TeacherTitle.BAL\obj\Debug\TeacherTitle.BAL.pdb
+C:\Users\Administrator\Desktop\顾哲航\TeacherProfessional\TeacherProfessional\TeacherTitle\DynamicLink\TeacherTitle.BAL.dll
+C:\Users\Administrator\Desktop\顾哲航\TeacherProfessional\TeacherProfessional\TeacherTitle\DynamicLink\TeacherTitle.BAL.pdb
+C:\Users\Administrator\Desktop\顾哲航\TeacherProfessional\TeacherProfessional\TeacherTitle\TeacherTitle.BAL\obj\Debug\TeacherTitle.BAL.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\顾哲航\TeacherProfessional\TeacherProfessional\TeacherTitle\TeacherTitle.BAL\obj\Debug\TeacherTitle.BAL.dll
+C:\Users\Administrator\Desktop\顾哲航\TeacherProfessional\TeacherProfessional\TeacherTitle\TeacherTitle.BAL\obj\Debug\TeacherTitle.BAL.pdb

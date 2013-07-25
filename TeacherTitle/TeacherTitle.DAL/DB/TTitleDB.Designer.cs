@@ -8,12 +8,13 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM 关系源元数据
@@ -209,6 +210,22 @@ namespace TeacherTitle.DAL.DB
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
+        public ObjectSet<SysConfig> SysConfig
+        {
+            get
+            {
+                if ((_SysConfig == null))
+                {
+                    _SysConfig = base.CreateObjectSet<SysConfig>("SysConfig");
+                }
+                return _SysConfig;
+            }
+        }
+        private ObjectSet<SysConfig> _SysConfig;
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
         public ObjectSet<TeachingActivity> TeachingActivity
         {
             get
@@ -255,6 +272,7 @@ namespace TeacherTitle.DAL.DB
         private ObjectSet<UserType> _UserType;
 
         #endregion
+
         #region AddTo 方法
     
         /// <summary>
@@ -322,6 +340,14 @@ namespace TeacherTitle.DAL.DB
         }
     
         /// <summary>
+        /// 用于向 SysConfig EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
+        /// </summary>
+        public void AddToSysConfig(SysConfig sysConfig)
+        {
+            base.AddObject("SysConfig", sysConfig);
+        }
+    
+        /// <summary>
         /// 用于向 TeachingActivity EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
         /// </summary>
         public void AddToTeachingActivity(TeachingActivity teachingActivity)
@@ -346,11 +372,11 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region 实体
     
     /// <summary>
@@ -381,6 +407,7 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
+
         #region 基元属性
     
         /// <summary>
@@ -483,6 +510,7 @@ namespace TeacherTitle.DAL.DB
         partial void OnAA_PathChanged();
 
         #endregion
+
     
         #region 导航属性
     
@@ -525,6 +553,7 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -553,6 +582,7 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
+
         #region 基元属性
     
         /// <summary>
@@ -655,6 +685,7 @@ namespace TeacherTitle.DAL.DB
         partial void OnAM_SavePathChanged();
 
         #endregion
+
     
         #region 导航属性
     
@@ -697,6 +728,7 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -718,11 +750,10 @@ namespace TeacherTitle.DAL.DB
         /// <param name="aP_StartTime">AP_StartTime 属性的初始值。</param>
         /// <param name="aP_EndTime">AP_EndTime 属性的初始值。</param>
         /// <param name="aP_Place">AP_Place 属性的初始值。</param>
-        /// <param name="aP_Limit">AP_Limit 属性的初始值。</param>
+        /// <param name="aP_ReleaseTime">AP_ReleaseTime 属性的初始值。</param>
         /// <param name="aP_StatusKey">AP_StatusKey 属性的初始值。</param>
         /// <param name="aP_StatusValue">AP_StatusValue 属性的初始值。</param>
-        /// <param name="aP_ReleaseTime">AP_ReleaseTime 属性的初始值。</param>
-        public static ActivityPlan CreateActivityPlan(global::System.Int32 aP_Code, global::System.Int32 tA_Code, global::System.String aP_Theme, global::System.String aP_StartTime, global::System.String aP_EndTime, global::System.String aP_Place, global::System.Int32 aP_Limit, global::System.Int32 aP_StatusKey, global::System.String aP_StatusValue, global::System.String aP_ReleaseTime)
+        public static ActivityPlan CreateActivityPlan(global::System.Int32 aP_Code, global::System.Int32 tA_Code, global::System.String aP_Theme, global::System.String aP_StartTime, global::System.String aP_EndTime, global::System.String aP_Place, global::System.String aP_ReleaseTime, global::System.Int32 aP_StatusKey, global::System.String aP_StatusValue)
         {
             ActivityPlan activityPlan = new ActivityPlan();
             activityPlan.AP_Code = aP_Code;
@@ -731,14 +762,14 @@ namespace TeacherTitle.DAL.DB
             activityPlan.AP_StartTime = aP_StartTime;
             activityPlan.AP_EndTime = aP_EndTime;
             activityPlan.AP_Place = aP_Place;
-            activityPlan.AP_Limit = aP_Limit;
+            activityPlan.AP_ReleaseTime = aP_ReleaseTime;
             activityPlan.AP_StatusKey = aP_StatusKey;
             activityPlan.AP_StatusValue = aP_StatusValue;
-            activityPlan.AP_ReleaseTime = aP_ReleaseTime;
             return activityPlan;
         }
 
         #endregion
+
         #region 基元属性
     
         /// <summary>
@@ -819,6 +850,30 @@ namespace TeacherTitle.DAL.DB
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String AP_Speaker
+        {
+            get
+            {
+                return _AP_Speaker;
+            }
+            set
+            {
+                OnAP_SpeakerChanging(value);
+                ReportPropertyChanging("AP_Speaker");
+                _AP_Speaker = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("AP_Speaker");
+                OnAP_SpeakerChanged();
+            }
+        }
+        private global::System.String _AP_Speaker;
+        partial void OnAP_SpeakerChanging(global::System.String value);
+        partial void OnAP_SpeakerChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String AP_StartTime
@@ -891,9 +946,9 @@ namespace TeacherTitle.DAL.DB
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 AP_Limit
+        public Nullable<global::System.Int32> AP_Limit
         {
             get
             {
@@ -908,8 +963,8 @@ namespace TeacherTitle.DAL.DB
                 OnAP_LimitChanged();
             }
         }
-        private global::System.Int32 _AP_Limit;
-        partial void OnAP_LimitChanging(global::System.Int32 value);
+        private Nullable<global::System.Int32> _AP_Limit;
+        partial void OnAP_LimitChanging(Nullable<global::System.Int32> value);
         partial void OnAP_LimitChanged();
     
         /// <summary>
@@ -963,6 +1018,54 @@ namespace TeacherTitle.DAL.DB
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> AP_CandidateLeft
+        {
+            get
+            {
+                return _AP_CandidateLeft;
+            }
+            set
+            {
+                OnAP_CandidateLeftChanging(value);
+                ReportPropertyChanging("AP_CandidateLeft");
+                _AP_CandidateLeft = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AP_CandidateLeft");
+                OnAP_CandidateLeftChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _AP_CandidateLeft;
+        partial void OnAP_CandidateLeftChanging(Nullable<global::System.Int32> value);
+        partial void OnAP_CandidateLeftChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String AP_ReleaseTime
+        {
+            get
+            {
+                return _AP_ReleaseTime;
+            }
+            set
+            {
+                OnAP_ReleaseTimeChanging(value);
+                ReportPropertyChanging("AP_ReleaseTime");
+                _AP_ReleaseTime = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("AP_ReleaseTime");
+                OnAP_ReleaseTimeChanged();
+            }
+        }
+        private global::System.String _AP_ReleaseTime;
+        partial void OnAP_ReleaseTimeChanging(global::System.String value);
+        partial void OnAP_ReleaseTimeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Int32 AP_StatusKey
@@ -1007,32 +1110,9 @@ namespace TeacherTitle.DAL.DB
         private global::System.String _AP_StatusValue;
         partial void OnAP_StatusValueChanging(global::System.String value);
         partial void OnAP_StatusValueChanged();
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String AP_ReleaseTime
-        {
-            get
-            {
-                return _AP_ReleaseTime;
-            }
-            set
-            {
-                OnAP_ReleaseTimeChanging(value);
-                ReportPropertyChanging("AP_ReleaseTime");
-                _AP_ReleaseTime = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("AP_ReleaseTime");
-                OnAP_ReleaseTimeChanged();
-            }
-        }
-        private global::System.String _AP_ReleaseTime;
-        partial void OnAP_ReleaseTimeChanging(global::System.String value);
-        partial void OnAP_ReleaseTimeChanged();
 
         #endregion
+
     
         #region 导航属性
     
@@ -1119,6 +1199,7 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1143,6 +1224,7 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
+
         #region 基元属性
     
         /// <summary>
@@ -1197,6 +1279,7 @@ namespace TeacherTitle.DAL.DB
         partial void OnAR_ContentChanged();
 
         #endregion
+
     
     }
     
@@ -1215,15 +1298,24 @@ namespace TeacherTitle.DAL.DB
         /// </summary>
         /// <param name="aSU_Code">ASU_Code 属性的初始值。</param>
         /// <param name="u_Code">U_Code 属性的初始值。</param>
-        public static ActivitySignUp CreateActivitySignUp(global::System.Int32 aSU_Code, global::System.Int32 u_Code)
+        /// <param name="aSU_IsCandidateKey">ASU_IsCandidateKey 属性的初始值。</param>
+        /// <param name="aSU_IsCandidateVal">ASU_IsCandidateVal 属性的初始值。</param>
+        /// <param name="aSU_StatusKey">ASU_StatusKey 属性的初始值。</param>
+        /// <param name="aSU_StatusValue">ASU_StatusValue 属性的初始值。</param>
+        public static ActivitySignUp CreateActivitySignUp(global::System.Int32 aSU_Code, global::System.Int32 u_Code, global::System.Int32 aSU_IsCandidateKey, global::System.String aSU_IsCandidateVal, global::System.Int32 aSU_StatusKey, global::System.String aSU_StatusValue)
         {
             ActivitySignUp activitySignUp = new ActivitySignUp();
             activitySignUp.ASU_Code = aSU_Code;
             activitySignUp.U_Code = u_Code;
+            activitySignUp.ASU_IsCandidateKey = aSU_IsCandidateKey;
+            activitySignUp.ASU_IsCandidateVal = aSU_IsCandidateVal;
+            activitySignUp.ASU_StatusKey = aSU_StatusKey;
+            activitySignUp.ASU_StatusValue = aSU_StatusValue;
             return activitySignUp;
         }
 
         #endregion
+
         #region 基元属性
     
         /// <summary>
@@ -1324,8 +1416,105 @@ namespace TeacherTitle.DAL.DB
         private global::System.String _ASU_Time;
         partial void OnASU_TimeChanging(global::System.String value);
         partial void OnASU_TimeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ASU_IsCandidateKey
+        {
+            get
+            {
+                return _ASU_IsCandidateKey;
+            }
+            set
+            {
+                OnASU_IsCandidateKeyChanging(value);
+                ReportPropertyChanging("ASU_IsCandidateKey");
+                _ASU_IsCandidateKey = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ASU_IsCandidateKey");
+                OnASU_IsCandidateKeyChanged();
+            }
+        }
+        private global::System.Int32 _ASU_IsCandidateKey;
+        partial void OnASU_IsCandidateKeyChanging(global::System.Int32 value);
+        partial void OnASU_IsCandidateKeyChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ASU_IsCandidateVal
+        {
+            get
+            {
+                return _ASU_IsCandidateVal;
+            }
+            set
+            {
+                OnASU_IsCandidateValChanging(value);
+                ReportPropertyChanging("ASU_IsCandidateVal");
+                _ASU_IsCandidateVal = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ASU_IsCandidateVal");
+                OnASU_IsCandidateValChanged();
+            }
+        }
+        private global::System.String _ASU_IsCandidateVal;
+        partial void OnASU_IsCandidateValChanging(global::System.String value);
+        partial void OnASU_IsCandidateValChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ASU_StatusKey
+        {
+            get
+            {
+                return _ASU_StatusKey;
+            }
+            set
+            {
+                OnASU_StatusKeyChanging(value);
+                ReportPropertyChanging("ASU_StatusKey");
+                _ASU_StatusKey = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ASU_StatusKey");
+                OnASU_StatusKeyChanged();
+            }
+        }
+        private global::System.Int32 _ASU_StatusKey;
+        partial void OnASU_StatusKeyChanging(global::System.Int32 value);
+        partial void OnASU_StatusKeyChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ASU_StatusValue
+        {
+            get
+            {
+                return _ASU_StatusValue;
+            }
+            set
+            {
+                OnASU_StatusValueChanging(value);
+                ReportPropertyChanging("ASU_StatusValue");
+                _ASU_StatusValue = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ASU_StatusValue");
+                OnASU_StatusValueChanged();
+            }
+        }
+        private global::System.String _ASU_StatusValue;
+        partial void OnASU_StatusValueChanging(global::System.String value);
+        partial void OnASU_StatusValueChanged();
 
         #endregion
+
     
         #region 导航属性
     
@@ -1428,6 +1617,7 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1452,6 +1642,7 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
+
         #region 基元属性
     
         /// <summary>
@@ -1534,6 +1725,30 @@ namespace TeacherTitle.DAL.DB
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        public global::System.String CH_Content
+        {
+            get
+            {
+                return _CH_Content;
+            }
+            set
+            {
+                OnCH_ContentChanging(value);
+                ReportPropertyChanging("CH_Content");
+                _CH_Content = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("CH_Content");
+                OnCH_ContentChanged();
+            }
+        }
+        private global::System.String _CH_Content;
+        partial void OnCH_ContentChanging(global::System.String value);
+        partial void OnCH_ContentChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
         public Nullable<global::System.Int32> CH_GetHour
         {
             get
@@ -1578,6 +1793,7 @@ namespace TeacherTitle.DAL.DB
         partial void OnCH_RemarkChanged();
 
         #endregion
+
     
         #region 导航属性
     
@@ -1642,6 +1858,7 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1670,6 +1887,7 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
+
         #region 基元属性
     
         /// <summary>
@@ -1748,6 +1966,7 @@ namespace TeacherTitle.DAL.DB
         partial void OnI_IsValidChanged();
 
         #endregion
+
     
         #region 导航属性
     
@@ -1774,6 +1993,7 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1802,6 +2022,7 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
+
         #region 基元属性
     
         /// <summary>
@@ -1880,6 +2101,7 @@ namespace TeacherTitle.DAL.DB
         partial void OnM_IsValidChanged();
 
         #endregion
+
     
         #region 导航属性
     
@@ -1906,6 +2128,142 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
+
+    }
+    
+    /// <summary>
+    /// 没有元数据文档可用。
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="TTitleDBModel", Name="SysConfig")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SysConfig : EntityObject
+    {
+        #region 工厂方法
+    
+        /// <summary>
+        /// 创建新的 SysConfig 对象。
+        /// </summary>
+        /// <param name="sC_Code">SC_Code 属性的初始值。</param>
+        /// <param name="sC_FieldName">SC_FieldName 属性的初始值。</param>
+        /// <param name="sC_FieldAttr">SC_FieldAttr 属性的初始值。</param>
+        /// <param name="sC_FieldCode">SC_FieldCode 属性的初始值。</param>
+        public static SysConfig CreateSysConfig(global::System.Int32 sC_Code, global::System.String sC_FieldName, global::System.String sC_FieldAttr, global::System.Int32 sC_FieldCode)
+        {
+            SysConfig sysConfig = new SysConfig();
+            sysConfig.SC_Code = sC_Code;
+            sysConfig.SC_FieldName = sC_FieldName;
+            sysConfig.SC_FieldAttr = sC_FieldAttr;
+            sysConfig.SC_FieldCode = sC_FieldCode;
+            return sysConfig;
+        }
+
+        #endregion
+
+        #region 基元属性
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 SC_Code
+        {
+            get
+            {
+                return _SC_Code;
+            }
+            set
+            {
+                if (_SC_Code != value)
+                {
+                    OnSC_CodeChanging(value);
+                    ReportPropertyChanging("SC_Code");
+                    _SC_Code = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("SC_Code");
+                    OnSC_CodeChanged();
+                }
+            }
+        }
+        private global::System.Int32 _SC_Code;
+        partial void OnSC_CodeChanging(global::System.Int32 value);
+        partial void OnSC_CodeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String SC_FieldName
+        {
+            get
+            {
+                return _SC_FieldName;
+            }
+            set
+            {
+                OnSC_FieldNameChanging(value);
+                ReportPropertyChanging("SC_FieldName");
+                _SC_FieldName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("SC_FieldName");
+                OnSC_FieldNameChanged();
+            }
+        }
+        private global::System.String _SC_FieldName;
+        partial void OnSC_FieldNameChanging(global::System.String value);
+        partial void OnSC_FieldNameChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String SC_FieldAttr
+        {
+            get
+            {
+                return _SC_FieldAttr;
+            }
+            set
+            {
+                OnSC_FieldAttrChanging(value);
+                ReportPropertyChanging("SC_FieldAttr");
+                _SC_FieldAttr = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("SC_FieldAttr");
+                OnSC_FieldAttrChanged();
+            }
+        }
+        private global::System.String _SC_FieldAttr;
+        partial void OnSC_FieldAttrChanging(global::System.String value);
+        partial void OnSC_FieldAttrChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 SC_FieldCode
+        {
+            get
+            {
+                return _SC_FieldCode;
+            }
+            set
+            {
+                OnSC_FieldCodeChanging(value);
+                ReportPropertyChanging("SC_FieldCode");
+                _SC_FieldCode = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SC_FieldCode");
+                OnSC_FieldCodeChanged();
+            }
+        }
+        private global::System.Int32 _SC_FieldCode;
+        partial void OnSC_FieldCodeChanging(global::System.Int32 value);
+        partial void OnSC_FieldCodeChanged();
+
+        #endregion
+
+    
     }
     
     /// <summary>
@@ -1942,6 +2300,7 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
+
         #region 基元属性
     
         /// <summary>
@@ -2116,6 +2475,7 @@ namespace TeacherTitle.DAL.DB
         partial void OnTA_PlaceValueChanged();
 
         #endregion
+
     
         #region 导航属性
     
@@ -2142,6 +2502,7 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2186,6 +2547,7 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
+
         #region 基元属性
     
         /// <summary>
@@ -2480,6 +2842,7 @@ namespace TeacherTitle.DAL.DB
         partial void OnU_RemarkChanged();
 
         #endregion
+
     
         #region 导航属性
     
@@ -2620,6 +2983,7 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2646,6 +3010,7 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
+
         #region 基元属性
     
         /// <summary>
@@ -2700,6 +3065,7 @@ namespace TeacherTitle.DAL.DB
         partial void OnUTTypeChanged();
 
         #endregion
+
     
         #region 导航属性
     
@@ -2726,8 +3092,10 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
+
     }
 
     #endregion
+
     
 }

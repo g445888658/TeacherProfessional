@@ -1,0 +1,45 @@
+﻿<div id="PartailUserInfo">
+    @{
+        var userInfo = ViewData["UserInfo"] as TeacherTitle.Models.UserModel;
+    }
+    @using (Ajax.BeginForm("UserInfo", "Account", new { U_Code = userInfo.userModel.U_Code }, new AjaxOptions { UpdateTargetId = "releaseNews" }, new { id = "UserInfoForm" }))
+    { 
+        <table>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.Label("用户名：")
+                        @Html.Label(userInfo.userModel.U_Name)
+                    </div>
+                    <div class="editor-label">
+                        @Html.Label("学院：")
+                        @Html.Label(userInfo.userModel.U_Institute.Value)
+                    </div>
+                    <div class="editor-label">
+                        @Html.Label("专业：")
+                        @Html.Label(userInfo.userModel.U_Major.Value)
+                    </div>
+                    <div class="editor-label">
+                        @Html.Label("学历：")
+                        @Html.Label(userInfo.userModel.U_Degree)
+                    </div>
+                    <div class="editor-label">
+                        @Html.Label("职称：")
+                        @Html.Label(userInfo.userModel.U_Title)
+                    </div>
+                    <div class="editor-label">
+                        @Html.Label("邮箱：")
+                        @Html.TextBox("U_Mail", userInfo.userModel.U_Mail)
+                    </div>
+                    <div class="editor-label">
+                        @Html.Label("联系电话：")
+                        @Html.TextBox("U_Phone", userInfo.userModel.U_Phone)
+                    </div>
+                    <div class="editor-label">
+                        <input type="submit" value="修改"  onclick="return checkCondition();"/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    }
+</div>

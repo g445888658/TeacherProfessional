@@ -1,0 +1,40 @@
+﻿@model TeacherTitle.Models.UserModel
+<script type="text/javascript">
+    //登陆
+    function personalCenter() {
+        $("#perCenterForm").submit();
+    }
+
+    function logOutFun(data) {
+        $("#LogOnDiv").html(data);
+        $("#returnToIndex").click();
+    }
+</script>
+<div class="topline_l">
+    欢迎访问 温州医科大学 高校教师学习档案系统！<span id="timeSpan"> </span>
+</div>
+<div class="topline_r">
+    @Html.Encode(Model.userModel.U_Name)&nbsp;|&nbsp;
+    @{
+        //管理员
+        if (Model.userModel.U_Type.Key == "1")
+        {
+            using (Ajax.BeginForm("Main", "Adm", null, new AjaxOptions { UpdateTargetId = "containerDiv" }, new { id = "perCenterForm", style = "margin:0px;display: inline;" }))
+            {
+   
+        @Html.Hidden("U_Code", Model.userModel.U_Code)
+        <a onclick="personalCenter();" style="cursor: pointer;">个人中心</a>   
+            }
+        }
+        else
+        {
+            using (Ajax.BeginForm("UserMain", "Account", null, new AjaxOptions { UpdateTargetId = "containerDiv" }, new { id = "perCenterForm", style = "margin:0px;display: inline;" }))
+            {
+   
+        @Html.Hidden("U_Code", Model.userModel.U_Code)
+        <a onclick="personalCenter();" style="cursor: pointer;">个人中心</a>   
+            }
+        }
+    }
+    &nbsp;|@Ajax.ActionLink("退出", "LogOff", "Account", null, new AjaxOptions { OnSuccess = "logOutFun(data);" }, null)
+</div>

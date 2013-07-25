@@ -1,0 +1,23 @@
+﻿@model TeacherTitle.Models.SysMailConfigModel
+<div id="PartailSysMail">
+    @using (Ajax.BeginForm("SysMail", "Home", null, new AjaxOptions { UpdateTargetId = "releaseNews" }, new { id = "SysMailForm" }))
+    {
+        <div class="editor-label">
+            @Html.LabelFor(Model => Model.SysMail)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(Model => Model.SysMail, new { style = "width:200px;" })
+            @Html.ValidationMessageFor(Model => Model.SysMail)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(Model => Model.SysMailPsw)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(Model => Model.SysMailPsw, new { style = "width:200px;" })
+            @Html.ValidationMessageFor(Model => Model.SysMailPsw)
+        </div>
+        <div class="editor-field">
+            <input type="submit" value="确定" onclick="return checkCondition();" />
+        </div>
+    }
+</div>

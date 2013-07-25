@@ -1,0 +1,70 @@
+﻿<div class="i_right">
+    <div class="i_news02" id="com_indexistop_news" editok="online" style="height: 510px;">
+        <div class="title02">
+            <h3 class="tbg_01">
+                最新活动公告
+            </h3>
+        </div>
+        <div class="i_news02_l" style="height: 455px;">
+            <ul>
+                @{
+                    
+                    var notice = ViewData["Notice"] as TeacherTitle.DAL.DB.ActivityPlan[];
+                    for (int i = 0; i < notice.Length; i++)
+                    {
+                    <li>@Ajax.ActionLink(notice[i].AP_Theme, "ApplyActivity", "Activity", new { apCode = notice[i].AP_Code }, new AjaxOptions { UpdateTargetId = "containerDiv" }, null)
+                        <span>[@Html.Encode(DateTime.Parse(notice[i].AP_ReleaseTime).ToString("yyyy-MM-dd"))]</span></li> 
+                    }
+                                      
+                }
+            </ul>
+            <div id="pagingDiv" style="position: absolute; bottom: -130px">
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $("#pagingDiv").paginate({
+                count: '@notice.Length',
+                start: 1,
+                display: 5,
+                border: true,
+                border_color: '#fff',
+                text_color: '#888',
+                background_color: 'white',
+                border_hover_color: '#ccc',
+                text_hover_color: 'black',
+                background_hover_color: 'white',
+                images: false,
+                mouse: 'press',
+                onChange: function (page) {
+                    ajax({
+                        type: "POST",
+                        url: "/Home/LatestNotice",
+                        data: { "page": page },
+                        success: function (data) {
+                            $("#PartialLatestNotice").html(data);
+                        }
+                    });
+                }
+            });
+        })
+    </script>
+    @*<div class="i_news03">
+        <div class="title03">
+            <h3 class="tbg_02">
+                教学管理</h3>
+        </div>
+        <div class="i_news03_l">
+            <ul>
+                <li><a href="/cn/menu_47.htm?menuid=47">课程建设</a> </li>
+                <li><a href="/cn/menu_35.htm?menuid=35">实践教学</a> </li>
+                <li><a href="/cn/menu_36.htm?menuid=36">选课系统</a> </li>
+            </ul>
+        </div>
+    </div>*@
+    <div class="bot_01">
+    </div>
+    <div class="edit_nullmodule" id="com_definedkeys_3" editok="online">
+    </div>
+</div>

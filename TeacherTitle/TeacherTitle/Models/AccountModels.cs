@@ -19,13 +19,13 @@ namespace TeacherTitle.Models
         public string OldPassword { get; set; }
 
         [Required(ErrorMessage = "请输入新密码")]
-        [StringLength(100, ErrorMessage = "{0} 必须至少包含 {2} 个字符", MinimumLength = 6)]
+        //[StringLength(100, ErrorMessage = "{0} 必须至少包含 {2} 个字符", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "新密码")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "确认新密码")]
+        [Display(Name = "确认密码")]
         [Compare("NewPassword", ErrorMessage = "新密码和确认密码不匹配")]
         public string ConfirmPassword { get; set; }
     }
@@ -58,7 +58,7 @@ namespace TeacherTitle.Models
         public string Account { get; set; }
 
         [Required(ErrorMessage = "请填写密码")]
-        [StringLength(100, ErrorMessage = "{0} 必须至少包含 {2} 个字符。", MinimumLength = 6)]
+        //[StringLength(100, ErrorMessage = "{0} 必须至少包含 {2} 个字符。", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "密码")]
         public string Password { get; set; }
@@ -74,18 +74,17 @@ namespace TeacherTitle.Models
 
         [Required(ErrorMessage = "请选择学院")]
         [Display(Name = "学院")]
-        public string Institute{ get; set; }
+        public string Institute { get; set; }
 
         [Required(ErrorMessage = "请选择专业")]
         [Display(Name = "专业")]
         public string Major { get; set; }
 
         [Required]
-        [HiddenInput]
         [Display(Name = "类型")]
-        public string Type { get; set; }
+        public string UserType { get; set; }
 
-        [Required(ErrorMessage="请填写学历")]
+        [Required(ErrorMessage = "请填写学历")]
         [Display(Name = "学历")]
         public string Degree { get; set; }
 
@@ -94,7 +93,7 @@ namespace TeacherTitle.Models
         [Display(Name = "职称")]
         public string Title { get; set; }
 
-        [Required(ErrorMessage="请填写电子邮件地址")]
+        [Required(ErrorMessage = "请填写电子邮件地址")]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "电子邮件地址")]
         public string Email { get; set; }

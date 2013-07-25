@@ -53,20 +53,20 @@
       <DependentUpon>TTitleDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\ArgsHelper.cs" />
+    <Compile Include="Infrastructure\GetSpelling.cs" />
     <Compile Include="Infrastructure\KeyValueModel.cs" />
+    <Compile Include="Model\ActivityModels.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="DB\TTitleDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TTitleDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

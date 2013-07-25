@@ -1,0 +1,88 @@
+﻿<script type="text/javascript">
+    function submitApply() {
+        if ($("#U_Code", $("#LogOnDiv")).val() == undefined) {
+            $("#ui_dialog").html("请登录");
+            $('#ui_dialog').dialog({ modal: true, show: 'blind', hide: 'explode', resizable: false });
+        }
+        else {
+            $("#_U_Code", $("#PartialApplyActivity")).val($("#U_Code", $("#LogOnDiv")).val());
+            $("#AddActivityForm").submit();
+        }
+    }
+
+    function ApplyActivityCallBack(data) {
+        $("#ui_dialog").html(data.Msg);
+        $('#ui_dialog').dialog({
+            modal: true,
+            show: 'blind',
+            hide: 'explode',
+            resizable: false,
+            title: "提示"
+        });
+    }
+</script>
+<div id="PartialApplyActivity">
+    @{
+        var list = ViewData["ActivityDetail"] as TeacherTitle.DAL.DB.ActivityPlan;
+        <table>
+            <tr>
+                <td>
+                    <div class="editor-field">
+                        @Html.Label("活动形式：")
+                        @Html.Label(ViewData["ActForm"] as string)
+                    </div>
+                    <div class="editor-field">
+                        @Html.Label("主讲人：")
+                        @Html.Label(list.AP_Speaker)
+                    </div>
+                    <div class="editor-field">
+                        @Html.Label("活动主题：")
+                        @Html.Label(list.AP_Theme)
+                    </div>
+                    <div class="editor-field">
+                        @Html.Label("活动地点：")
+                        @Html.Label(list.AP_Place)
+                    </div>
+                </td>
+                <td style="vertical-align: top;">
+                    <div class="editor-field">
+                        @Html.Label("开始时间：")
+                        @Html.Label(list.AP_StartTime)
+                    </div>
+                    <div class="editor-field">
+                        @Html.Label("结束时间：")
+                        @Html.Label(list.AP_EndTime)
+                    </div>
+                    <div class="editor-field">
+                        @Html.Label("限制名额：")
+                        @Html.Label(list.AP_Limit.ToString())
+                    </div>
+                    <div class="editor-field">
+                        @Html.Label("剩余名额：")
+                        @Html.Label(list.AP_Left.ToString())
+                    </div>
+                    <div class="editor-field">
+                        @Html.Label("候选名额：")
+                        @Html.Label(list.AP_Candidate.ToString())
+                    </div>
+                    <div class="editor-field">
+                        @Html.Label("剩余名额：")
+                        @Html.Label(list.AP_CandidateLeft.ToString())
+                    </div>
+                    <div class="editor-field">
+                        @Html.Label("状态：")
+                        @Html.Label(list.AP_StatusValue)
+                    </div>
+                </td>
+                <td>
+                    @using (Ajax.BeginForm("ApplyActivity", "Activity", null, new AjaxOptions { OnSuccess = "ApplyActivityCallBack(data);" }, new { id = "AddActivityForm" }))
+                    {
+                        @Html.Hidden("apCode", list.AP_Code)
+                        <input type="hidden" id="_U_Code" name="_U_Code" value="" />
+                        <input type="button" onclick="submitApply();" value="报名" />
+                    }
+                </td>
+            </tr>
+        </table>    
+    }
+</div>

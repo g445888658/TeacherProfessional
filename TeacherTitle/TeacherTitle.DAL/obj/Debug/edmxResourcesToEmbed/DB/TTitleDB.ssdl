@@ -9,6 +9,7 @@
     <EntitySet Name="ClassHourSum" EntityType="TTitleDBModel.Store.ClassHourSum" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Institute" EntityType="TTitleDBModel.Store.Institute" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Major" EntityType="TTitleDBModel.Store.Major" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SysConfig" EntityType="TTitleDBModel.Store.SysConfig" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TeachingActivity" EntityType="TTitleDBModel.Store.TeachingActivity" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users" EntityType="TTitleDBModel.Store.Users" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserType" EntityType="TTitleDBModel.Store.UserType" store:Type="Tables" Schema="dbo" />
@@ -74,12 +75,14 @@
     <Property Name="AP_Code" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="TA_Code" Type="int" Nullable="false" />
     <Property Name="AP_Theme" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="AP_Speaker" Type="nvarchar" MaxLength="20" />
     <Property Name="AP_StartTime" Type="nvarchar" Nullable="false" MaxLength="20" />
     <Property Name="AP_EndTime" Type="nvarchar" Nullable="false" MaxLength="20" />
     <Property Name="AP_Place" Type="nvarchar" Nullable="false" MaxLength="100" />
-    <Property Name="AP_Limit" Type="int" Nullable="false" />
+    <Property Name="AP_Limit" Type="int" />
     <Property Name="AP_Left" Type="int" />
     <Property Name="AP_Candidate" Type="int" />
+    <Property Name="AP_CandidateLeft" Type="int" />
     <Property Name="AP_ReleaseTime" Type="nvarchar" Nullable="false" MaxLength="20" />
     <Property Name="AP_StatusKey" Type="int" Nullable="false" />
     <Property Name="AP_StatusValue" Type="nvarchar" Nullable="false" MaxLength="10" />
@@ -99,6 +102,10 @@
     <Property Name="U_Code" Type="int" Nullable="false" />
     <Property Name="AP_Code" Type="int" />
     <Property Name="ASU_Time" Type="varchar" MaxLength="20" />
+    <Property Name="ASU_IsCandidateKey" Type="int" Nullable="false" />
+    <Property Name="ASU_IsCandidateVal" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="ASU_StatusKey" Type="int" Nullable="false" />
+    <Property Name="ASU_StatusValue" Type="nvarchar" Nullable="false" MaxLength="10" />
   </EntityType>
   <EntityType Name="ClassHourSum">
     <Key>
@@ -107,6 +114,7 @@
     <Property Name="CH_Code" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="ASU_Code" Type="int" />
     <Property Name="CH_GetTime" Type="nvarchar" MaxLength="20" />
+    <Property Name="CH_Content" Type="nvarchar" MaxLength="1000" />
     <Property Name="CH_GetHour" Type="int" />
     <Property Name="CH_Remark" Type="nvarchar" MaxLength="1000" />
   </EntityType>
@@ -125,6 +133,15 @@
     <Property Name="M_Code" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="M_Name" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="M_IsValid" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SysConfig">
+    <Key>
+      <PropertyRef Name="SC_Code" />
+    </Key>
+    <Property Name="SC_Code" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SC_FieldName" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="SC_FieldAttr" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="SC_FieldCode" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="TeachingActivity">
     <Key>

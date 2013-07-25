@@ -11,6 +11,24 @@ namespace TeacherTitle.Infrastructure
     public class Basehandle
     {
         /// <summary>
+        /// 活动地点
+        /// </summary>
+        public static List<KeyValueModel> AllPlace = new List<KeyValueModel>()
+        {
+            new KeyValueModel()
+            {
+                Key="0",
+                Value="校内"
+            },
+            new KeyValueModel()
+            {
+                Key="1",
+                Value="校外"
+            }
+        };
+
+
+        /// <summary>
         /// 教师职称
         /// </summary>
         public static List<KeyValueModel> AllTitle = new List<KeyValueModel>()

@@ -5,6 +5,7 @@ using System.Text;
 using TeacherTitle.BAL.Infrastructure;
 using TeacherTitle.DAL.DB;
 using TeacherTitle.DAL.DAO;
+using TeacherTitle.DAL.Infrastructure;
 
 namespace TeacherTitle.BAL.Service
 {
@@ -38,5 +39,26 @@ namespace TeacherTitle.BAL.Service
         {
             return baseDAO.GetAllMajor();
         }
+
+
+        /// <summary>
+        /// 设置系统邮箱
+        /// </summary>
+        /// <param name="sysConfig"></param>
+        /// <returns></returns>
+        public ArgsHelper SetSysMail(SysConfig sysConfig)
+        {
+            return baseDAO.SetSysMail(sysConfig);
+        }
+
+        /// <summary>
+        /// 获取系统邮箱配置
+        /// </summary>
+        /// <returns></returns>
+        public SysConfig GetMailConfig()
+        {
+            return baseDAO.GetMailConfig();
+        }
+
     }
 }

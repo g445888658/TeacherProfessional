@@ -9,6 +9,7 @@
     <EntitySet Name="ClassHourSum" EntityType="TTitleDBModel.ClassHourSum" />
     <EntitySet Name="Institute" EntityType="TTitleDBModel.Institute" />
     <EntitySet Name="Major" EntityType="TTitleDBModel.Major" />
+    <EntitySet Name="SysConfig" EntityType="TTitleDBModel.SysConfig" />
     <EntitySet Name="TeachingActivity" EntityType="TTitleDBModel.TeachingActivity" />
     <EntitySet Name="Users" EntityType="TTitleDBModel.Users" />
     <EntitySet Name="UserType" EntityType="TTitleDBModel.UserType" />
@@ -76,18 +77,20 @@
     <Property Name="AP_Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="TA_Code" Type="Int32" Nullable="false" />
     <Property Name="AP_Theme" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="AP_Speaker" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
     <Property Name="AP_StartTime" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
     <Property Name="AP_EndTime" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
     <Property Name="AP_Place" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
-    <Property Name="AP_Limit" Type="Int32" Nullable="false" />
+    <Property Name="AP_Limit" Type="Int32" />
     <Property Name="AP_Left" Type="Int32" />
     <Property Name="AP_Candidate" Type="Int32" />
+    <Property Name="AP_CandidateLeft" Type="Int32" />
+    <Property Name="AP_ReleaseTime" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
     <Property Name="AP_StatusKey" Type="Int32" Nullable="false" />
     <Property Name="AP_StatusValue" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="ActivityAttachment" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY" FromRole="ActivityPlan" ToRole="ActivityAttachment" />
     <NavigationProperty Name="ActivitySignUp" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN_1" FromRole="ActivityPlan" ToRole="ActivitySignUp" />
     <NavigationProperty Name="TeachingActivity" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_TEACHING" FromRole="ActivityPlan" ToRole="TeachingActivity" />
-    <Property Type="String" Name="AP_ReleaseTime" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="ActivityRemark">
     <Key>
@@ -107,6 +110,10 @@
     <NavigationProperty Name="ActivityPlan" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN_1" FromRole="ActivitySignUp" ToRole="ActivityPlan" />
     <NavigationProperty Name="Users" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_USERS" FromRole="ActivitySignUp" ToRole="Users" />
     <NavigationProperty Name="ClassHourSum" Relationship="TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTIVITY" FromRole="ActivitySignUp" ToRole="ClassHourSum" />
+    <Property Type="Int32" Name="ASU_IsCandidateKey" Nullable="false" />
+    <Property Type="String" Name="ASU_IsCandidateVal" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="ASU_StatusKey" Nullable="false" />
+    <Property Type="String" Name="ASU_StatusValue" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="ClassHourSum">
     <Key>
@@ -115,6 +122,7 @@
     <Property Name="CH_Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ASU_Code" Type="Int32" />
     <Property Name="CH_GetTime" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="CH_Content" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
     <Property Name="CH_GetHour" Type="Int32" />
     <Property Name="CH_Remark" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="ActivityMaterial" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_CLASSHOU" FromRole="ClassHourSum" ToRole="ActivityMaterial" />
@@ -137,6 +145,15 @@
     <Property Name="M_Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
     <Property Name="M_IsValid" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Users" Relationship="TTitleDBModel.FK_USERS_REFERENCE_MAJOR" FromRole="Major" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="SysConfig">
+    <Key>
+      <PropertyRef Name="SC_Code" />
+    </Key>
+    <Property Name="SC_Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SC_FieldName" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="SC_FieldAttr" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="SC_FieldCode" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="TeachingActivity">
     <Key>

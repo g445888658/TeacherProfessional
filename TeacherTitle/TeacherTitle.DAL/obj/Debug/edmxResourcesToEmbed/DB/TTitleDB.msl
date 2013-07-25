@@ -24,16 +24,18 @@
     <EntitySetMapping Name="ActivityPlan">
       <EntityTypeMapping TypeName="TTitleDBModel.ActivityPlan">
         <MappingFragment StoreEntitySet="ActivityPlan">
-          <ScalarProperty Name="AP_ReleaseTime" ColumnName="AP_ReleaseTime" />
           <ScalarProperty Name="AP_Code" ColumnName="AP_Code" />
           <ScalarProperty Name="TA_Code" ColumnName="TA_Code" />
           <ScalarProperty Name="AP_Theme" ColumnName="AP_Theme" />
+          <ScalarProperty Name="AP_Speaker" ColumnName="AP_Speaker" />
           <ScalarProperty Name="AP_StartTime" ColumnName="AP_StartTime" />
           <ScalarProperty Name="AP_EndTime" ColumnName="AP_EndTime" />
           <ScalarProperty Name="AP_Place" ColumnName="AP_Place" />
           <ScalarProperty Name="AP_Limit" ColumnName="AP_Limit" />
           <ScalarProperty Name="AP_Left" ColumnName="AP_Left" />
           <ScalarProperty Name="AP_Candidate" ColumnName="AP_Candidate" />
+          <ScalarProperty Name="AP_CandidateLeft" ColumnName="AP_CandidateLeft" />
+          <ScalarProperty Name="AP_ReleaseTime" ColumnName="AP_ReleaseTime" />
           <ScalarProperty Name="AP_StatusKey" ColumnName="AP_StatusKey" />
           <ScalarProperty Name="AP_StatusValue" ColumnName="AP_StatusValue" />
         </MappingFragment>
@@ -50,6 +52,10 @@
     <EntitySetMapping Name="ActivitySignUp">
       <EntityTypeMapping TypeName="TTitleDBModel.ActivitySignUp">
         <MappingFragment StoreEntitySet="ActivitySignUp">
+          <ScalarProperty Name="ASU_StatusValue" ColumnName="ASU_StatusValue" />
+          <ScalarProperty Name="ASU_StatusKey" ColumnName="ASU_StatusKey" />
+          <ScalarProperty Name="ASU_IsCandidateVal" ColumnName="ASU_IsCandidateVal" />
+          <ScalarProperty Name="ASU_IsCandidateKey" ColumnName="ASU_IsCandidateKey" />
           <ScalarProperty Name="ASU_Code" ColumnName="ASU_Code" />
           <ScalarProperty Name="U_Code" ColumnName="U_Code" />
           <ScalarProperty Name="AP_Code" ColumnName="AP_Code" />
@@ -63,6 +69,7 @@
           <ScalarProperty Name="CH_Code" ColumnName="CH_Code" />
           <ScalarProperty Name="ASU_Code" ColumnName="ASU_Code" />
           <ScalarProperty Name="CH_GetTime" ColumnName="CH_GetTime" />
+          <ScalarProperty Name="CH_Content" ColumnName="CH_Content" />
           <ScalarProperty Name="CH_GetHour" ColumnName="CH_GetHour" />
           <ScalarProperty Name="CH_Remark" ColumnName="CH_Remark" />
         </MappingFragment>
@@ -83,6 +90,16 @@
           <ScalarProperty Name="M_Code" ColumnName="M_Code" />
           <ScalarProperty Name="M_Name" ColumnName="M_Name" />
           <ScalarProperty Name="M_IsValid" ColumnName="M_IsValid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SysConfig">
+      <EntityTypeMapping TypeName="TTitleDBModel.SysConfig">
+        <MappingFragment StoreEntitySet="SysConfig">
+          <ScalarProperty Name="SC_Code" ColumnName="SC_Code" />
+          <ScalarProperty Name="SC_FieldName" ColumnName="SC_FieldName" />
+          <ScalarProperty Name="SC_FieldAttr" ColumnName="SC_FieldAttr" />
+          <ScalarProperty Name="SC_FieldCode" ColumnName="SC_FieldCode" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

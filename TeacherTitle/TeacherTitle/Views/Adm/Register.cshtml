@@ -1,0 +1,89 @@
+﻿@model TeacherTitle.Models.RegisterModel
+@Html.ValidationSummary(true)
+@using (Ajax.BeginForm("Register", "Adm", null, new AjaxOptions { UpdateTargetId = "releaseNews" }, new { id = "RegisterForm" }))
+{
+    <div>
+        <table>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.Account)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(m => m.Account)
+                        @Html.ValidationMessageFor(m => m.Account)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.Password)
+                    </div>
+                    <div class="editor-field">
+                        @Html.PasswordFor(m => m.Password)
+                        @Html.ValidationMessageFor(m => m.Password)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.ConfirmPassword)
+                    </div>
+                    <div class="editor-field">
+                        @Html.PasswordFor(m => m.ConfirmPassword)
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.UserName)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(m => m.UserName)
+                        @Html.ValidationMessageFor(m => m.UserName)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.Institute)
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(m => m.Institute, ViewData["AllInstituteList"] as SelectList)
+                        @Html.ValidationMessageFor(m => m.Institute)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.Major)
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(m => m.Major, ViewData["AllMajorList"] as SelectList)
+                        @Html.ValidationMessageFor(m => m.Major)
+                    </div>
+                </td>
+                <td style="vertical-align: top;">
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.Degree)
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(m => m.Degree, ViewData["AllDegreeList"] as SelectList)
+                        @Html.ValidationMessageFor(m => m.Degree)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.Title)
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(m => m.Title, ViewData["AllTitleList"] as SelectList)
+                        @Html.ValidationMessageFor(m => m.Title)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.Phone)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(m => m.Phone)
+                        @Html.ValidationMessageFor(m => m.Phone)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.Email)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(m => m.Email)
+                        @Html.ValidationMessageFor(m => m.Email)
+                    </div>
+                    <p>
+                        @Html.Hidden("UserType", "1")
+                        <input type="submit" value="注册" />
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </div>
+}

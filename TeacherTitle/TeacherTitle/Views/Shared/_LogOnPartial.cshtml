@@ -15,7 +15,7 @@
         账号：@Html.TextBoxFor(x => x.UserName)
         @Html.ValidationMessageFor(x => x.UserName)
         &nbsp;&nbsp;密码：@Html.PasswordFor(x => x.Password)&nbsp;&nbsp; <a href="#" onclick="LogIn();">
-            登陆</a> | <a href="#">忘记密码</a>
+            登陆</a> |@Ajax.ActionLink("忘记密码", "ForgetPassword", "Account", null, new AjaxOptions { UpdateTargetId = "ui_dialog" }, null)
         @Html.ValidationMessageFor(x => x.Password)
     </div>
   

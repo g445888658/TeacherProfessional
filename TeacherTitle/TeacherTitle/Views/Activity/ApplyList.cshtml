@@ -1,0 +1,122 @@
+﻿@model TeacherTitle.Models.ClassHourSumModel
+<script type="text/javascript">
+    $(function () {
+        $("#accordion").accordion({
+            fillSpace: false
+        });
+
+        $("#GetTime", $("#PartailApplyList")).calendar({ format: 'yyyy-MM-dd' });
+        onlyNum($("#ClassHour", $("#PartailApplyList")));
+    });
+
+    function callBackPrompt(data) {
+        $("#ui_dialog").html(data.Msg);
+        $('#ui_dialog').dialog({
+            modal: true,
+            show: 'blind',
+            hide: 'explode',
+            resizable: false,
+            title: "提示"
+        });
+        //alert($("#PartailApplyList").parent().parent().find("#btQuery").attr("id"));
+        $("#PartailApplyList").parent().parent().find("#btQuery").click();
+        //$($($("#PartailApplyList").parent().parent().find("#btQuery"))[0]).find("input").click(); //重新刷新查询结果
+    }
+
+    //将老师从活动中剔除
+    function rejectApply(tag) {
+        $("#ui_dialog").html("在剔除该老师后会空出一个名额,将候补人员替换上请点\"是\",继续空着请点\"否\"");
+        $('#ui_dialog').dialog({
+            modal: true,
+            show: 'blind',
+            hide: 'explode',
+            resizable: false,
+            title: "提示",
+            buttons: {
+                是: function () {
+                    $(tag).parent().children("#IsReplace").val("1");
+                    var form = $(tag).parent().parent().parent().children("#ApplyListForm");
+                    $(form).attr("action", "/Activity/RejectApply");
+                    $(form).submit();
+                },
+                否: function () {
+                    $(tag).parent().children("#IsReplace").val("0");
+                    var form = $(tag).parent().parent().parent().children("#ApplyListForm");
+                    $(form).attr("action", "/Activity/RejectApply");
+                    $(form).submit();
+                }
+            }
+        });
+
+    }
+</script>
+<div id="PartailApplyList">
+    <div id="accordion">
+        @{
+            var list = ViewData["applyList"] as TeacherTitle.DAL.Model.ActAndClaHourModel[];
+            if (list.Length != 0)
+            {
+                for (int i = 0; i < list.Length; i++)
+                { 
+            <h3>
+                <a href="#">@Html.Encode(list[i].UserCode.Value)</a></h3>
+            <div>
+                @using (Ajax.BeginForm("ApplyList", "Activity", null, new AjaxOptions { OnSuccess = "callBackPrompt(data);" }, new { id = "ApplyListForm" }))
+                {
+                    <div class="editor-label">
+                        @Html.Label("活动形式：")
+                        @Html.Label(list[i].ActForm.Value)
+                    </div>
+                    <div class="editor-label">
+                        @Html.Label("活动主题：")
+                        @Html.Label(list[i].ActTheme)
+                    </div>
+                    <div class="editor-label">
+                        @Html.Label("主讲人：")
+                        @Html.Label(list[i].ActSpeaker)
+                    </div>
+                    <div class="editor-label">
+                        @Html.Label("开始时间：")
+                        @Html.Label(list[i].ActStart)
+                    </div>
+                    <div class="editor-label">
+                        @Html.Label("结束时间：")
+                        @Html.Label(list[i].ActEnd)
+                    </div>
+                    <div class="editor-label">
+                        @Html.Label("参与人：")
+                        @Html.Label(list[i].UserCode.Value)
+                        @*@Html.Label(list[i].IsCandidate.Value)*@
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.ClassHour)
+                        @Html.TextBox("ClassHour", list[i].ClassHour)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.GetTime)
+                        @Html.TextBox("GetTime", list[i].GetTime, new { @class = "runcode", @readonly = "readonly" })
+                    </div>
+                    <div class="editor-label">
+                        @Html.Hidden("SignUpCode", list[i].SignUpCode)
+                        <input type="submit" value="确认" onclick="return checkCondition();" />
+                        @Html.Hidden("AP_Code", list[i].APCode)
+                        @Html.Hidden("IsReplace", "1")<!--1表示顶替,0表示不顶替-->
+                        <input type="button" value="剔除" onclick="rejectApply(this);" />
+                    </div>
+                }
+            </div> 
+                }
+            }
+            else
+            {
+            <h3>
+                <a href="#"></a>
+            </h3>
+            <div>
+                无数据</div>
+            }
+            
+        }
+    </div>
+</div>
+<!-- End demo -->

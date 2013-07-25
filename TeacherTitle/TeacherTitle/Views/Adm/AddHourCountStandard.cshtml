@@ -1,0 +1,50 @@
+﻿@model TeacherTitle.Models.ClaHourCountStandardModels
+<script type="text/javascript">
+    $(function () {
+        $("#TA_PlaceKey").change(function () {
+            $("#TA_PlaceValue").val($(this).val());
+        });
+    });
+</script>
+<div id="PartailAddHourCountStandard">
+    @using (Ajax.BeginForm("AddHourCountStandard", "Adm", new AjaxOptions { UpdateTargetId = "releaseNews" }, new { id = "ApplyListForm" }))
+    {
+        <table>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.TA_Form)
+                        @Html.TextBoxFor(m => m.TA_Form)
+                        @Html.ValidationMessageFor(m => m.TA_Form)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.TA_Way)
+                        @Html.TextAreaFor(m => m.TA_Way, new { rows = "5", style = " min-width:200px;max-width:200px;min-height:110px;max-height:110px; overflow:auto;" })
+                        @Html.ValidationMessageFor(m => m.TA_Way)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.TA_Material)
+                        @Html.TextAreaFor(m => m.TA_Material, new { rows = "5", style = " min-width:200px;max-width:200px;min-height:110px;max-height:110px; overflow:auto;" })
+                        @Html.ValidationMessageFor(m => m.TA_Material)
+                    </div>
+                </td>
+                <td style="vertical-align: top;">
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.TA_ClassHour)
+                        @Html.TextAreaFor(m => m.TA_ClassHour, new { rows = "5", style = " min-width:200px;max-width:200px;min-height:110px;max-height:110px; overflow:auto;" })
+                        @Html.ValidationMessageFor(m => m.TA_ClassHour)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.TA_PlaceKey)
+                        @Html.DropDownListFor(m => m.TA_PlaceKey, ViewData["AllPlaceList"] as SelectList)
+                        @Html.ValidationMessageFor(m => m.TA_PlaceKey)
+                        @Html.HiddenFor(m => m.TA_PlaceValue)
+                    </div>
+                    <div class="editor-label">
+                        <input type="submit" value="提交"  onclick="return checkCondition();"/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    }
+</div>

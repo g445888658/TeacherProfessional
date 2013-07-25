@@ -38,7 +38,7 @@ namespace TeacherTitle
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 
-            ModelBinders.Binders.Add(typeof(UserModel), new UserModelBinding());
+            //ModelBinders.Binders.Add(typeof(UserModel), new UserModelBinding());
         }
     }
 }

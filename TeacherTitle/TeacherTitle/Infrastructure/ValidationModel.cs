@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using System.Web.Routing;
 using TeacherTitle.Models;
+using System.Web.Security;
 
 namespace TeacherTitle.Infrastructure
 {
@@ -62,20 +63,38 @@ namespace TeacherTitle.Infrastructure
         }
 
         /// <summary>
-        /// 验证用户是否已登录
+        /// 将用户ID存到cookie中
         /// </summary>
-        public sealed class LoginValidate : ActionFilterAttribute
+        /// <param name="userID"></param>
+        public void SetUserCookie(string userID)
         {
-            public override void OnActionExecuting(ActionExecutingContext filterContext)
-            {
-                var userModel = (UserModel)filterContext.HttpContext.Session["_userModel"];
-                if (userModel == null || userModel.userModel == null)
-                {
-                    filterContext.Result = new RedirectToRouteResult("Index", new RouteValueDictionary(new { controller = "Home", action = "Index" }));
-                    filterContext.Result = new HttpUnauthorizedResult();
-                }
-            }
+            //FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
+            //    1,
+            //    userID,
+            //    DateTime.Now,
+            //    DateTime.Now.AddMinutes(30),//登陆时间30分到期
+            //    false,
+            //    "");
+
+            //string encTicket = FormsAuthentication.Encrypt(authTicket);
+
+            //HttpContext.
         }
+
+        ///// <summary>
+        ///// 验证用户是否已登录,该方法缺点是只能是单用户登陆
+        ///// </summary>
+        //public sealed class LoginValidate : ActionFilterAttribute
+        //{
+        //    public override void OnActionExecuting(ActionExecutingContext filterContext)
+        //    {
+        //        var userModel = (UserModel)filterContext.HttpContext.Session["_userModel"];
+        //        if (userModel == null || userModel.userModel == null)
+        //        {
+        //            filterContext.HttpContext.Response.Write("<script type='text/javascript'> $('#ui_dialog').dialog({modal: true,show: 'blind',hide: 'explode',resizable: false});</script>");
+        //        }
+        //    }
+        //}
 
 
     }

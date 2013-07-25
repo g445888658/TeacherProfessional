@@ -1,7 +1,7 @@
 /*==============================================================*/
 /* Database name:  TTitleDB                                     */
 /* DBMS name:      Microsoft SQL Server 2005                    */
-/* Created on:     2013/7/13 13:27:52                           */
+/* Created on:     2013/7/23 07:04:18                           */
 /*==============================================================*/
 
 
@@ -56,12 +56,14 @@ create table ActivityPlan (
    AP_Code              int                  identity,
    TA_Code              int                  not null,
    AP_Theme             nvarchar(100)        not null,
+   AP_Speaker           nvarchar(20)         null,
    AP_StartTime         nvarchar(20)         not null,
    AP_EndTime           nvarchar(20)         not null,
    AP_Place             nvarchar(100)        not null,
-   AP_Limit             int                  not null,
+   AP_Limit             int                  null,
    AP_Left              int                  null,
    AP_Candidate         int                  null,
+   AP_CandidateLeft     int                  null,
    AP_ReleaseTime       nvarchar(20)         not null,
    AP_StatusKey         int                  not null,
    AP_StatusValue       nvarchar(10)         not null,
@@ -87,6 +89,8 @@ create table ActivitySignUp (
    U_Code               int                  not null,
    AP_Code              int                  null,
    ASU_Time             varchar(20)          null,
+   ASU_IsCandidateKey   int                  not null,
+   ASU_IsCandidateVal   nvarchar(10)         not null,
    constraint PK_ACTIVITYSIGNUP primary key (ASU_Code)
 )
 go
@@ -98,6 +102,7 @@ create table ClassHourSum (
    CH_Code              int                  identity,
    ASU_Code             int                  null,
    CH_GetTime           nvarchar(20)         null,
+   CH_Content           nvarchar(1000)       null,
    CH_GetHour           int                  null,
    CH_Remark            nvarchar(1000)       null,
    constraint PK_CLASSHOURSUM primary key (CH_Code)
@@ -123,6 +128,18 @@ create table Major (
    M_Name               nvarchar(50)         not null,
    M_IsValid            int                  not null,
    constraint PK_MAJOR primary key (M_Code)
+)
+go
+
+/*==============================================================*/
+/* Table: SysConfig                                             */
+/*==============================================================*/
+create table SysConfig (
+   SC_Code              int                  identity,
+   SC_FieldName         varchar(30)          not null,
+   SC_FieldAttr         varchar(30)          not null,
+   SC_FieldCode         int                  not null,
+   constraint PK_SYSCONFIG primary key (SC_Code)
 )
 go
 
