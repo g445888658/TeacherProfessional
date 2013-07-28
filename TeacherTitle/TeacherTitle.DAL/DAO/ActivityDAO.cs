@@ -34,6 +34,86 @@ namespace TeacherTitle.DAL.DAO
             return new ArgsHelper(true, "添加成功");
         }
 
+        /// <summary>
+        /// 添加附件
+        /// </summary>
+        /// <param name="activityAttachment"></param>
+        /// <returns></returns>
+        public ArgsHelper AddActivityAttachment(ActivityAttachment activityAttachment)
+        {
+            using (TTitleDBEntities db = new TTitleDBEntities())
+            {
+                try
+                {
+                    db.ActivityAttachment.AddObject(activityAttachment);
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return new ArgsHelper(ex.Message);
+                }
+            }
+            return new ArgsHelper(true, "添加成功");
+        }
+
+
+        /// <summary>
+        /// 添加附件
+        /// </summary>
+        /// <param name="activityAttachment"></param>
+        /// <returns></returns>
+        public ArgsHelper AddActivityMaterial(ActivityMaterial activityMaterial)
+        {
+            using (TTitleDBEntities db = new TTitleDBEntities())
+            {
+                try
+                {
+                    db.ActivityMaterial.AddObject(activityMaterial);
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return new ArgsHelper(ex.Message);
+                }
+            }
+            return new ArgsHelper(true, "添加成功");
+        }
+
+        /// <summary>
+        /// 查询活动的附件
+        /// </summary>
+        /// <returns></returns>
+        public ActivityAttachment GetActAttachmentById(int AA_Code)
+        {
+            using (TTitleDBEntities db = new TTitleDBEntities())
+            {
+                return db.ActivityAttachment.FirstOrDefault(x => x.AA_Code == AA_Code);
+            }
+        }
+
+        /// <summary>
+        /// 查询活动的附件
+        /// </summary>
+        /// <returns></returns>
+        public ActivityAttachment[] GetActivityAttachment(int AP_Code)
+        {
+            using (TTitleDBEntities db = new TTitleDBEntities())
+            {
+                return db.ActivityAttachment.Where(x => x.AP_Code == AP_Code).ToArray();
+            }
+        }
+
+        /// <summary>
+        /// 获取活动备注
+        /// </summary>
+        /// <returns></returns>
+        public ActivityRemark GetActivityRemark()
+        {
+            using (TTitleDBEntities db = new TTitleDBEntities())
+            {
+                return db.ActivityRemark.FirstOrDefault();
+            }
+        }
 
         /// <summary>
         /// 获取所有的教学活动
@@ -179,6 +259,30 @@ namespace TeacherTitle.DAL.DAO
         }
 
         /// <summary>
+        /// 获取教学活动,有附件
+        /// </summary>
+        /// <returns></returns>
+        public ActivityPlanModels[] GetAllActivityPlans()
+        {
+            using (TTitleDBEntities db = new TTitleDBEntities())
+            {
+                List<ActivityPlanModels> list = new List<ActivityPlanModels>();
+                var result = GetAllActivityPlan();
+                for (int i = 0; i < result.Length; i++)
+                {
+                    var ap_Code = result[i].AP_Code;
+                    var attachment = GetActivityAttachment(ap_Code);
+                    list.Add(new ActivityPlanModels()
+                    {
+                        Plan = result[i],
+                        Attachment = attachment
+                    });
+                }
+                return list.ToArray();
+            }
+        }
+
+        /// <summary>
         /// 获取所有的报名信息
         /// </summary>
         /// <returns></returns>
@@ -227,12 +331,12 @@ namespace TeacherTitle.DAL.DAO
                         {
                             Key = AllSignUp[i].ActivityPlan.AP_StatusKey.ToString(),
                             Value = AllSignUp[i].ActivityPlan.AP_StatusValue
-                        },
-                        IsCandidate = new KeyValueModel()
-                        {
-                            Key = AllSignUp[i].ASU_IsCandidateKey.ToString(),
-                            Value = AllSignUp[i].ASU_IsCandidateVal
                         }
+                        //IsCandidate = new KeyValueModel()
+                        //{
+                        //    Key = AllSignUp[i].ASU_IsCandidateKey.ToString(),
+                        //    Value = AllSignUp[i].ASU_IsCandidateVal
+                        //}
                     });
                 }
                 return list.ToArray();
@@ -248,6 +352,22 @@ namespace TeacherTitle.DAL.DAO
             using (TTitleDBEntities db = new TTitleDBEntities())
             {
                 return GetAllActSignUp().Where(x => x.UserCode.Key == userCode).ToArray();
+            }
+        }
+
+        /// <summary>
+        /// 查询是否有候选人
+        /// </summary>
+        /// <param name="AP_Code"></param>
+        /// <returns></returns>
+        public ArgsHelper IsHaveCandidate(int AP_Code)
+        {
+            using (TTitleDBEntities db = new TTitleDBEntities())
+            {
+                if (db.ActivitySignUp.FirstOrDefault(x => x.AP_Code == AP_Code && x.ASU_IsCandidateKey == 1) != null)
+                    return new ArgsHelper();
+                else
+                    return new ArgsHelper("没有候选人");
             }
         }
 
@@ -287,15 +407,19 @@ namespace TeacherTitle.DAL.DAO
             using (TTitleDBEntities db = new TTitleDBEntities())
             {
                 var activityDetail = db.ActivityPlan.FirstOrDefault(x => x.AP_Code == AP_Code);
-                var signUp = db.ActivitySignUp.FirstOrDefault(x => x.ASU_Code == ASU_Code);
+                var signUp = db.ActivitySignUp.OrderBy(x => x.ASU_Code).FirstOrDefault(x => x.AP_Code == AP_Code && x.ASU_IsCandidateKey == 1);//筛选出该活动最靠前的候选人
                 if (IsReplace == 1)//让候补顶替上就选该活动的候补人员的最前面的的教师,修改其状态成为正式,然后该活动的正式名额余量不变,修改候补名额余量+1
                 {
-                    activityDetail.AP_CandidateLeft += 1;
+                    if (activityDetail.AP_CandidateLeft != activityDetail.AP_Candidate)
+                        activityDetail.AP_CandidateLeft += 1;
                     signUp.ASU_IsCandidateKey = 0;
                     signUp.ASU_IsCandidateVal = "正式";
                 }
                 else//继续空着的话只要修改该活动的正式名额余量+1
-                    activityDetail.AP_Left += 1;
+                {
+                    if (activityDetail.AP_Left != activityDetail.AP_Limit)
+                        activityDetail.AP_Left += 1;
+                }
                 try
                 {
                     db.SaveChanges();

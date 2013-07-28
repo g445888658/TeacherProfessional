@@ -33,3 +33,56 @@ function checkValue(target) {
     $(target).val($(target).val().replace(/\D/g, ''));
 }
 
+//监听textbox值的变化
+var easychange = function (foochange) {
+    //debugger;
+    if (!foochange || foochange.constructor != Function) {
+        return;
+    }
+    try {
+        //debugger;
+        this.watch("value", function (id, oldval, newval) {
+
+            foochange(newval);
+            return newval;
+        });
+    }
+    catch (e) {
+        //debugger;
+        //alert(e.ToString());
+    }
+    this.setAttribute('oninput', '(' + foochange.toString() + ')(this.value)');
+    this.onpropertychange = function () {
+
+        foochange(this.value);
+    };
+//    this.onkeyup = function () {
+
+//        foochange(this.value);
+//    };
+};
+
+
+var valuelistener = function (foochange) {
+    if (!foochange || foochange.constructor != Function) {
+        return;
+    }
+    try {
+        $(this).keyup(function () {
+            var oldValue = $(this).val();
+            changevalue(this, oldValue, foochange);
+        })
+
+        function changevalue(tag, oldValue, foochange) {
+            var value = $(tag).val();
+            foochange(value);
+            if (oldValue == value) {
+                setTimeout(function () {
+                    changevalue(tag, oldValue, foochange);
+                }, 1000);
+            }
+        }
+    }
+    catch (e) { }
+}
+

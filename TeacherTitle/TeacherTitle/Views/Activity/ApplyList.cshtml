@@ -10,6 +10,7 @@
     });
 
     function callBackPrompt(data) {
+        $('#ui_dialog_button').dialog('close');
         $("#ui_dialog").html(data.Msg);
         $('#ui_dialog').dialog({
             modal: true,
@@ -18,28 +19,43 @@
             resizable: false,
             title: "提示"
         });
-        //alert($("#PartailApplyList").parent().parent().find("#btQuery").attr("id"));
-        $("#PartailApplyList").parent().parent().find("#btQuery").click();
-        //$($($("#PartailApplyList").parent().parent().find("#btQuery"))[0]).find("input").click(); //重新刷新查询结果
+        $("#PartailApplyList").parent().parent().find("#btQuery").click(); //重新刷新查询结果
     }
 
     //将老师从活动中剔除
     function rejectApply(tag) {
-        $("#ui_dialog").html("在剔除该老师后会空出一个名额,将候补人员替换上请点\"是\",继续空着请点\"否\"");
-        $('#ui_dialog').dialog({
-            modal: true,
-            show: 'blind',
-            hide: 'explode',
-            resizable: false,
-            title: "提示",
-            buttons: {
-                是: function () {
-                    $(tag).parent().children("#IsReplace").val("1");
-                    var form = $(tag).parent().parent().parent().children("#ApplyListForm");
-                    $(form).attr("action", "/Activity/RejectApply");
-                    $(form).submit();
-                },
-                否: function () {
+        var AP_Code = $("#AP_Code", $("#PartailApplyList")).val();
+        //查询是否有候补人员
+        $.ajax({
+            type: "POST",
+            url: "/Activity/IsHaveCandidate",
+            data: { "AP_Code": AP_Code },
+            success: function (data) {
+                if (data.Flag) {
+                    $("#ui_dialog_button").html("在剔除该老师后会空出一个名额,将候补人员替换上请点\"是\",继续空着请点\"否\"");
+                    $('#ui_dialog_button').dialog({
+                        modal: true,
+                        show: 'blind',
+                        hide: 'explode',
+                        resizable: false,
+                        title: "提示",
+                        buttons: {
+                            是: function () {
+                                $(tag).parent().children("#IsReplace").val("1");
+                                var form = $(tag).parent().parent().parent().children("#ApplyListForm");
+                                $(form).attr("action", "/Activity/RejectApply");
+                                $(form).submit();
+                            },
+                            否: function () {
+                                $(tag).parent().children("#IsReplace").val("0");
+                                var form = $(tag).parent().parent().parent().children("#ApplyListForm");
+                                $(form).attr("action", "/Activity/RejectApply");
+                                $(form).submit();
+                            }
+                        }
+                    });
+                }
+                else {
                     $(tag).parent().children("#IsReplace").val("0");
                     var form = $(tag).parent().parent().parent().children("#ApplyListForm");
                     $(form).attr("action", "/Activity/RejectApply");
@@ -47,7 +63,6 @@
                 }
             }
         });
-
     }
 </script>
 <div id="PartailApplyList">
@@ -86,7 +101,6 @@
                     <div class="editor-label">
                         @Html.Label("参与人：")
                         @Html.Label(list[i].UserCode.Value)
-                        @*@Html.Label(list[i].IsCandidate.Value)*@
                     </div>
                     <div class="editor-label">
                         @Html.LabelFor(m => m.ClassHour)

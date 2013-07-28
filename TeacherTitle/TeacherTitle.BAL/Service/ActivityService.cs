@@ -25,6 +25,45 @@ namespace TeacherTitle.BAL.Service
         }
 
         /// <summary>
+        /// 添加附件
+        /// </summary>
+        /// <param name="activityAttachment"></param>
+        /// <returns></returns>
+        public ArgsHelper AddActivityAttachment(ActivityAttachment activityAttachment)
+        {
+            return activityDAO.AddActivityAttachment(activityAttachment);
+        }
+
+        /// <summary>
+        /// 添加附件
+        /// </summary>
+        /// <param name="activityAttachment"></param>
+        /// <returns></returns>
+        public ArgsHelper AddActivityMaterial(ActivityMaterial activityMaterial)
+        {
+            return activityDAO.AddActivityMaterial(activityMaterial);
+        }
+
+        /// <summary>
+        /// 获取附件
+        /// </summary>
+        /// <param name="AA_Code"></param>
+        /// <returns></returns>
+        public ActivityAttachment GetActAttachmentById(int AA_Code)
+        {
+            return activityDAO.GetActAttachmentById(AA_Code);
+        }
+
+        /// <summary>
+        /// 获取活动备注
+        /// </summary>
+        /// <returns></returns>
+        public ActivityRemark GetActivityRemark()
+        {
+            return activityDAO.GetActivityRemark();
+        }
+
+        /// <summary>
         /// 获取所有的教学活动
         /// </summary>
         /// <returns></returns>
@@ -134,9 +173,18 @@ namespace TeacherTitle.BAL.Service
         }
 
         /// <summary>
+        /// 获取教学活动,有附件
+        /// </summary>
+        /// <returns></returns>
+        public ActivityPlanModels[] GetAllActivityPlans()
+        {
+            return activityDAO.GetAllActivityPlans();
+        }
+
+        /// <summary>
         /// 结束报名
         /// </summary>
-        /// <param name="AP_Code">报名编号</param>
+        /// <param name="AP_Code">活动编号</param>
         /// <returns></returns>
         public ArgsHelper EndSignUp(int AP_Code)
         {
@@ -170,9 +218,24 @@ namespace TeacherTitle.BAL.Service
             return GetAllActivityPlan().Where(x => x.AP_StatusKey == 0).ToArray();
         }
 
+        /// <summary>
+        /// 根据活动编号获取活动
+        /// </summary>
+        /// <param name="apCode"></param>
+        /// <returns></returns>
         public ActivityPlan GetActivityPlanById(int apCode)
         {
             return GetAllActivityPlan().FirstOrDefault(x => x.AP_Code == apCode);
+        }
+
+        /// <summary>
+        /// 根据活动编号获取活动,有附件
+        /// </summary>
+        /// <param name="apCode"></param>
+        /// <returns></returns>
+        public ActivityPlanModels GetActivityPlansById(int apCode)
+        {
+            return GetAllActivityPlans().FirstOrDefault(x => x.Plan.AP_Code == apCode);
         }
 
         /// <summary>
@@ -198,6 +261,16 @@ namespace TeacherTitle.BAL.Service
             return list.FirstOrDefault(x => x.U_Code == U_Code && x.AP_Code == apCode);
         }
 
+
+        /// <summary>
+        /// 查询是否有候选人
+        /// </summary>
+        /// <param name="AP_Code"></param>
+        /// <returns></returns>
+        public ArgsHelper IsHaveCandidate(int AP_Code)
+        {
+            return activityDAO.IsHaveCandidate(AP_Code);
+        }
 
         /// <summary>
         /// 将老师剔除

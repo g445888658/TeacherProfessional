@@ -40,7 +40,7 @@ namespace TeacherTitle.Controllers
         [HttpPost]
         public PartialViewResult SearchCriteria(SearchClassHourModelsl model)
         {
-            var result = ClassHourService.GetTeacherJoinActivity(model.Teacher, model.ActivityForm, model.StartTime, model.EndTime, true);
+            var result = ClassHourService.GetTeacherJoinActivity(model.Teacher,false, model.ActivityForm, model.StartTime, model.EndTime, true);
             ViewData["resultList"] = result;
             return PartialView("ClassHourTable");
         }

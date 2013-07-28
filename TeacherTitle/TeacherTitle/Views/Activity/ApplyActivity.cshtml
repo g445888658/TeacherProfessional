@@ -23,61 +23,70 @@
 </script>
 <div id="PartialApplyActivity">
     @{
-        var list = ViewData["ActivityDetail"] as TeacherTitle.DAL.DB.ActivityPlan;
+        var list = ViewData["ActivityDetail"] as TeacherTitle.DAL.Model.ActivityPlanModels;
         <table>
             <tr>
                 <td>
-                    <div class="editor-field">
+                    <div class="editor-label">
                         @Html.Label("活动形式：")
                         @Html.Label(ViewData["ActForm"] as string)
                     </div>
-                    <div class="editor-field">
+                    <div class="editor-label">
                         @Html.Label("主讲人：")
-                        @Html.Label(list.AP_Speaker)
+                        @Html.Label(list.Plan.AP_Speaker)
                     </div>
-                    <div class="editor-field">
+                    <div class="editor-label">
                         @Html.Label("活动主题：")
-                        @Html.Label(list.AP_Theme)
+                        @Html.Label(list.Plan.AP_Theme)
                     </div>
-                    <div class="editor-field">
+                    <div class="editor-label">
                         @Html.Label("活动地点：")
-                        @Html.Label(list.AP_Place)
+                        @Html.Label(list.Plan.AP_Place)
                     </div>
                 </td>
                 <td style="vertical-align: top;">
-                    <div class="editor-field">
+                    <div class="editor-label">
                         @Html.Label("开始时间：")
-                        @Html.Label(list.AP_StartTime)
+                        @Html.Label(list.Plan.AP_StartTime)
                     </div>
-                    <div class="editor-field">
+                    <div class="editor-label">
                         @Html.Label("结束时间：")
-                        @Html.Label(list.AP_EndTime)
+                        @Html.Label(list.Plan.AP_EndTime)
                     </div>
-                    <div class="editor-field">
+                    <div class="editor-label">
                         @Html.Label("限制名额：")
-                        @Html.Label(list.AP_Limit.ToString())
+                        @Html.Label(list.Plan.AP_Limit.ToString())
                     </div>
-                    <div class="editor-field">
+                    <div class="editor-label">
                         @Html.Label("剩余名额：")
-                        @Html.Label(list.AP_Left.ToString())
+                        @Html.Label(list.Plan.AP_Left.ToString())
                     </div>
-                    <div class="editor-field">
+                    <div class="editor-label">
                         @Html.Label("候选名额：")
-                        @Html.Label(list.AP_Candidate.ToString())
+                        @Html.Label(list.Plan.AP_Candidate.ToString())
                     </div>
-                    <div class="editor-field">
+                    <div class="editor-label">
                         @Html.Label("剩余名额：")
-                        @Html.Label(list.AP_CandidateLeft.ToString())
+                        @Html.Label(list.Plan.AP_CandidateLeft.ToString())
                     </div>
-                    <div class="editor-field">
+                    <div class="editor-label">
                         @Html.Label("状态：")
-                        @Html.Label(list.AP_StatusValue)
+                        @Html.Label(list.Plan.AP_StatusValue)
                     </div>
+                    <div class="editor-label">
+                        @Html.Label("附件：")
+                    </div>
+                    @for (int i = 0; i < list.Attachment.Length; i++)
+                    {
+                        <div class="editor-label">
+                            @Html.ActionLink(list.Attachment[i].AA_Name, "DownloadFile", new { AA_Code = list.Attachment[i].AA_Code})
+                        </div>
+                    }
                 </td>
                 <td>
                     @using (Ajax.BeginForm("ApplyActivity", "Activity", null, new AjaxOptions { OnSuccess = "ApplyActivityCallBack(data);" }, new { id = "AddActivityForm" }))
                     {
-                        @Html.Hidden("apCode", list.AP_Code)
+                        @Html.Hidden("apCode", list.Plan.AP_Code)
                         <input type="hidden" id="_U_Code" name="_U_Code" value="" />
                         <input type="button" onclick="submitApply();" value="报名" />
                     }

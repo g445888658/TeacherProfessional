@@ -1,7 +1,7 @@
 /*==============================================================*/
 /* Database name:  TTitleDB                                     */
 /* DBMS name:      Microsoft SQL Server 2005                    */
-/* Created on:     2013/7/23 07:04:18                           */
+/* Created on:     2013/7/28 16:05:40                           */
 /*==============================================================*/
 
 
@@ -42,7 +42,7 @@ go
 /*==============================================================*/
 create table ActivityMaterial (
    AM_Code              int                  identity,
-   CH_Code              int                  null,
+   ASU_Code             int                  null,
    AM_Name              nvarchar(100)        not null,
    AM_SavePath          nvarchar(200)        not null,
    constraint PK_ACTIVITYMATERIAL primary key (AM_Code)
@@ -91,6 +91,8 @@ create table ActivitySignUp (
    ASU_Time             varchar(20)          null,
    ASU_IsCandidateKey   int                  not null,
    ASU_IsCandidateVal   nvarchar(10)         not null,
+   ASU_StatusKey        int                  not null,
+   ASU_StatusValue      nvarchar(10)         not null,
    constraint PK_ACTIVITYSIGNUP primary key (ASU_Code)
 )
 go
@@ -184,7 +186,9 @@ create table Users (
    U_Mail               nvarchar(20)         not null,
    U_Phone              nvarchar(20)         not null,
    U_Remark             nvarchar(1000)       null,
-   constraint PK_USERS primary key (U_Code)
+   constraint PK_USERS primary key (U_Code),
+   constraint AK_KEY_2_USERS unique (U_Account),
+   constraint AK_KEY_3_USERS unique (U_Mail)
 )
 go
 
@@ -194,8 +198,8 @@ alter table ActivityAttachment
 go
 
 alter table ActivityMaterial
-   add constraint FK_ACTIVITY_REFERENCE_CLASSHOU foreign key (CH_Code)
-      references ClassHourSum (CH_Code)
+   add constraint FK_ACTIVITY_REFERENCE_ACTIVITY_1 foreign key (ASU_Code)
+      references ActivitySignUp (ASU_Code)
 go
 
 alter table ActivityPlan

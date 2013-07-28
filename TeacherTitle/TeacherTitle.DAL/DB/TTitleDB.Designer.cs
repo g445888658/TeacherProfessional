@@ -8,19 +8,18 @@
 //------------------------------------------------------------------------------
 
 using System;
-using System.ComponentModel;
-using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Linq;
-using System.Runtime.Serialization;
+using System.Data.EntityClient;
+using System.ComponentModel;
 using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM 关系源元数据
 
 [assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_ACTIVITY", "ActivityPlan", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.ActivityPlan), "ActivityAttachment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.ActivityAttachment), true)]
-[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_CLASSHOU", "ClassHourSum", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TeacherTitle.DAL.DB.ClassHourSum), "ActivityMaterial", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.ActivityMaterial), true)]
+[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_ACTIVITY_1", "ActivitySignUp", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TeacherTitle.DAL.DB.ActivitySignUp), "ActivityMaterial", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.ActivityMaterial), true)]
 [assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_ACTPLAN_1", "ActivityPlan", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TeacherTitle.DAL.DB.ActivityPlan), "ActivitySignUp", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.ActivitySignUp), true)]
 [assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_TEACHING", "TeachingActivity", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.TeachingActivity), "ActivityPlan", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.ActivityPlan), true)]
 [assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_USERS", "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.Users), "ActivitySignUp", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.ActivitySignUp), true)]
@@ -272,7 +271,6 @@ namespace TeacherTitle.DAL.DB
         private ObjectSet<UserType> _UserType;
 
         #endregion
-
         #region AddTo 方法
     
         /// <summary>
@@ -372,11 +370,11 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
     }
+    
 
     #endregion
-
+    
     #region 实体
     
     /// <summary>
@@ -407,7 +405,6 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
         #region 基元属性
     
         /// <summary>
@@ -510,7 +507,6 @@ namespace TeacherTitle.DAL.DB
         partial void OnAA_PathChanged();
 
         #endregion
-
     
         #region 导航属性
     
@@ -553,7 +549,6 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -582,7 +577,6 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
         #region 基元属性
     
         /// <summary>
@@ -617,24 +611,24 @@ namespace TeacherTitle.DAL.DB
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> CH_Code
+        public Nullable<global::System.Int32> ASU_Code
         {
             get
             {
-                return _CH_Code;
+                return _ASU_Code;
             }
             set
             {
-                OnCH_CodeChanging(value);
-                ReportPropertyChanging("CH_Code");
-                _CH_Code = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("CH_Code");
-                OnCH_CodeChanged();
+                OnASU_CodeChanging(value);
+                ReportPropertyChanging("ASU_Code");
+                _ASU_Code = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ASU_Code");
+                OnASU_CodeChanged();
             }
         }
-        private Nullable<global::System.Int32> _CH_Code;
-        partial void OnCH_CodeChanging(Nullable<global::System.Int32> value);
-        partial void OnCH_CodeChanged();
+        private Nullable<global::System.Int32> _ASU_Code;
+        partial void OnASU_CodeChanging(Nullable<global::System.Int32> value);
+        partial void OnASU_CodeChanged();
     
         /// <summary>
         /// 没有元数据文档可用。
@@ -685,7 +679,6 @@ namespace TeacherTitle.DAL.DB
         partial void OnAM_SavePathChanged();
 
         #endregion
-
     
         #region 导航属性
     
@@ -695,16 +688,16 @@ namespace TeacherTitle.DAL.DB
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_CLASSHOU", "ClassHourSum")]
-        public ClassHourSum ClassHourSum
+        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_ACTIVITY_1", "ActivitySignUp")]
+        public ActivitySignUp ActivitySignUp
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ClassHourSum>("TTitleDBModel.FK_ACTIVITY_REFERENCE_CLASSHOU", "ClassHourSum").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ActivitySignUp>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY_1", "ActivitySignUp").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ClassHourSum>("TTitleDBModel.FK_ACTIVITY_REFERENCE_CLASSHOU", "ClassHourSum").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ActivitySignUp>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY_1", "ActivitySignUp").Value = value;
             }
         }
         /// <summary>
@@ -712,23 +705,22 @@ namespace TeacherTitle.DAL.DB
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<ClassHourSum> ClassHourSumReference
+        public EntityReference<ActivitySignUp> ActivitySignUpReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ClassHourSum>("TTitleDBModel.FK_ACTIVITY_REFERENCE_CLASSHOU", "ClassHourSum");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ActivitySignUp>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY_1", "ActivitySignUp");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ClassHourSum>("TTitleDBModel.FK_ACTIVITY_REFERENCE_CLASSHOU", "ClassHourSum", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ActivitySignUp>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY_1", "ActivitySignUp", value);
                 }
             }
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -769,7 +761,6 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
         #region 基元属性
     
         /// <summary>
@@ -1112,7 +1103,6 @@ namespace TeacherTitle.DAL.DB
         partial void OnAP_StatusValueChanged();
 
         #endregion
-
     
         #region 导航属性
     
@@ -1199,7 +1189,6 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -1224,7 +1213,6 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
         #region 基元属性
     
         /// <summary>
@@ -1279,7 +1267,6 @@ namespace TeacherTitle.DAL.DB
         partial void OnAR_ContentChanged();
 
         #endregion
-
     
     }
     
@@ -1315,7 +1302,6 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
         #region 基元属性
     
         /// <summary>
@@ -1514,9 +1500,30 @@ namespace TeacherTitle.DAL.DB
         partial void OnASU_StatusValueChanged();
 
         #endregion
-
     
         #region 导航属性
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_ACTIVITY_1", "ActivityMaterial")]
+        public EntityCollection<ActivityMaterial> ActivityMaterial
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ActivityMaterial>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY_1", "ActivityMaterial");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ActivityMaterial>("TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY_1", "ActivityMaterial", value);
+                }
+            }
+        }
     
         /// <summary>
         /// 没有元数据文档可用。
@@ -1617,7 +1624,6 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -1642,7 +1648,6 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
         #region 基元属性
     
         /// <summary>
@@ -1793,31 +1798,8 @@ namespace TeacherTitle.DAL.DB
         partial void OnCH_RemarkChanged();
 
         #endregion
-
     
         #region 导航属性
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_CLASSHOU", "ActivityMaterial")]
-        public EntityCollection<ActivityMaterial> ActivityMaterial
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ActivityMaterial>("TTitleDBModel.FK_ACTIVITY_REFERENCE_CLASSHOU", "ActivityMaterial");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ActivityMaterial>("TTitleDBModel.FK_ACTIVITY_REFERENCE_CLASSHOU", "ActivityMaterial", value);
-                }
-            }
-        }
     
         /// <summary>
         /// 没有元数据文档可用。
@@ -1858,7 +1840,6 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -1887,7 +1868,6 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
         #region 基元属性
     
         /// <summary>
@@ -1966,7 +1946,6 @@ namespace TeacherTitle.DAL.DB
         partial void OnI_IsValidChanged();
 
         #endregion
-
     
         #region 导航属性
     
@@ -1993,7 +1972,6 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -2022,7 +2000,6 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
         #region 基元属性
     
         /// <summary>
@@ -2101,7 +2078,6 @@ namespace TeacherTitle.DAL.DB
         partial void OnM_IsValidChanged();
 
         #endregion
-
     
         #region 导航属性
     
@@ -2128,7 +2104,6 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -2159,7 +2134,6 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
         #region 基元属性
     
         /// <summary>
@@ -2262,7 +2236,6 @@ namespace TeacherTitle.DAL.DB
         partial void OnSC_FieldCodeChanged();
 
         #endregion
-
     
     }
     
@@ -2300,7 +2273,6 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
         #region 基元属性
     
         /// <summary>
@@ -2475,7 +2447,6 @@ namespace TeacherTitle.DAL.DB
         partial void OnTA_PlaceValueChanged();
 
         #endregion
-
     
         #region 导航属性
     
@@ -2502,7 +2473,6 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -2547,7 +2517,6 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
         #region 基元属性
     
         /// <summary>
@@ -2842,7 +2811,6 @@ namespace TeacherTitle.DAL.DB
         partial void OnU_RemarkChanged();
 
         #endregion
-
     
         #region 导航属性
     
@@ -2983,7 +2951,6 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -3010,7 +2977,6 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
         #region 基元属性
     
         /// <summary>
@@ -3065,7 +3031,6 @@ namespace TeacherTitle.DAL.DB
         partial void OnUTTypeChanged();
 
         #endregion
-
     
         #region 导航属性
     
@@ -3092,10 +3057,8 @@ namespace TeacherTitle.DAL.DB
         }
 
         #endregion
-
     }
 
     #endregion
-
     
 }

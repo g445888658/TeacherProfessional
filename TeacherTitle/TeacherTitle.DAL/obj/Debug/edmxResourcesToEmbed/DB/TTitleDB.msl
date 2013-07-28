@@ -15,7 +15,7 @@
       <EntityTypeMapping TypeName="TTitleDBModel.ActivityMaterial">
         <MappingFragment StoreEntitySet="ActivityMaterial">
           <ScalarProperty Name="AM_Code" ColumnName="AM_Code" />
-          <ScalarProperty Name="CH_Code" ColumnName="CH_Code" />
+          <ScalarProperty Name="ASU_Code" ColumnName="ASU_Code" />
           <ScalarProperty Name="AM_Name" ColumnName="AM_Name" />
           <ScalarProperty Name="AM_SavePath" ColumnName="AM_SavePath" />
         </MappingFragment>
@@ -52,14 +52,14 @@
     <EntitySetMapping Name="ActivitySignUp">
       <EntityTypeMapping TypeName="TTitleDBModel.ActivitySignUp">
         <MappingFragment StoreEntitySet="ActivitySignUp">
-          <ScalarProperty Name="ASU_StatusValue" ColumnName="ASU_StatusValue" />
-          <ScalarProperty Name="ASU_StatusKey" ColumnName="ASU_StatusKey" />
-          <ScalarProperty Name="ASU_IsCandidateVal" ColumnName="ASU_IsCandidateVal" />
-          <ScalarProperty Name="ASU_IsCandidateKey" ColumnName="ASU_IsCandidateKey" />
           <ScalarProperty Name="ASU_Code" ColumnName="ASU_Code" />
           <ScalarProperty Name="U_Code" ColumnName="U_Code" />
           <ScalarProperty Name="AP_Code" ColumnName="AP_Code" />
           <ScalarProperty Name="ASU_Time" ColumnName="ASU_Time" />
+          <ScalarProperty Name="ASU_IsCandidateKey" ColumnName="ASU_IsCandidateKey" />
+          <ScalarProperty Name="ASU_IsCandidateVal" ColumnName="ASU_IsCandidateVal" />
+          <ScalarProperty Name="ASU_StatusKey" ColumnName="ASU_StatusKey" />
+          <ScalarProperty Name="ASU_StatusValue" ColumnName="ASU_StatusValue" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

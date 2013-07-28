@@ -65,7 +65,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AjaxHelperExtensions\PagingHelper.cs" />
+    <Compile Include="HtmlHelperExtensions\MvcHtmlHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\AdmController.cs" />
@@ -76,6 +76,7 @@
     </Compile>
     <Compile Include="Infrastructure\Basehandle.cs" />
     <Compile Include="Infrastructure\MailHelper.cs" />
+    <Compile Include="Infrastructure\PageInfo.cs" />
     <Compile Include="Infrastructure\UserModelBinding.cs" />
     <Compile Include="Infrastructure\ValidateCode.cs" />
     <Compile Include="Infrastructure\ValidationModel.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Models\MailModel.cs" />
     <Compile Include="Models\SearchModelsl.cs" />
     <Compile Include="Models\SysConfigModel.cs" />
+    <Compile Include="Models\UploadModels.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -571,6 +573,17 @@
     <Content Include="Plug-in\jquery-ui-1.8.16\ui\minified\jquery.ui.sortable.min.js" />
     <Content Include="Plug-in\jquery-ui-1.8.16\ui\minified\jquery.ui.tabs.min.js" />
     <Content Include="Plug-in\jquery-ui-1.8.16\ui\minified\jquery.ui.widget.min.js" />
+    <Content Include="Plug-in\jquery.uploadify-v2.1.4\cancel.png" />
+    <Content Include="Plug-in\jquery.uploadify-v2.1.4\expressInstall.swf" />
+    <Content Include="Plug-in\jquery.uploadify-v2.1.4\jquery-1.4.2.min.js" />
+    <Content Include="Plug-in\jquery.uploadify-v2.1.4\jquery.uploadify.v2.1.4.js" />
+    <Content Include="Plug-in\jquery.uploadify-v2.1.4\jquery.uploadify.v2.1.4.min.js" />
+    <Content Include="Plug-in\jquery.uploadify-v2.1.4\selectfile.png" />
+    <Content Include="Plug-in\jquery.uploadify-v2.1.4\swfobject.js" />
+    <Content Include="Plug-in\jquery.uploadify-v2.1.4\upfile.png" />
+    <Content Include="Plug-in\jquery.uploadify-v2.1.4\uploadify.allglyphs.swf" />
+    <Content Include="Plug-in\jquery.uploadify-v2.1.4\uploadify.css" />
+    <Content Include="Plug-in\jquery.uploadify-v2.1.4\uploadify.swf" />
     <Content Include="Plug-in\js\jquery-1.7.2.js" />
     <Content Include="Plug-in\js\jquery.paginate.js" />
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
@@ -610,7 +623,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LogOutPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Plug-in\bg1.png" />
     <Content Include="Plug-in\css\common.css" />
     <Content Include="Plug-in\css\ddsmoothmenu.css" />
@@ -660,6 +675,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="FileData\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TeacherTitle.BAL\TeacherTitle.BAL.csproj">
@@ -707,6 +723,8 @@
     <Content Include="Views\Activity\TeacherPerApply.cshtml" />
     <Content Include="Views\Activity\TeacherPerApplyFinish.cshtml" />
     <Content Include="Views\Activity\ApplyFinishTable.cshtml" />
+    <None Include="Plug-in\jquery.uploadify-v2.1.4\uploadify.fla" />
+    <Content Include="Views\Shared\_UploadPartail.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

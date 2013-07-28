@@ -90,4 +90,7 @@
             </tr>
         }
     </table>
+    <div id="ActRemark">
+        @Html.Encode((ViewData["activityRemark"] as TeacherTitle.DAL.DB.ActivityRemark).AR_Content)
+    </div>
 </div>

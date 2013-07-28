@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TeacherTitle.DAL.Infrastructure;
+using TeacherTitle.DAL.DB;
 
 namespace TeacherTitle.DAL.Model
 {
@@ -70,7 +71,7 @@ namespace TeacherTitle.DAL.Model
         /// <summary>
         /// 是否为候补
         /// </summary>
-        public KeyValueModel IsCandidate { get; set; }
+        //public KeyValueModel IsCandidate { get; set; }
 
         /// <summary>
         /// 活动时间
@@ -86,5 +87,19 @@ namespace TeacherTitle.DAL.Model
         /// 授予学时
         /// </summary>
         public string ClassHour { get; set; }
+    }
+
+
+    public class ActivityPlanModels
+    {
+        /// <summary>
+        /// 活动内容
+        /// </summary>
+        public ActivityPlan Plan { get; set; }
+
+        /// <summary>
+        /// 附件
+        /// </summary>
+        public ActivityAttachment[] Attachment { get; set; }
     }
 }

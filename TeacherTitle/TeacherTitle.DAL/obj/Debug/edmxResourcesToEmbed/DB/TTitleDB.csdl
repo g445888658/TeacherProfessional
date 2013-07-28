@@ -17,8 +17,8 @@
       <End Role="ActivityPlan" EntitySet="ActivityPlan" />
       <End Role="ActivityAttachment" EntitySet="ActivityAttachment" />
     </AssociationSet>
-    <AssociationSet Name="FK_ACTIVITY_REFERENCE_CLASSHOU" Association="TTitleDBModel.FK_ACTIVITY_REFERENCE_CLASSHOU">
-      <End Role="ClassHourSum" EntitySet="ClassHourSum" />
+    <AssociationSet Name="FK_ACTIVITY_REFERENCE_ACTIVITY_1" Association="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY_1">
+      <End Role="ActivitySignUp" EntitySet="ActivitySignUp" />
       <End Role="ActivityMaterial" EntitySet="ActivityMaterial" />
     </AssociationSet>
     <AssociationSet Name="FK_ACTIVITY_REFERENCE_ACTPLAN_1" Association="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN_1">
@@ -65,10 +65,10 @@
       <PropertyRef Name="AM_Code" />
     </Key>
     <Property Name="AM_Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="CH_Code" Type="Int32" />
+    <Property Name="ASU_Code" Type="Int32" />
     <Property Name="AM_Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
     <Property Name="AM_SavePath" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
-    <NavigationProperty Name="ClassHourSum" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_CLASSHOU" FromRole="ActivityMaterial" ToRole="ClassHourSum" />
+    <NavigationProperty Name="ActivitySignUp" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY_1" FromRole="ActivityMaterial" ToRole="ActivitySignUp" />
   </EntityType>
   <EntityType Name="ActivityPlan">
     <Key>
@@ -107,13 +107,14 @@
     <Property Name="U_Code" Type="Int32" Nullable="false" />
     <Property Name="AP_Code" Type="Int32" />
     <Property Name="ASU_Time" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="ASU_IsCandidateKey" Type="Int32" Nullable="false" />
+    <Property Name="ASU_IsCandidateVal" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="ASU_StatusKey" Type="Int32" Nullable="false" />
+    <Property Name="ASU_StatusValue" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="ActivityMaterial" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY_1" FromRole="ActivitySignUp" ToRole="ActivityMaterial" />
     <NavigationProperty Name="ActivityPlan" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN_1" FromRole="ActivitySignUp" ToRole="ActivityPlan" />
     <NavigationProperty Name="Users" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_USERS" FromRole="ActivitySignUp" ToRole="Users" />
     <NavigationProperty Name="ClassHourSum" Relationship="TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTIVITY" FromRole="ActivitySignUp" ToRole="ClassHourSum" />
-    <Property Type="Int32" Name="ASU_IsCandidateKey" Nullable="false" />
-    <Property Type="String" Name="ASU_IsCandidateVal" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Type="Int32" Name="ASU_StatusKey" Nullable="false" />
-    <Property Type="String" Name="ASU_StatusValue" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="ClassHourSum">
     <Key>
@@ -125,7 +126,6 @@
     <Property Name="CH_Content" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
     <Property Name="CH_GetHour" Type="Int32" />
     <Property Name="CH_Remark" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
-    <NavigationProperty Name="ActivityMaterial" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_CLASSHOU" FromRole="ClassHourSum" ToRole="ActivityMaterial" />
     <NavigationProperty Name="ActivitySignUp" Relationship="TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTIVITY" FromRole="ClassHourSum" ToRole="ActivitySignUp" />
   </EntityType>
   <EntityType Name="Institute">
@@ -209,15 +209,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ACTIVITY_REFERENCE_CLASSHOU">
-    <End Role="ClassHourSum" Type="TTitleDBModel.ClassHourSum" Multiplicity="0..1" />
+  <Association Name="FK_ACTIVITY_REFERENCE_ACTIVITY_1">
+    <End Role="ActivitySignUp" Type="TTitleDBModel.ActivitySignUp" Multiplicity="0..1" />
     <End Role="ActivityMaterial" Type="TTitleDBModel.ActivityMaterial" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="ClassHourSum">
-        <PropertyRef Name="CH_Code" />
+      <Principal Role="ActivitySignUp">
+        <PropertyRef Name="ASU_Code" />
       </Principal>
       <Dependent Role="ActivityMaterial">
-        <PropertyRef Name="CH_Code" />
+        <PropertyRef Name="ASU_Code" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

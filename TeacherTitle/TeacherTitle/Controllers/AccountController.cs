@@ -182,26 +182,26 @@ namespace TeacherTitle.Controllers
                 //修改密码成功
                 if (args.Flag)
                 {
-                    var sysMail = BaseService.GetMailConfig();
-                    MailModel mailModel = new Models.MailModel()
-                    {
-                        MailFrom = new MailAddress(sysMail.SC_FieldName, "管理员"),
-                        Password = sysMail.SC_FieldAttr,
-                        MailTo = ValidateMail,
-                        Subject = "密码重置成功",
-                        Body = "恭喜你，密码重置成功，新密码为你的账号",
-                        Prority = MailPriority.Normal,
-                    };
-                    try
-                    {
-                        MailHelper.SendMail(mailModel);
-                    }
-                    catch
-                    {
+                    //var sysMail = BaseService.GetMailConfig();
+                    //MailModel mailModel = new Models.MailModel()
+                    //{
+                    //    MailFrom = new MailAddress(sysMail.SC_FieldName, "管理员"),
+                    //    Password = sysMail.SC_FieldAttr,
+                    //    MailTo = ValidateMail,
+                    //    Subject = "密码重置成功",
+                    //    Body = "恭喜你，密码重置成功，新密码为你的账号",
+                    //    Prority = MailPriority.Normal,
+                    //};
+                    //try
+                    //{
+                    //    MailHelper.SendMail(mailModel);
+                    //}
+                    //catch
+                    //{
 
-                        flag = false;
-                        msg = "邮件发送失败，找回密码失败";
-                    }
+                    //    flag = false;
+                    //    msg = "邮件发送失败，找回密码失败";
+                    //}
                 }
                 else
                 {
@@ -292,7 +292,7 @@ namespace TeacherTitle.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public PartialViewResult UserApplyActivity(AddActivityModels addActivityModels, string U_Code)
+        public PartialViewResult UserApplyActivity(AddActivityModels addActivityModels, string U_Code, UploadModels uploadModels)
         {
             if (ModelState.IsValid)
             {
@@ -310,6 +310,16 @@ namespace TeacherTitle.Controllers
                 };
 
                 var args = ActivityService.AddActivityPlan(ActivityPlan);
+                for (int i = 0; i < uploadModels.FileName.Length; i++)
+                {
+                    ActivityAttachment activityAttachment = new ActivityAttachment()
+                    {
+                        AP_Code = ActivityPlan.AP_Code,
+                        AA_Name = uploadModels.FileName[i],
+                        AA_Path = uploadModels.SaveName[i]
+                    };
+                    args = ActivityService.AddActivityAttachment(activityAttachment);
+                }
 
                 if (args.Flag)
                 {
@@ -324,6 +334,7 @@ namespace TeacherTitle.Controllers
                     };
 
                     args = ActivityService.TeacherSignUp(activitySignUp);
+
                     ViewData["result"] = args.Msg;
                     return PartialView("_ResultPartial");
                 }
@@ -336,6 +347,37 @@ namespace TeacherTitle.Controllers
             }
             ViewData["AllActForm"] = Basehandle.ProduceSelectList(ActivityService.GetAllActForm());
             return PartialView();
+        }
+
+        /// <summary>
+        /// 用户上传文件
+        /// </summary>
+        /// <param name="fileData"></param>
+        /// <param name="U_Code"></param>
+        /// <returns></returns>
+        public ContentResult Uploadfile(HttpPostedFileBase fileData, string U_Code, string ASU_Code)
+        {
+            string result = string.Empty;
+            string folder = Server.MapPath("~/FileData/") + U_Code;
+            string time = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss-ff");//获取时间
+            string extension = System.IO.Path.GetExtension(fileData.FileName);//获取扩展名
+            string newFileName = time + extension;//重组成新的文件名
+            if (!System.IO.Directory.Exists(folder))
+                System.IO.Directory.CreateDirectory(folder);
+
+            fileData.SaveAs(folder + "\\" + newFileName);
+            result = folder + "\\" + newFileName;
+
+            ActivityMaterial activityMaterial = new ActivityMaterial()
+            {
+                ASU_Code = Convert.ToInt32(ASU_Code),
+                AM_Name = fileData.FileName,
+                AM_SavePath = result
+            };
+
+            var args = ActivityService.AddActivityMaterial(activityMaterial);
+
+            return Content(result);
         }
 
 

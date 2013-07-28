@@ -10,9 +10,7 @@
         });
         onlyNum($("#ActLimit"));
         onlyNum($("#ActCandidate"));
-    })
-
-    
+    });
 </script>
 <div id="PartialAddActivity">
     @using (Ajax.BeginForm("AddActivity", "Adm", null, new AjaxOptions { UpdateTargetId = "releaseNews" }, new { id = "AddActivityForm" }))
@@ -78,6 +76,9 @@
                         @Html.TextBox("ActCandidate")
                         @Html.ValidationMessage("ActCandidate")
                     </div>
+                </td>
+                <td>
+                    @Html.Partial("_UploadPartail")
                     <div class="editor-field">
                         <input type="submit" value="提交" onclick="return checkCondition();" />
                     </div>

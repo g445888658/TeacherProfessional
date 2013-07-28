@@ -57,9 +57,9 @@ namespace TeacherTitle.Controllers
             activityListModels.InActivity = ActivityService.GetInActivity();
             activityListModels.OutActivity = ActivityService.GetOutActivity();
             ViewData["activityList"] = activityListModels;
+            ViewData["activityRemark"] = ActivityService.GetActivityRemark();
             return PartialView();
         }
-
 
 
         /// <summary>
@@ -69,10 +69,21 @@ namespace TeacherTitle.Controllers
         /// <returns></returns>
         public PartialViewResult ApplyActivity(string apCode)
         {
-            var act = ActivityService.GetActivityPlanById(Convert.ToInt32(apCode));
+            var act = ActivityService.GetActivityPlansById(Convert.ToInt32(apCode));
             ViewData["ActivityDetail"] = act;
-            ViewData["ActForm"] = ActivityService.GetAllActForm().FirstOrDefault(x => x.Key == act.TA_Code.ToString()).Value;
+            ViewData["ActForm"] = ActivityService.GetAllActForm().FirstOrDefault(x => x.Key == act.Plan.TA_Code.ToString()).Value;
             return PartialView();
+        }
+
+        /// <summary>
+        ///  文件下载
+        /// </summary>
+        /// <param name="AA_Code"></param>
+        /// <returns></returns>
+        public FileResult DownloadFile(string AA_Code)
+        {
+            var file = ActivityService.GetActAttachmentById(Convert.ToInt32(AA_Code));
+            return File(file.AA_Path, "text/plain", file.AA_Name);
         }
 
 
@@ -165,7 +176,7 @@ namespace TeacherTitle.Controllers
         /// <returns></returns>
         public PartialViewResult ApplyList(SearchClassHourModelsl model)
         {
-            var result = ClassHourService.GetTeacherJoinActivity(model.Teacher, model.ActivityForm, model.StartTime, model.EndTime, false);
+            var result = ClassHourService.GetTeacherJoinActivity(model.Teacher, false, model.ActivityForm, model.StartTime, model.EndTime, false);
             ViewData["applyList"] = result;
             return PartialView();
         }
@@ -211,6 +222,23 @@ namespace TeacherTitle.Controllers
         }
 
         /// <summary>
+        ///POST 查询是否有候选人
+        /// </summary>
+        /// <param name="AP_Code"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult IsHaveCandidate(string AP_Code)
+        {
+            var result = ActivityService.IsHaveCandidate(Convert.ToInt32(AP_Code));
+            var jsonData = new
+            {
+                Flag = result.Flag,
+                Msg = result.Msg
+            };
+            return Json(jsonData);
+        }
+
+        /// <summary>
         /// 从已报名的名单中剔除老师
         /// </summary>
         /// <param name="SignUpCode">报名编号</param>
@@ -238,16 +266,7 @@ namespace TeacherTitle.Controllers
         {
             if (!string.IsNullOrEmpty(U_Code))
             {
-                var result = ActivityService.GetActSignUpByUCode(Convert.ToInt32(U_Code));//根据用户编号获取已报名的活动
-                for (int i = 0; i < result.Length; i++)
-                {
-                    var classHour = ClassHourService.GetClaHourInfoByASU_Code(Convert.ToInt32(result[i].SignUpCode));
-                    if (classHour != null)
-                    {
-                        result[i].ClassHour = classHour.CH_GetHour.ToString();
-                        result[i].GetTime = classHour.CH_GetTime;
-                    }
-                }
+                var result = ClassHourService.GetTeacherJoinActivity(U_Code, true, null, null, null, false);
                 ViewData["applyList"] = result;
             }
             return PartialView();
@@ -270,7 +289,7 @@ namespace TeacherTitle.Controllers
         [HttpPost]
         public PartialViewResult TeacherPerApply(SearchClassHourModelsl model)
         {
-            var list = ClassHourService.GetTeacherApplyActivity(model.Teacher, model.ActivityForm, model.StartTime, model.EndTime, false);
+            var list = ClassHourService.GetTeacherApplyActivity(model.Teacher, false, model.ActivityForm, model.StartTime, model.EndTime, false);
             ViewData["applyList"] = list;
             return PartialView("ApplyList");
         }
@@ -291,7 +310,7 @@ namespace TeacherTitle.Controllers
         [HttpPost]
         public PartialViewResult TeacherPerApplyFinish(SearchClassHourModelsl model)
         {
-            var list = ClassHourService.GetTeacherApplyActivity(model.Teacher, model.ActivityForm, model.StartTime, model.EndTime, true);
+            var list = ClassHourService.GetTeacherApplyActivity(model.Teacher, false, model.ActivityForm, model.StartTime, model.EndTime, true);
             ViewData["PerApplyFinishList"] = list;
             return PartialView("ApplyFinishTable");
         }

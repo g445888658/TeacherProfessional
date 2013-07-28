@@ -7,16 +7,17 @@
                 <div class="banner">
                     <div id="picDiv">
                         <script type="text/javascript">
-                            var focus_width = 278
-                            var focus_height = 198
-                            var text_height = 0
-                            var swf_height = focus_height + text_height
+                            var focus_width = 278;
+                            var focus_height = 198;
+                            var text_height = 0;
+                            var swf_height = focus_height + text_height;
 
-                            var pics = '../../Plug-in/images/002.jpg|../../Plug-in/images/008.jpg|../../Plug-in/images/009.jpg|../../Plug-in/images/002.jpg|../../Plug-in/images/011.jpg'
-                            var links = 'http://linkweb.cn/Js/Js.asp?ID=535|http://linkweb.cn/Js/Js.asp?ID=518|http://linkweb.cn/Js/Js.asp?ID=497|http://linkweb.cn/Js/Js.asp?ID=480|http://linkweb.cn/Js/Js.asp?ID=480'
-                            var texts = 'FLASH图片渐显效果测试|这种效果到底是怎么实现的呢|现在估计是JS和FLASH共同作用|那个FLASH文件应该是控制文件|现在估计是JS和FLASH共同作用'
+                            var pics = '../../Plug-in/images/002.jpg|../../Plug-in/images/008.jpg|../../Plug-in/images/009.jpg|../../Plug-in/images/002.jpg|../../Plug-in/images/011.jpg';
+                            var links = 'http://linkweb.cn/Js/Js.asp?ID=535|http://linkweb.cn/Js/Js.asp?ID=518|http://linkweb.cn/Js/Js.asp?ID=497|http://linkweb.cn/Js/Js.asp?ID=480|http://linkweb.cn/Js/Js.asp?ID=480';
+                            var texts = 'FLASH图片渐显效果测试|这种效果到底是怎么实现的呢|现在估计是JS和FLASH共同作用|那个FLASH文件应该是控制文件|现在估计是JS和FLASH共同作用';
 
-                            $("#picDiv").append('<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="' + focus_width + '" height="' + swf_height + '">');
+                            //$("#picDiv").append('<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="' + focus_width + '" height="' + swf_height + '">');
+                            $("#picDiv").append('<object codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="' + focus_width + '" height="' + swf_height + '">');
                             $("#picDiv").append('<param name="allowScriptAccess" value="sameDomain"><param name="movie" value="../../Plug-in/images/flash01.swf"><param name="quality" value="high"><param name="bgcolor" value="#F0F0F0">');
                             $("#picDiv").append('<param name="menu" value="false"><param name=wmode value="opaque">');
                             $("#picDiv").append('<param name="FlashVars" value="pics=' + pics + '&links=' + links + '&texts=' + texts + '&borderwidth=' + focus_width + '&borderheight=' + focus_height + '&textheight=' + text_height + '">');

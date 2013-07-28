@@ -7,11 +7,14 @@ using TeacherTitle.BAL.Infrastructure;
 using TeacherTitle.BAL.Service;
 using TeacherTitle.Models;
 using TeacherTitle.DAL.DB;
+using TeacherTitle.Infrastructure;
 
 namespace TeacherTitle.Controllers
 {
     public class HomeController : Controller
     {
+        PageInfo pageInfo = new PageInfo();
+
         IActivityService ActivityService { get; set; }
         IBaseService BaseService { get; set; }
 
@@ -49,7 +52,14 @@ namespace TeacherTitle.Controllers
         /// <returns></returns>
         public PartialViewResult LatestNotice()
         {
-            ViewData["Notice"] = ActivityService.GetAdmActivityPlan();
+            var list = ActivityService.GetAdmActivityPlan();
+
+            pageInfo.TotalItems = list.Length;
+            pageInfo.ItemsPerPage = 10;
+            pageInfo.CurrentPage = 1;
+            ViewData["PageInfo"] = pageInfo;
+            var asd = list.Take(pageInfo.ItemsPerPage).ToArray();
+            ViewData["Notice"] = list.Take(pageInfo.ItemsPerPage).ToArray();
             return PartialView();
         }
 
@@ -60,7 +70,12 @@ namespace TeacherTitle.Controllers
         [HttpPost]
         public PartialViewResult LatestNotice(string page)
         {
-            ViewData["Notice"] = ActivityService.GetAdmActivityPlan();
+            var list = ActivityService.GetAdmActivityPlan();
+            pageInfo.TotalItems = list.Length;
+            pageInfo.ItemsPerPage = 10;
+            pageInfo.CurrentPage = Convert.ToInt32(page);
+            ViewData["PageInfo"] = pageInfo;
+            ViewData["Notice"] = list.Skip(pageInfo.ItemsPerPage * (Convert.ToInt32(page) - 1)).Take(pageInfo.ItemsPerPage).ToArray();
             return PartialView();
         }
 
@@ -100,6 +115,27 @@ namespace TeacherTitle.Controllers
             }
             return PartialView();
         }
+
+        /// <summary>
+        /// 文件上传
+        /// </summary>
+        /// <param name="dataFile"></param>
+        /// <returns></returns>
+        public ContentResult Upload(HttpPostedFileBase fileData, string U_Code)
+        {
+            string result = string.Empty;
+            string folder = Server.MapPath("~/FileData/") + U_Code;
+            string time = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss-ff");//获取时间
+            string extension = System.IO.Path.GetExtension(fileData.FileName);//获取扩展名
+            string newFileName = time + extension;//重组成新的文件名
+            if (!System.IO.Directory.Exists(folder))
+                System.IO.Directory.CreateDirectory(folder);
+
+            fileData.SaveAs(folder + "\\" + newFileName);
+            result = folder + "\\" + newFileName;
+            return Content(result);
+        }
+
 
     }
 }

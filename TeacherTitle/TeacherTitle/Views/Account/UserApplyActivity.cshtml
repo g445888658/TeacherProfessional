@@ -1,13 +1,13 @@
 ﻿<script type="text/javascript">
     $(function () {
-        var target = $("#PartailUserapplyActivity");
+        var target = $("#PartailUserApplyActivity");
         $("#ActStartTime", target).calendar({ format: 'yyyy-MM-dd  HH:mm', maxDate: '#ActEndTime' });
         $("#ActEndTime", target).calendar({ format: 'yyyy-MM-dd  HH:mm', minDate: '#ActStartTime' });
         onlyNum($("#ActLimit", target));
         onlyNum($("#ActCandidate", target));
     })
 </script>
-<div id="PartailUserapplyActivity">
+<div id="PartailUserApplyActivity">
     @using (Ajax.BeginForm("UserApplyActivity", "Account", new { U_Code = ViewData["U_Code"] }, new AjaxOptions { UpdateTargetId = "releaseNews" }, new { id = "AddActivityForm" }))
     {
         <table>
@@ -16,27 +16,27 @@
                     <div class="editor-label">
                         @Html.Label("活动形式")
                     </div>
-                    <div class="editor-field">
+                    <div class="editor-label">
                         @Html.DropDownList("ActForm", ViewData["AllActForm"] as SelectList)
                         @Html.ValidationMessage("ActForm")
                     </div>
                     <div class="editor-label">
                         @Html.Label("主讲人")
                     </div>
-                    <div class="editor-field">
+                    <div class="editor-label">
                         @Html.TextBox("ActSpeaker")
                     </div>
                     <div class="editor-label">
                         @Html.Label("活动主题")
                     </div>
-                    <div class="editor-field">
+                    <div class="editor-label">
                         @Html.TextArea("ActTheme", new { rows = "5", style = " min-width:200px;max-width:200px;min-height:110px;max-height:110px; overflow:auto;" })
                         @Html.ValidationMessage("ActTheme")
                     </div>
                     <div class="editor-label">
                         @Html.Label("活动地点")
                     </div>
-                    <div class="editor-field">
+                    <div class="editor-label">
                         @Html.TextBox("ActPlace", null, new { rows = "1", style = "width:200px;" })
                         @Html.ValidationMessage("ActPlace")
                     </div>
@@ -45,18 +45,21 @@
                     <div class="editor-label">
                         @Html.Label("开始时间")
                     </div>
-                    <div class="editor-field">
+                    <div class="editor-label">
                         @Html.TextBox("ActStartTime", null, new { @class = "runcode", @readonly = "readonly" })
                         @Html.ValidationMessage("ActStartTime")
                     </div>
                     <div class="editor-label">
                         @Html.Label("结束时间")
                     </div>
-                    <div class="editor-field">
+                    <div class="editor-label">
                         @Html.TextBox("ActEndTime", null, new { @class = "runcode", @readonly = "readonly" })
                         @Html.ValidationMessage("ActEndTime")
                     </div>
-                    <div class="editor-field">
+                    <div class="editor-label">
+                        @Html.Partial("_UploadPartail")
+                    </div>
+                    <div class="editor-label">
                         <input type="submit" value="提交" onclick="return checkCondition();" />
                     </div>
                 </td>

@@ -49,12 +49,13 @@ namespace TeacherTitle.BAL.Service
         /// 查询教师参加的活动
         /// </summary>
         /// <param name="TeacherCode">名字</param>
+        /// <param name="isTeacherCode">TeacherName是否为教师编号</param>
         /// <param name="ActFormCode">活动形式</param>
         /// <param name="Start">开始时间</param>
         /// <param name="End">结束时间</param>
         /// <param name="IsGetClassHour">是否获取学时</param>
         /// <returns></returns>
-        public ActAndClaHourModel[] GetActivityInfo(string TeacherName, string ActFormName, string Start, string End, bool IsGetClassHour)
+        public ActAndClaHourModel[] GetActivityInfo(string TeacherName, bool isTeacherCode, string ActFormName, string Start, string End, bool IsGetClassHour)
         {
             ActAndClaHourModel[] list = activityDAO.GetAllActSignUp();
             List<ActAndClaHourModel> newList = new List<ActAndClaHourModel>();
@@ -95,7 +96,10 @@ namespace TeacherTitle.BAL.Service
                     {
                         case 0://用户名
                             {
-                                newList = newList.Where(x => x.UserCode.Value == TeacherName).ToList();
+                                if (isTeacherCode)
+                                    newList = newList.Where(x => x.UserCode.Key == TeacherName).ToList();
+                                else
+                                    newList = newList.Where(x => x.UserCode.Value == TeacherName).ToList();
                             }
                             break;
                         case 1: //活动形式
@@ -122,22 +126,32 @@ namespace TeacherTitle.BAL.Service
         /// <summary>
         /// 获取教师参加的活动
         /// </summary>
+        /// <param name="TeacherName"></param>
+        /// <param name="IsTeacherCode">TeacherName是否为教师编号</param>
+        /// <param name="ActFormName"></param>
+        /// <param name="Start"></param>
+        /// <param name="End"></param>
         /// <param name="IsGetClassHour">是否获取学时</param>
         /// <returns></returns>
-        public ActAndClaHourModel[] GetTeacherJoinActivity(string TeacherName, string ActFormName, string Start, string End, bool IsGetClassHour)
+        public ActAndClaHourModel[] GetTeacherJoinActivity(string TeacherName, bool IsTeacherCode, string ActFormName, string Start, string End, bool IsGetClassHour)
         {
-            var list = GetActivityInfo(TeacherName, ActFormName, Start, End, IsGetClassHour);
+            var list = GetActivityInfo(TeacherName, IsTeacherCode, ActFormName, Start, End, IsGetClassHour);
             return list.Where(x => x.ActStatus.Key == "1").ToArray();
         }
 
         /// <summary>
         /// 获取教师申请的活动
         /// </summary>
+        /// <param name="TeacherName"></param>
+        /// <param name="IsTeacherCode">TeacherName是否为教师编号</param>
+        /// <param name="ActFormName"></param>
+        /// <param name="Start"></param>
+        /// <param name="End"></param>
         /// <param name="IsGetClassHour">是否获取学时</param>
         /// <returns></returns>
-        public ActAndClaHourModel[] GetTeacherApplyActivity(string TeacherName, string ActFormName, string Start, string End, bool IsGetClassHour)
+        public ActAndClaHourModel[] GetTeacherApplyActivity(string TeacherName, bool IsTeacherCode, string ActFormName, string Start, string End, bool IsGetClassHour)
         {
-            var list = GetActivityInfo(TeacherName, ActFormName, Start, End, IsGetClassHour);
+            var list = GetActivityInfo(TeacherName, IsTeacherCode, ActFormName, Start, End, IsGetClassHour);
             return list.Where(x => x.ActStatus.Key == "2").ToArray();
         }
 

@@ -4985,7 +4985,7 @@ function (i, attr) {
                 $.effects.restore(el, props); $.effects.removeWrapper(el); // Restore
                 if (o.callback) o.callback.apply(el[0], arguments); // Callback
                 el.dequeue();
-            } 
+            }
             });
 
         });
@@ -5036,7 +5036,7 @@ function (i, attr) {
                 $.effects.restore(el, props); $.effects.removeWrapper(el); // Restore
                 if (o.callback) o.callback.apply(this, arguments); // Callback
                 el.dequeue();
-            } 
+            }
             });
 
         });
@@ -5483,7 +5483,7 @@ function (i, attr) {
                 $.effects.restore(el, restore ? props : props1); $.effects.removeWrapper(el); // Restore
                 if (o.callback) o.callback.apply(this, arguments); // Callback
                 el.dequeue();
-            } 
+            }
             });
 
         });
@@ -5591,7 +5591,7 @@ function (i, attr) {
                 $.effects.restore(el, props); $.effects.removeWrapper(el); // Restore
                 if (o.callback) o.callback.apply(this, arguments); // Callback
                 el.dequeue();
-            } 
+            }
             });
 
         });
@@ -9695,9 +9695,9 @@ function (i, attr) {
 			uiDialog = self.uiDialog;
 
             switch (key) {
-                //handling of deprecated beforeclose (vs beforeClose) option 
-                //Ticket #4669 http://dev.jqueryui.com/ticket/4669 
-                //TODO: remove in 1.9pre 
+                //handling of deprecated beforeclose (vs beforeClose) option  
+                //Ticket #4669 http://dev.jqueryui.com/ticket/4669  
+                //TODO: remove in 1.9pre  
                 case "beforeclose":
                     key = "beforeClose";
                     break;

@@ -158,7 +158,7 @@ namespace TeacherTitle.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public PartialViewResult AddActivity(AddActivityModels addActivityModels)
+        public PartialViewResult AddActivity(AddActivityModels addActivityModels, UploadModels uploadModels)
         {
             if (ModelState.IsValid)
             {
@@ -179,6 +179,20 @@ namespace TeacherTitle.Controllers
                     AP_StatusValue = "可报名"
                 };
                 var args = ActivityService.AddActivityPlan(activityPlan);
+                if (args.Flag)//成功添加活动计划后添加附件
+                {
+                    for (int i = 0; i < uploadModels.FileName.Length; i++)
+                    {
+                        ActivityAttachment activityAttachment = new ActivityAttachment()
+                        {
+                            AP_Code = activityPlan.AP_Code,
+                            AA_Name = uploadModels.FileName[i],
+                            AA_Path = uploadModels.SaveName[i]
+                        };
+                        args = ActivityService.AddActivityAttachment(activityAttachment);
+                    }
+                }
+
                 ViewData["result"] = args.Msg;
                 return PartialView("_ResultPartial");
             }
@@ -216,7 +230,7 @@ namespace TeacherTitle.Controllers
             });
         }
 
-        
+
 
         /// <summary>
         ///GET 获取还在报名状态的活动

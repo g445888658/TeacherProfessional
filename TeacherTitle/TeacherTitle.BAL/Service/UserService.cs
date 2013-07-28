@@ -41,17 +41,8 @@ namespace TeacherTitle.BAL.Service
         /// <returns></returns>
         public Users[] GetUsers(string keyword)
         {
-            var users = userDAO.GetAllUsers();
-            List<Users> list = new List<Users>();
-            //因为linq方法体内写不了其他方法，所以为了让用户名中包含某个字母的也查出来，只能这样做了
-            for (int i = 0; i < users.Length; i++)
-            {
-                if (users[i].U_Name.Contains(keyword) || GetSpelling.GetPYStr(users[i].U_Name).Contains(keyword))
-                {
-                    list.Add(users[i]);
-                }
-            }
-            return list.ToArray();
+            //linq to entity方法体内写不了其他方法，其他linq方法可以
+            return userDAO.GetAllUsers().Where(x => x.U_Name.Contains(keyword) || GetSpelling.GetPYStr(x.U_Name).Contains(keyword)).ToArray();
         }
 
         /// <summary>
@@ -104,7 +95,7 @@ namespace TeacherTitle.BAL.Service
         }
 
         /// <summary>
-        /// 确认邮箱是否存在
+        /// 重置密码
         /// </summary>
         /// <param name="Mail"></param>
         /// <returns></returns>

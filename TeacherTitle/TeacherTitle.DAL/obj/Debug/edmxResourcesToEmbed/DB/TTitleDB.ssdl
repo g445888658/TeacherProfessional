@@ -17,13 +17,13 @@
       <End Role="ActivityPlan" EntitySet="ActivityPlan" />
       <End Role="ActivityAttachment" EntitySet="ActivityAttachment" />
     </AssociationSet>
+    <AssociationSet Name="FK_ACTIVITY_REFERENCE_ACTIVITY_1" Association="TTitleDBModel.Store.FK_ACTIVITY_REFERENCE_ACTIVITY_1">
+      <End Role="ActivitySignUp" EntitySet="ActivitySignUp" />
+      <End Role="ActivityMaterial" EntitySet="ActivityMaterial" />
+    </AssociationSet>
     <AssociationSet Name="FK_ACTIVITY_REFERENCE_ACTPLAN_1" Association="TTitleDBModel.Store.FK_ACTIVITY_REFERENCE_ACTPLAN_1">
       <End Role="ActivityPlan" EntitySet="ActivityPlan" />
       <End Role="ActivitySignUp" EntitySet="ActivitySignUp" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ACTIVITY_REFERENCE_CLASSHOU" Association="TTitleDBModel.Store.FK_ACTIVITY_REFERENCE_CLASSHOU">
-      <End Role="ClassHourSum" EntitySet="ClassHourSum" />
-      <End Role="ActivityMaterial" EntitySet="ActivityMaterial" />
     </AssociationSet>
     <AssociationSet Name="FK_ACTIVITY_REFERENCE_TEACHING" Association="TTitleDBModel.Store.FK_ACTIVITY_REFERENCE_TEACHING">
       <End Role="TeachingActivity" EntitySet="TeachingActivity" />
@@ -64,7 +64,7 @@
       <PropertyRef Name="AM_Code" />
     </Key>
     <Property Name="AM_Code" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="CH_Code" Type="int" />
+    <Property Name="ASU_Code" Type="int" />
     <Property Name="AM_Name" Type="nvarchar" Nullable="false" MaxLength="100" />
     <Property Name="AM_SavePath" Type="nvarchar" Nullable="false" MaxLength="200" />
   </EntityType>
@@ -191,6 +191,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ACTIVITY_REFERENCE_ACTIVITY_1">
+    <End Role="ActivitySignUp" Type="TTitleDBModel.Store.ActivitySignUp" Multiplicity="0..1" />
+    <End Role="ActivityMaterial" Type="TTitleDBModel.Store.ActivityMaterial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ActivitySignUp">
+        <PropertyRef Name="ASU_Code" />
+      </Principal>
+      <Dependent Role="ActivityMaterial">
+        <PropertyRef Name="ASU_Code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ACTIVITY_REFERENCE_ACTPLAN_1">
     <End Role="ActivityPlan" Type="TTitleDBModel.Store.ActivityPlan" Multiplicity="0..1" />
     <End Role="ActivitySignUp" Type="TTitleDBModel.Store.ActivitySignUp" Multiplicity="*" />
@@ -200,18 +212,6 @@
       </Principal>
       <Dependent Role="ActivitySignUp">
         <PropertyRef Name="AP_Code" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ACTIVITY_REFERENCE_CLASSHOU">
-    <End Role="ClassHourSum" Type="TTitleDBModel.Store.ClassHourSum" Multiplicity="0..1" />
-    <End Role="ActivityMaterial" Type="TTitleDBModel.Store.ActivityMaterial" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ClassHourSum">
-        <PropertyRef Name="CH_Code" />
-      </Principal>
-      <Dependent Role="ActivityMaterial">
-        <PropertyRef Name="CH_Code" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

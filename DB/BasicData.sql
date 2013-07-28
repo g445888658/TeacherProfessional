@@ -13,10 +13,11 @@ insert into Users(U_Account,U_PassWord,U_Name,I_Code,M_Code,UT_Code,U_Degree,U_T
 
 insert into Users(U_Account,U_PassWord,U_Name,I_Code,M_Code,UT_Code,U_Degree,U_Title,U_Mail,U_Phone,U_Remark) values ('111','111','空之轨迹',2,2,2,'博士','讲师','123456@126.com','456789','备注');
 
-insert into Users(U_Account,U_PassWord,U_Name,I_Code,M_Code,UT_Code,U_Degree,U_Title,U_Mail,U_Phone,U_Remark) values ('222','222','约修亚',2,2,2,'硕士','教授','123456@126.com','456789','备注');
+insert into Users(U_Account,U_PassWord,U_Name,I_Code,M_Code,UT_Code,U_Degree,U_Title,U_Mail,U_Phone,U_Remark) values ('222','222','约修亚',2,2,2,'硕士','教授','123456@163.com','456789','备注');
 
 insert into Users(U_Account,U_PassWord,U_Name,I_Code,M_Code,UT_Code,U_Degree,U_Title,U_Mail,U_Phone,U_Remark) values ('333','333','艾斯蒂尔',2,2,2,'硕士','副教授','111@qq.com','8888','我是备注');
 
+insert into ActivityRemark(AR_Content) values('每位教师参加培训后需提交培训学时申请（校级沙龙除外），并提供培训证书、邀请函/通知书、学术论文、活动内容介绍、活动过程影像资料等证明材料。各二级学院在每一学年结束前将青年教师培训学时汇总报教师教学发展中心。');
 
 insert into TeachingActivity (TA_Form,TA_Way,TA_Material,TA_ClassHour,TA_PlaceKey,TA_PlaceValue)
 values('各类讲座','校相关部门、学院或召集人组织，教师自愿报名达到最低参加人数','通知、活动影音资料、会议记录、活动照片、电子讲稿、报道等','本中心组织的活动参与者计4学时/次；其他部门、学院等组织的活动，参与者计2学时/次；每年最高计16学时。召集人学时按2倍计算',0,'校内');

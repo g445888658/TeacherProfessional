@@ -8,48 +8,28 @@
         <div class="i_news02_l" style="height: 455px;">
             <ul>
                 @{
-                    
                     var notice = ViewData["Notice"] as TeacherTitle.DAL.DB.ActivityPlan[];
                     for (int i = 0; i < notice.Length; i++)
                     {
                     <li>@Ajax.ActionLink(notice[i].AP_Theme, "ApplyActivity", "Activity", new { apCode = notice[i].AP_Code }, new AjaxOptions { UpdateTargetId = "containerDiv" }, null)
                         <span>[@Html.Encode(DateTime.Parse(notice[i].AP_ReleaseTime).ToString("yyyy-MM-dd"))]</span></li> 
-                    }
-                                      
+                    }                 
                 }
             </ul>
-            <div id="pagingDiv" style="position: absolute; bottom: -130px">
-            </div>
+            @{
+                var pageInfo = ViewData["PageInfo"] as TeacherTitle.Infrastructure.PageInfo;
+            }
+            @Ajax.PageLinks(pageInfo, index => Url.Action("LatestNotice", new { page = index, }), new AjaxOptions
+            {
+                UpdateTargetId = "PartialLatestNotice",
+                HttpMethod = "POST"
+            }, new { id = "latestNoticePage", style = "position: absolute; bottom: -100px;" })
+            @*@Ajax.PageLinks(pageInfo, Url.Action("LatestNotice"), new { test = "$('#asd').val()", test1 = "$('#qwe').val()" }, new AjaxOptions { UpdateTargetId = "PartialLatestNotice", HttpMethod = "POST" }, new { id="wqnmlgb"})
+            <input type="text" id="asd" />
+            <input type="text" id="qwe" />
+            <br />*@
         </div>
     </div>
-    <script type="text/javascript">
-        $(function () {
-            $("#pagingDiv").paginate({
-                count: '@notice.Length',
-                start: 1,
-                display: 5,
-                border: true,
-                border_color: '#fff',
-                text_color: '#888',
-                background_color: 'white',
-                border_hover_color: '#ccc',
-                text_hover_color: 'black',
-                background_hover_color: 'white',
-                images: false,
-                mouse: 'press',
-                onChange: function (page) {
-                    ajax({
-                        type: "POST",
-                        url: "/Home/LatestNotice",
-                        data: { "page": page },
-                        success: function (data) {
-                            $("#PartialLatestNotice").html(data);
-                        }
-                    });
-                }
-            });
-        })
-    </script>
     @*<div class="i_news03">
         <div class="title03">
             <h3 class="tbg_02">
