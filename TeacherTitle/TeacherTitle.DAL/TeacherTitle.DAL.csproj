@@ -41,11 +41,16 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="ValueOffice, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\类库\Value.Office\Value.Office\DynamicLink\ValueOffice.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO\ActivityDAO.cs" />
     <Compile Include="DAO\BaseDAO.cs" />
     <Compile Include="DAO\ClassHourDAO.cs" />
+    <Compile Include="DAO\ExcelDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="DB\TTitleDB.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -56,17 +61,20 @@
     <Compile Include="Infrastructure\GetSpelling.cs" />
     <Compile Include="Infrastructure\KeyValueModel.cs" />
     <Compile Include="Model\ActivityModels.cs" />
+    <Compile Include="Model\SignUpModels.cs" />
+    <Compile Include="Model\TeacherModels.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
     <EntityDeploy Include="DB\TTitleDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TTitleDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.Config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

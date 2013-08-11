@@ -24,8 +24,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_TEACHING", "TeachingActivity", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.TeachingActivity), "ActivityPlan", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.ActivityPlan), true)]
 [assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_ACTIVITY_REFERENCE_USERS", "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.Users), "ActivitySignUp", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.ActivitySignUp), true)]
 [assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_CLASSHOU_REFERENCE_ACTIVITY", "ActivitySignUp", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TeacherTitle.DAL.DB.ActivitySignUp), "ClassHourSum", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.ClassHourSum), true)]
+[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_USERS_REFERENCE_DEPARTME", "Department", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.Department), "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.Users), true)]
 [assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_USERS_REFERENCE_INSTITUT", "Institute", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.Institute), "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.Users), true)]
-[assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_USERS_REFERENCE_MAJOR", "Major", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.Major), "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.Users), true)]
 [assembly: EdmRelationshipAttribute("TTitleDBModel", "FK_USERS_REFERENCE_USERTYPE", "UserType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TeacherTitle.DAL.DB.UserType), "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TeacherTitle.DAL.DB.Users), true)]
 
 #endregion
@@ -177,6 +177,22 @@ namespace TeacherTitle.DAL.DB
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
+        public ObjectSet<Department> Department
+        {
+            get
+            {
+                if ((_Department == null))
+                {
+                    _Department = base.CreateObjectSet<Department>("Department");
+                }
+                return _Department;
+            }
+        }
+        private ObjectSet<Department> _Department;
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
         public ObjectSet<Institute> Institute
         {
             get
@@ -189,22 +205,6 @@ namespace TeacherTitle.DAL.DB
             }
         }
         private ObjectSet<Institute> _Institute;
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        public ObjectSet<Major> Major
-        {
-            get
-            {
-                if ((_Major == null))
-                {
-                    _Major = base.CreateObjectSet<Major>("Major");
-                }
-                return _Major;
-            }
-        }
-        private ObjectSet<Major> _Major;
     
         /// <summary>
         /// 没有元数据文档可用。
@@ -322,19 +322,19 @@ namespace TeacherTitle.DAL.DB
         }
     
         /// <summary>
+        /// 用于向 Department EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
+        /// </summary>
+        public void AddToDepartment(Department department)
+        {
+            base.AddObject("Department", department);
+        }
+    
+        /// <summary>
         /// 用于向 Institute EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
         /// </summary>
         public void AddToInstitute(Institute institute)
         {
             base.AddObject("Institute", institute);
-        }
-    
-        /// <summary>
-        /// 用于向 Major EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
-        /// </summary>
-        public void AddToMajor(Major major)
-        {
-            base.AddObject("Major", major);
         }
     
         /// <summary>
@@ -745,7 +745,8 @@ namespace TeacherTitle.DAL.DB
         /// <param name="aP_ReleaseTime">AP_ReleaseTime 属性的初始值。</param>
         /// <param name="aP_StatusKey">AP_StatusKey 属性的初始值。</param>
         /// <param name="aP_StatusValue">AP_StatusValue 属性的初始值。</param>
-        public static ActivityPlan CreateActivityPlan(global::System.Int32 aP_Code, global::System.Int32 tA_Code, global::System.String aP_Theme, global::System.String aP_StartTime, global::System.String aP_EndTime, global::System.String aP_Place, global::System.String aP_ReleaseTime, global::System.Int32 aP_StatusKey, global::System.String aP_StatusValue)
+        /// <param name="aP_ClassHour">AP_ClassHour 属性的初始值。</param>
+        public static ActivityPlan CreateActivityPlan(global::System.Int32 aP_Code, global::System.Int32 tA_Code, global::System.String aP_Theme, global::System.String aP_StartTime, global::System.String aP_EndTime, global::System.String aP_Place, global::System.String aP_ReleaseTime, global::System.Int32 aP_StatusKey, global::System.String aP_StatusValue, global::System.String aP_ClassHour)
         {
             ActivityPlan activityPlan = new ActivityPlan();
             activityPlan.AP_Code = aP_Code;
@@ -757,6 +758,7 @@ namespace TeacherTitle.DAL.DB
             activityPlan.AP_ReleaseTime = aP_ReleaseTime;
             activityPlan.AP_StatusKey = aP_StatusKey;
             activityPlan.AP_StatusValue = aP_StatusValue;
+            activityPlan.AP_ClassHour = aP_ClassHour;
             return activityPlan;
         }
 
@@ -1101,6 +1103,30 @@ namespace TeacherTitle.DAL.DB
         private global::System.String _AP_StatusValue;
         partial void OnAP_StatusValueChanging(global::System.String value);
         partial void OnAP_StatusValueChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String AP_ClassHour
+        {
+            get
+            {
+                return _AP_ClassHour;
+            }
+            set
+            {
+                OnAP_ClassHourChanging(value);
+                ReportPropertyChanging("AP_ClassHour");
+                _AP_ClassHour = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("AP_ClassHour");
+                OnAP_ClassHourChanged();
+            }
+        }
+        private global::System.String _AP_ClassHour;
+        partial void OnAP_ClassHourChanging(global::System.String value);
+        partial void OnAP_ClassHourChanged();
 
         #endregion
     
@@ -1845,6 +1871,138 @@ namespace TeacherTitle.DAL.DB
     /// <summary>
     /// 没有元数据文档可用。
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="TTitleDBModel", Name="Department")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Department : EntityObject
+    {
+        #region 工厂方法
+    
+        /// <summary>
+        /// 创建新的 Department 对象。
+        /// </summary>
+        /// <param name="d_Code">D_Code 属性的初始值。</param>
+        /// <param name="d_Name">D_Name 属性的初始值。</param>
+        /// <param name="d_IsValid">D_IsValid 属性的初始值。</param>
+        public static Department CreateDepartment(global::System.Int32 d_Code, global::System.String d_Name, global::System.Int32 d_IsValid)
+        {
+            Department department = new Department();
+            department.D_Code = d_Code;
+            department.D_Name = d_Name;
+            department.D_IsValid = d_IsValid;
+            return department;
+        }
+
+        #endregion
+        #region 基元属性
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 D_Code
+        {
+            get
+            {
+                return _D_Code;
+            }
+            set
+            {
+                if (_D_Code != value)
+                {
+                    OnD_CodeChanging(value);
+                    ReportPropertyChanging("D_Code");
+                    _D_Code = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("D_Code");
+                    OnD_CodeChanged();
+                }
+            }
+        }
+        private global::System.Int32 _D_Code;
+        partial void OnD_CodeChanging(global::System.Int32 value);
+        partial void OnD_CodeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String D_Name
+        {
+            get
+            {
+                return _D_Name;
+            }
+            set
+            {
+                OnD_NameChanging(value);
+                ReportPropertyChanging("D_Name");
+                _D_Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("D_Name");
+                OnD_NameChanged();
+            }
+        }
+        private global::System.String _D_Name;
+        partial void OnD_NameChanging(global::System.String value);
+        partial void OnD_NameChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 D_IsValid
+        {
+            get
+            {
+                return _D_IsValid;
+            }
+            set
+            {
+                OnD_IsValidChanging(value);
+                ReportPropertyChanging("D_IsValid");
+                _D_IsValid = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("D_IsValid");
+                OnD_IsValidChanged();
+            }
+        }
+        private global::System.Int32 _D_IsValid;
+        partial void OnD_IsValidChanging(global::System.Int32 value);
+        partial void OnD_IsValidChanged();
+
+        #endregion
+    
+        #region 导航属性
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_USERS_REFERENCE_DEPARTME", "Users")]
+        public EntityCollection<Users> Users
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Users>("TTitleDBModel.FK_USERS_REFERENCE_DEPARTME", "Users");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Users>("TTitleDBModel.FK_USERS_REFERENCE_DEPARTME", "Users", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// 没有元数据文档可用。
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="TTitleDBModel", Name="Institute")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -1967,138 +2125,6 @@ namespace TeacherTitle.DAL.DB
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Users>("TTitleDBModel.FK_USERS_REFERENCE_INSTITUT", "Users", value);
-                }
-            }
-        }
-
-        #endregion
-    }
-    
-    /// <summary>
-    /// 没有元数据文档可用。
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="TTitleDBModel", Name="Major")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class Major : EntityObject
-    {
-        #region 工厂方法
-    
-        /// <summary>
-        /// 创建新的 Major 对象。
-        /// </summary>
-        /// <param name="m_Code">M_Code 属性的初始值。</param>
-        /// <param name="m_Name">M_Name 属性的初始值。</param>
-        /// <param name="m_IsValid">M_IsValid 属性的初始值。</param>
-        public static Major CreateMajor(global::System.Int32 m_Code, global::System.String m_Name, global::System.Int32 m_IsValid)
-        {
-            Major major = new Major();
-            major.M_Code = m_Code;
-            major.M_Name = m_Name;
-            major.M_IsValid = m_IsValid;
-            return major;
-        }
-
-        #endregion
-        #region 基元属性
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 M_Code
-        {
-            get
-            {
-                return _M_Code;
-            }
-            set
-            {
-                if (_M_Code != value)
-                {
-                    OnM_CodeChanging(value);
-                    ReportPropertyChanging("M_Code");
-                    _M_Code = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("M_Code");
-                    OnM_CodeChanged();
-                }
-            }
-        }
-        private global::System.Int32 _M_Code;
-        partial void OnM_CodeChanging(global::System.Int32 value);
-        partial void OnM_CodeChanged();
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String M_Name
-        {
-            get
-            {
-                return _M_Name;
-            }
-            set
-            {
-                OnM_NameChanging(value);
-                ReportPropertyChanging("M_Name");
-                _M_Name = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("M_Name");
-                OnM_NameChanged();
-            }
-        }
-        private global::System.String _M_Name;
-        partial void OnM_NameChanging(global::System.String value);
-        partial void OnM_NameChanged();
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 M_IsValid
-        {
-            get
-            {
-                return _M_IsValid;
-            }
-            set
-            {
-                OnM_IsValidChanging(value);
-                ReportPropertyChanging("M_IsValid");
-                _M_IsValid = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("M_IsValid");
-                OnM_IsValidChanged();
-            }
-        }
-        private global::System.Int32 _M_IsValid;
-        partial void OnM_IsValidChanging(global::System.Int32 value);
-        partial void OnM_IsValidChanged();
-
-        #endregion
-    
-        #region 导航属性
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_USERS_REFERENCE_MAJOR", "Users")]
-        public EntityCollection<Users> Users
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Users>("TTitleDBModel.FK_USERS_REFERENCE_MAJOR", "Users");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Users>("TTitleDBModel.FK_USERS_REFERENCE_MAJOR", "Users", value);
                 }
             }
         }
@@ -2492,27 +2518,49 @@ namespace TeacherTitle.DAL.DB
         /// <param name="u_Account">U_Account 属性的初始值。</param>
         /// <param name="u_PassWord">U_PassWord 属性的初始值。</param>
         /// <param name="u_Name">U_Name 属性的初始值。</param>
+        /// <param name="u_Sex">U_Sex 属性的初始值。</param>
+        /// <param name="u_Birth">U_Birth 属性的初始值。</param>
+        /// <param name="u_Nation">U_Nation 属性的初始值。</param>
         /// <param name="i_Code">I_Code 属性的初始值。</param>
-        /// <param name="m_Code">M_Code 属性的初始值。</param>
-        /// <param name="uT_Code">UT_Code 属性的初始值。</param>
-        /// <param name="u_Degree">U_Degree 属性的初始值。</param>
+        /// <param name="d_Code">D_Code 属性的初始值。</param>
+        /// <param name="u_SchoolTime">U_SchoolTime 属性的初始值。</param>
+        /// <param name="u_WorkTime">U_WorkTime 属性的初始值。</param>
+        /// <param name="u_Subject">U_Subject 属性的初始值。</param>
+        /// <param name="u_Major">U_Major 属性的初始值。</param>
+        /// <param name="u_Research">U_Research 属性的初始值。</param>
         /// <param name="u_Title">U_Title 属性的初始值。</param>
+        /// <param name="u_TitleLevel">U_TitleLevel 属性的初始值。</param>
+        /// <param name="u_EngageTime">U_EngageTime 属性的初始值。</param>
+        /// <param name="u_IsDoubleTitle">U_IsDoubleTitle 属性的初始值。</param>
+        /// <param name="u_LongPhone">U_LongPhone 属性的初始值。</param>
         /// <param name="u_Mail">U_Mail 属性的初始值。</param>
-        /// <param name="u_Phone">U_Phone 属性的初始值。</param>
-        public static Users CreateUsers(global::System.Int32 u_Code, global::System.String u_Account, global::System.String u_PassWord, global::System.String u_Name, global::System.Int32 i_Code, global::System.Int32 m_Code, global::System.Int32 uT_Code, global::System.String u_Degree, global::System.String u_Title, global::System.String u_Mail, global::System.String u_Phone)
+        /// <param name="u_QQNum">U_QQNum 属性的初始值。</param>
+        /// <param name="uT_Code">UT_Code 属性的初始值。</param>
+        public static Users CreateUsers(global::System.Int32 u_Code, global::System.String u_Account, global::System.String u_PassWord, global::System.String u_Name, global::System.Int32 u_Sex, global::System.String u_Birth, global::System.String u_Nation, global::System.Int32 i_Code, global::System.Int32 d_Code, global::System.String u_SchoolTime, global::System.String u_WorkTime, global::System.String u_Subject, global::System.String u_Major, global::System.String u_Research, global::System.String u_Title, global::System.String u_TitleLevel, global::System.String u_EngageTime, global::System.Int32 u_IsDoubleTitle, global::System.String u_LongPhone, global::System.String u_Mail, global::System.String u_QQNum, global::System.Int32 uT_Code)
         {
             Users users = new Users();
             users.U_Code = u_Code;
             users.U_Account = u_Account;
             users.U_PassWord = u_PassWord;
             users.U_Name = u_Name;
+            users.U_Sex = u_Sex;
+            users.U_Birth = u_Birth;
+            users.U_Nation = u_Nation;
             users.I_Code = i_Code;
-            users.M_Code = m_Code;
-            users.UT_Code = uT_Code;
-            users.U_Degree = u_Degree;
+            users.D_Code = d_Code;
+            users.U_SchoolTime = u_SchoolTime;
+            users.U_WorkTime = u_WorkTime;
+            users.U_Subject = u_Subject;
+            users.U_Major = u_Major;
+            users.U_Research = u_Research;
             users.U_Title = u_Title;
+            users.U_TitleLevel = u_TitleLevel;
+            users.U_EngageTime = u_EngageTime;
+            users.U_IsDoubleTitle = u_IsDoubleTitle;
+            users.U_LongPhone = u_LongPhone;
             users.U_Mail = u_Mail;
-            users.U_Phone = u_Phone;
+            users.U_QQNum = u_QQNum;
+            users.UT_Code = uT_Code;
             return users;
         }
 
@@ -2623,6 +2671,78 @@ namespace TeacherTitle.DAL.DB
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        public global::System.Int32 U_Sex
+        {
+            get
+            {
+                return _U_Sex;
+            }
+            set
+            {
+                OnU_SexChanging(value);
+                ReportPropertyChanging("U_Sex");
+                _U_Sex = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("U_Sex");
+                OnU_SexChanged();
+            }
+        }
+        private global::System.Int32 _U_Sex;
+        partial void OnU_SexChanging(global::System.Int32 value);
+        partial void OnU_SexChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String U_Birth
+        {
+            get
+            {
+                return _U_Birth;
+            }
+            set
+            {
+                OnU_BirthChanging(value);
+                ReportPropertyChanging("U_Birth");
+                _U_Birth = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("U_Birth");
+                OnU_BirthChanged();
+            }
+        }
+        private global::System.String _U_Birth;
+        partial void OnU_BirthChanging(global::System.String value);
+        partial void OnU_BirthChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String U_Nation
+        {
+            get
+            {
+                return _U_Nation;
+            }
+            set
+            {
+                OnU_NationChanging(value);
+                ReportPropertyChanging("U_Nation");
+                _U_Nation = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("U_Nation");
+                OnU_NationChanged();
+            }
+        }
+        private global::System.String _U_Nation;
+        partial void OnU_NationChanging(global::System.String value);
+        partial void OnU_NationChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
         public global::System.Int32 I_Code
         {
             get
@@ -2647,72 +2767,144 @@ namespace TeacherTitle.DAL.DB
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 M_Code
+        public global::System.Int32 D_Code
         {
             get
             {
-                return _M_Code;
+                return _D_Code;
             }
             set
             {
-                OnM_CodeChanging(value);
-                ReportPropertyChanging("M_Code");
-                _M_Code = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("M_Code");
-                OnM_CodeChanged();
+                OnD_CodeChanging(value);
+                ReportPropertyChanging("D_Code");
+                _D_Code = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("D_Code");
+                OnD_CodeChanged();
             }
         }
-        private global::System.Int32 _M_Code;
-        partial void OnM_CodeChanging(global::System.Int32 value);
-        partial void OnM_CodeChanged();
+        private global::System.Int32 _D_Code;
+        partial void OnD_CodeChanging(global::System.Int32 value);
+        partial void OnD_CodeChanged();
     
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 UT_Code
+        public global::System.String U_SchoolTime
         {
             get
             {
-                return _UT_Code;
+                return _U_SchoolTime;
             }
             set
             {
-                OnUT_CodeChanging(value);
-                ReportPropertyChanging("UT_Code");
-                _UT_Code = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("UT_Code");
-                OnUT_CodeChanged();
+                OnU_SchoolTimeChanging(value);
+                ReportPropertyChanging("U_SchoolTime");
+                _U_SchoolTime = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("U_SchoolTime");
+                OnU_SchoolTimeChanged();
             }
         }
-        private global::System.Int32 _UT_Code;
-        partial void OnUT_CodeChanging(global::System.Int32 value);
-        partial void OnUT_CodeChanged();
+        private global::System.String _U_SchoolTime;
+        partial void OnU_SchoolTimeChanging(global::System.String value);
+        partial void OnU_SchoolTimeChanged();
     
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String U_Degree
+        public global::System.String U_WorkTime
         {
             get
             {
-                return _U_Degree;
+                return _U_WorkTime;
             }
             set
             {
-                OnU_DegreeChanging(value);
-                ReportPropertyChanging("U_Degree");
-                _U_Degree = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("U_Degree");
-                OnU_DegreeChanged();
+                OnU_WorkTimeChanging(value);
+                ReportPropertyChanging("U_WorkTime");
+                _U_WorkTime = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("U_WorkTime");
+                OnU_WorkTimeChanged();
             }
         }
-        private global::System.String _U_Degree;
-        partial void OnU_DegreeChanging(global::System.String value);
-        partial void OnU_DegreeChanged();
+        private global::System.String _U_WorkTime;
+        partial void OnU_WorkTimeChanging(global::System.String value);
+        partial void OnU_WorkTimeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String U_Subject
+        {
+            get
+            {
+                return _U_Subject;
+            }
+            set
+            {
+                OnU_SubjectChanging(value);
+                ReportPropertyChanging("U_Subject");
+                _U_Subject = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("U_Subject");
+                OnU_SubjectChanged();
+            }
+        }
+        private global::System.String _U_Subject;
+        partial void OnU_SubjectChanging(global::System.String value);
+        partial void OnU_SubjectChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String U_Major
+        {
+            get
+            {
+                return _U_Major;
+            }
+            set
+            {
+                OnU_MajorChanging(value);
+                ReportPropertyChanging("U_Major");
+                _U_Major = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("U_Major");
+                OnU_MajorChanged();
+            }
+        }
+        private global::System.String _U_Major;
+        partial void OnU_MajorChanging(global::System.String value);
+        partial void OnU_MajorChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String U_Research
+        {
+            get
+            {
+                return _U_Research;
+            }
+            set
+            {
+                OnU_ResearchChanging(value);
+                ReportPropertyChanging("U_Research");
+                _U_Research = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("U_Research");
+                OnU_ResearchChanged();
+            }
+        }
+        private global::System.String _U_Research;
+        partial void OnU_ResearchChanging(global::System.String value);
+        partial void OnU_ResearchChanged();
     
         /// <summary>
         /// 没有元数据文档可用。
@@ -2743,6 +2935,126 @@ namespace TeacherTitle.DAL.DB
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        public global::System.String U_TitleLevel
+        {
+            get
+            {
+                return _U_TitleLevel;
+            }
+            set
+            {
+                OnU_TitleLevelChanging(value);
+                ReportPropertyChanging("U_TitleLevel");
+                _U_TitleLevel = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("U_TitleLevel");
+                OnU_TitleLevelChanged();
+            }
+        }
+        private global::System.String _U_TitleLevel;
+        partial void OnU_TitleLevelChanging(global::System.String value);
+        partial void OnU_TitleLevelChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String U_EngageTime
+        {
+            get
+            {
+                return _U_EngageTime;
+            }
+            set
+            {
+                OnU_EngageTimeChanging(value);
+                ReportPropertyChanging("U_EngageTime");
+                _U_EngageTime = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("U_EngageTime");
+                OnU_EngageTimeChanged();
+            }
+        }
+        private global::System.String _U_EngageTime;
+        partial void OnU_EngageTimeChanging(global::System.String value);
+        partial void OnU_EngageTimeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 U_IsDoubleTitle
+        {
+            get
+            {
+                return _U_IsDoubleTitle;
+            }
+            set
+            {
+                OnU_IsDoubleTitleChanging(value);
+                ReportPropertyChanging("U_IsDoubleTitle");
+                _U_IsDoubleTitle = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("U_IsDoubleTitle");
+                OnU_IsDoubleTitleChanged();
+            }
+        }
+        private global::System.Int32 _U_IsDoubleTitle;
+        partial void OnU_IsDoubleTitleChanging(global::System.Int32 value);
+        partial void OnU_IsDoubleTitleChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String U_LongPhone
+        {
+            get
+            {
+                return _U_LongPhone;
+            }
+            set
+            {
+                OnU_LongPhoneChanging(value);
+                ReportPropertyChanging("U_LongPhone");
+                _U_LongPhone = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("U_LongPhone");
+                OnU_LongPhoneChanged();
+            }
+        }
+        private global::System.String _U_LongPhone;
+        partial void OnU_LongPhoneChanging(global::System.String value);
+        partial void OnU_LongPhoneChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String U_ShortPhone
+        {
+            get
+            {
+                return _U_ShortPhone;
+            }
+            set
+            {
+                OnU_ShortPhoneChanging(value);
+                ReportPropertyChanging("U_ShortPhone");
+                _U_ShortPhone = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("U_ShortPhone");
+                OnU_ShortPhoneChanged();
+            }
+        }
+        private global::System.String _U_ShortPhone;
+        partial void OnU_ShortPhoneChanging(global::System.String value);
+        partial void OnU_ShortPhoneChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
         public global::System.String U_Mail
         {
             get
@@ -2767,24 +3079,48 @@ namespace TeacherTitle.DAL.DB
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String U_Phone
+        public global::System.String U_QQNum
         {
             get
             {
-                return _U_Phone;
+                return _U_QQNum;
             }
             set
             {
-                OnU_PhoneChanging(value);
-                ReportPropertyChanging("U_Phone");
-                _U_Phone = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("U_Phone");
-                OnU_PhoneChanged();
+                OnU_QQNumChanging(value);
+                ReportPropertyChanging("U_QQNum");
+                _U_QQNum = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("U_QQNum");
+                OnU_QQNumChanged();
             }
         }
-        private global::System.String _U_Phone;
-        partial void OnU_PhoneChanging(global::System.String value);
-        partial void OnU_PhoneChanged();
+        private global::System.String _U_QQNum;
+        partial void OnU_QQNumChanging(global::System.String value);
+        partial void OnU_QQNumChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UT_Code
+        {
+            get
+            {
+                return _UT_Code;
+            }
+            set
+            {
+                OnUT_CodeChanging(value);
+                ReportPropertyChanging("UT_Code");
+                _UT_Code = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UT_Code");
+                OnUT_CodeChanged();
+            }
+        }
+        private global::System.Int32 _UT_Code;
+        partial void OnUT_CodeChanging(global::System.Int32 value);
+        partial void OnUT_CodeChanged();
     
         /// <summary>
         /// 没有元数据文档可用。
@@ -2842,6 +3178,44 @@ namespace TeacherTitle.DAL.DB
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_USERS_REFERENCE_DEPARTME", "Department")]
+        public Department Department
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Department>("TTitleDBModel.FK_USERS_REFERENCE_DEPARTME", "Department").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Department>("TTitleDBModel.FK_USERS_REFERENCE_DEPARTME", "Department").Value = value;
+            }
+        }
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Department> DepartmentReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Department>("TTitleDBModel.FK_USERS_REFERENCE_DEPARTME", "Department");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Department>("TTitleDBModel.FK_USERS_REFERENCE_DEPARTME", "Department", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_USERS_REFERENCE_INSTITUT", "Institute")]
         public Institute Institute
         {
@@ -2870,44 +3244,6 @@ namespace TeacherTitle.DAL.DB
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Institute>("TTitleDBModel.FK_USERS_REFERENCE_INSTITUT", "Institute", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("TTitleDBModel", "FK_USERS_REFERENCE_MAJOR", "Major")]
-        public Major Major
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Major>("TTitleDBModel.FK_USERS_REFERENCE_MAJOR", "Major").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Major>("TTitleDBModel.FK_USERS_REFERENCE_MAJOR", "Major").Value = value;
-            }
-        }
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Major> MajorReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Major>("TTitleDBModel.FK_USERS_REFERENCE_MAJOR", "Major");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Major>("TTitleDBModel.FK_USERS_REFERENCE_MAJOR", "Major", value);
                 }
             }
         }

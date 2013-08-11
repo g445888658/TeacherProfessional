@@ -5,90 +5,97 @@
 @{
     var list = ViewData["activityList"] as TeacherTitle.Models.ActivityListModels;
 }
-<div id="PartialActivityList">
-    <table border="1">
-        <tr>
-            <th colspan="2">
-                活动形式
-            </th>
-            <th>
-                组织方式
-            </th>
-            <th>
-                呈现材料
-            </th>
-            <th>
-                学时
-            </th>
-        </tr>
-        <tr>
-            <td rowspan="@list.InActivity.Length">
-                @Html.Encode(list.InActivity[0].TA_PlaceValue)
-            </td>
-            <td>
-                @Html.Encode(list.InActivity[0].TA_Form)
-            </td>
-            <td>
-                @Html.Encode(list.InActivity[0].TA_Way)
-            </td>
-            <td>
-                @Html.Encode(list.InActivity[0].TA_Material)
-            </td>
-            <td>
-                @Html.Encode(list.InActivity[0].TA_ClassHour)
-            </td>
-        </tr>
-        @for (int i = 1; i < list.InActivity.Length; i++)
-        {
+<script type="text/javascript">
+    $(function () {
+        $('#ActivityListTable').flexigrid({ height: 'auto', striped: true });
+    });
+</script>
+<div id="PartialActivityList" style="width: 100%;">
+    <table id="ActivityListTable" border="0" style="font-size: 13px;">
+        <tbody>
             <tr>
-                <td>
-                    @Html.Encode(list.InActivity[i].TA_Form)
+                <th colspan="2">
+                    活动形式
+                </th>
+                <th>
+                    组织方式
+                </th>
+                <th>
+                    呈现材料
+                </th>
+                <th>
+                    学时
+                </th>
+            </tr>
+            <tr>
+                <td rowspan="@list.InActivity.Length">
+                    @Html.Encode(list.InActivity[0].TA_PlaceValue)
                 </td>
                 <td>
-                    @Html.Encode(list.InActivity[i].TA_Way)
+                    @Html.Encode(list.InActivity[0].TA_Form)
                 </td>
                 <td>
-                    @Html.Encode(list.InActivity[i].TA_Material)
+                    @Html.Encode(list.InActivity[0].TA_Way)
                 </td>
                 <td>
-                    @Html.Encode(list.InActivity[i].TA_ClassHour)
+                    @Html.Encode(list.InActivity[0].TA_Material)
+                </td>
+                <td>
+                    @Html.Encode(list.InActivity[0].TA_ClassHour)
                 </td>
             </tr>
-        }
-        <tr>
-            <td rowspan="@list.OutActivity.Length">
-                @Html.Encode(list.OutActivity[0].TA_PlaceValue)
-            </td>
-            <td>
-                @Html.Encode(list.OutActivity[0].TA_Form)
-            </td>
-            <td>
-                @Html.Encode(list.OutActivity[0].TA_Way)
-            </td>
-            <td>
-                @Html.Encode(list.OutActivity[0].TA_Material)
-            </td>
-            <td>
-                @Html.Encode(list.OutActivity[0].TA_ClassHour)
-            </td>
-        </tr>
-        @for (int i = 1; i < list.OutActivity.Length; i++)
-        {
+            @for (int i = 1; i < list.InActivity.Length; i++)
+            {
+                <tr>
+                    <td>
+                        @Html.Encode(list.InActivity[i].TA_Form)
+                    </td>
+                    <td>
+                        @Html.Encode(list.InActivity[i].TA_Way)
+                    </td>
+                    <td>
+                        @Html.Encode(list.InActivity[i].TA_Material)
+                    </td>
+                    <td>
+                        @Html.Encode(list.InActivity[i].TA_ClassHour)
+                    </td>
+                </tr>
+            }
             <tr>
-                <td>
-                    @Html.Encode(list.OutActivity[i].TA_Form)
+                <td rowspan="@list.OutActivity.Length">
+                    @Html.Encode(list.OutActivity[0].TA_PlaceValue)
                 </td>
                 <td>
-                    @Html.Encode(list.OutActivity[i].TA_Way)
+                    @Html.Encode(list.OutActivity[0].TA_Form)
                 </td>
                 <td>
-                    @Html.Encode(list.OutActivity[i].TA_Material)
+                    @Html.Encode(list.OutActivity[0].TA_Way)
                 </td>
                 <td>
-                    @Html.Encode(list.OutActivity[i].TA_ClassHour)
+                    @Html.Encode(list.OutActivity[0].TA_Material)
+                </td>
+                <td>
+                    @Html.Encode(list.OutActivity[0].TA_ClassHour)
                 </td>
             </tr>
-        }
+            @for (int i = 1; i < list.OutActivity.Length; i++)
+            {
+                <tr>
+                    <td>
+                        @Html.Encode(list.OutActivity[i].TA_Form)
+                    </td>
+                    <td>
+                        @Html.Encode(list.OutActivity[i].TA_Way)
+                    </td>
+                    <td>
+                        @Html.Encode(list.OutActivity[i].TA_Material)
+                    </td>
+                    <td>
+                        @Html.Encode(list.OutActivity[i].TA_ClassHour)
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
     <div id="ActRemark">
         @Html.Encode((ViewData["activityRemark"] as TeacherTitle.DAL.DB.ActivityRemark).AR_Content)

@@ -30,28 +30,34 @@ namespace TeacherTitle.BAL.Infrastructure
         /// <returns></returns>
         ArgsHelper AlterClaHourInfo(int ASUCode, int ClassHour);
 
-        /// <summary>
-        /// 获取教师参加的活动
-        /// </summary>
-        /// <param name="TeacherName"></param>
-        /// <param name="IsTeacherCode">TeacherName是否为教师编号</param>
-        /// <param name="ActFormName"></param>
-        /// <param name="Start"></param>
-        /// <param name="End"></param>
-        /// <param name="IsGetClassHour">是否获取学时</param>
-        /// <returns></returns>
-        ActAndClaHourModel[] GetTeacherJoinActivity(string TeacherName, bool IsTeacherCode, string ActFormName, string Start, string End, bool IsGetClassHour);
+
 
         /// <summary>
-        /// 获取教师申请的活动
+        /// 根据apcode获取报名信息
         /// </summary>
-        /// <param name="TeacherName"></param>
-        /// <param name="IsTeacherCode">TeacherName是否为教师编号</param>
-        /// <param name="ActFormName"></param>
-        /// <param name="Start"></param>
-        /// <param name="End"></param>
-        /// <param name="IsGetClassHour">是否获取学时</param>
+        /// <param name="apcode"></param>
         /// <returns></returns>
-        ActAndClaHourModel[] GetTeacherApplyActivity(string TeacherName, bool IsTeacherCode, string ActFormName, string Start, string End, bool IsGetClassHour);
+        SignUpModels[] GetSignUpByAPCode(int apcode);
+
+        /// <summary>
+        /// 获取报名信息(正式)
+        /// </summary>
+        /// <param name="apcode"></param>
+        /// <returns></returns>
+        SignUpModels[] GetSignUpZhenShiByAPCode(int apcode);
+
+        /// <summary>
+        /// 获取报名信息(候补)
+        /// </summary>
+        /// <param name="apcode"></param>
+        /// <returns></returns>
+        SignUpModels[] GetSignUpHouBuByAPCode(int apcode);
+
+        /// <summary>
+        /// 查询已结束的活动
+        /// </summary>
+        /// <returns></returns>
+        AlreadyEndOfActModels[] GetAlreadyEndOfAct(string Teacher, string Account, string StartTime, string EndTime);
+
     }
 }

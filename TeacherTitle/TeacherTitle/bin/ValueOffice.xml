@@ -1,0 +1,356 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ValueOffice</name>
+    </assembly>
+    <members>
+        <member name="T:ValueOffice.Infrastructure.OfficeType">
+            <summary>
+             创建Office的版本
+            </summary>
+        </member>
+        <member name="F:ValueOffice.Infrastructure.OfficeType.V2003">
+            <summary>
+             2003版本
+            </summary>
+        </member>
+        <member name="F:ValueOffice.Infrastructure.OfficeType.V2007">
+            <summary>
+             2007版本
+            </summary>
+        </member>
+        <member name="T:ValueOffice.Infrastructure.AccessColumnType">
+            <summary>
+             Access列类型
+            </summary>
+        </member>
+        <member name="F:ValueOffice.Infrastructure.AccessColumnType.Text">
+            <summary>
+             文字型
+            </summary>
+        </member>
+        <member name="F:ValueOffice.Infrastructure.AccessColumnType.Byte">
+            <summary>
+             字节型
+            </summary>
+        </member>
+        <member name="F:ValueOffice.Infrastructure.AccessColumnType.Integer">
+            <summary>
+             整数型
+            </summary>
+        </member>
+        <member name="F:ValueOffice.Infrastructure.AccessColumnType.Long">
+            <summary>
+             长整数型
+            </summary>
+        </member>
+        <member name="F:ValueOffice.Infrastructure.AccessColumnType.Single">
+            <summary>
+             单精度浮点类型
+            </summary>
+        </member>
+        <member name="F:ValueOffice.Infrastructure.AccessColumnType.Float">
+            <summary>
+            单精度浮点类型
+            </summary>
+        </member>
+        <member name="F:ValueOffice.Infrastructure.AccessColumnType.Currency">
+            <summary>
+             货币类型
+            </summary>
+        </member>
+        <member name="F:ValueOffice.Infrastructure.AccessColumnType.Decimal">
+            <summary>
+             数字精度大
+            </summary>
+        </member>
+        <member name="F:ValueOffice.Infrastructure.AccessColumnType.Date">
+            <summary>
+             日期类型
+            </summary>
+        </member>
+        <member name="F:ValueOffice.Infrastructure.AccessColumnType.Memo">
+            <summary>
+             备注
+            </summary>
+        </member>
+        <member name="F:ValueOffice.Infrastructure.AccessColumnType.Hyperlink">
+            <summary>
+             超链接类型
+            </summary>
+        </member>
+        <member name="T:ValueOffice.Interface.IExcel">
+            <summary>
+             Office.Excel操作的封装
+            </summary>
+        </member>
+        <member name="M:ValueOffice.Interface.IExcel.Create(System.String)">
+            <summary>
+             创建Excel文件
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ValueOffice.Interface.IExcel.Create(System.String,System.String)">
+            <summary>
+             创建带密码Excel文件
+            </summary>
+            <param name="fileName"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ValueOffice.Interface.IExcel.GetSheetNames(System.String)">
+            <summary>
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ValueOffice.Interface.IExcel.ChangeSheet(System.String,System.String,System.String)">
+            <summary>
+             修改Sheet名称
+            </summary>
+            <param name="fileName">excel文件名</param>
+            <param name="oldName">旧Sheet名</param>
+            <param name="newName">新Sheet名</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IExcel.AddSheet(System.String,System.String)">
+            <summary>
+             添加Sheet
+            </summary>
+            <param name="fileName">excel文件名</param>
+            <param name="sheetName">新Sheet的名称</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IExcel.AddData(System.String,System.Data.DataTable)">
+            <summary>
+             添加数据
+            </summary>
+            <param name="fileName">excel文件名</param>
+            <param name="dataTable">数据表格</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IExcel.AddData(System.String,System.String,System.Data.DataTable)">
+            <summary>
+             添加数据
+            </summary>
+            <param name="fileName">excel文件名</param>
+            <param name="sheetName">Sheet名</param>
+            <param name="dataTable">数据表格</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IExcel.AddData(System.String,System.Int32,System.Int32,System.Data.DataTable)">
+            <summary>
+             添加数据
+            </summary>
+            <param name="fileName">excel文件名</param>
+            <param name="rowIndex">插入行索引</param>
+            <param name="colIndex">插入列索引</param>
+            <param name="dataTable">数据表格</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IExcel.AddData(System.String,System.Int32,System.Int32,System.Object,System.Data.DataTable)">
+            <summary>
+             添加数据
+            </summary>
+            <param name="fileName">excel文件名</param>
+            <param name="rowIndex">插入行索引</param>
+            <param name="colIndex">插入列索引</param>
+            <param name="sheet">Sheet名称</param>
+            <param name="dataTable">数据表格</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IExcel.ExecuteSQL(System.String,System.String)">
+            <summary>
+             执行SQL语句
+            </summary>
+            <param name="fileName">excel文件名</param>
+            <param name="sql">sql语句</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IExcel.ExecuteSQL(System.String,System.String,System.Boolean)">
+            <summary>
+             执行SQL语句
+            </summary>
+            <param name="fileName">excel文件名</param>
+            <param name="sql">sql语句</param>
+            <param name="HDR">是否解析表头</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IExcel.QuerySQL(System.String,System.String)">
+            <summary>
+             查询SQL语句
+            </summary>
+            <param name="fileName">excel文件名</param>
+            <param name="sql">sql语句</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IExcel.QuerySQL(System.String,System.String,System.Boolean)">
+            <summary>
+             查询SQL语句
+            </summary>
+            <param name="fileName">excel文件</param>
+            <param name="sql">SQL语句</param>
+            <param name="HDR">是否将第一行解析为列头</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IExcel.QueryAllData(System.String)">
+            <summary>
+             查询所有Sheet表的数据
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ValueOffice.Word.ValueWord">
+            <summary>
+             Word2007操作封装
+            </summary>
+        </member>
+        <member name="T:ValueOffice.Interface.IWord">
+            <summary>
+             Office.Word操作的封装
+            </summary>
+        </member>
+        <member name="M:ValueOffice.Interface.IWord.Create(System.String)">
+            <summary>
+             创建Word文件
+            </summary>
+            <param name="fileName">Word文件名</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IWord.Create(System.String,System.String)">
+            <summary>
+             创建带密码Word文件
+            </summary>
+            <param name="fileName">Word文件名</param>
+            <param name="password">密码</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IWord.Write(System.String,System.String)">
+            <summary>
+             写入数据到Word
+            </summary>
+            <param name="fileName">Word文件名</param>
+            <param name="sentence">语句</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IWord.Write(System.String,System.String,System.String)">
+            <summary>
+             写入数据到带密码Word文件
+            </summary>
+            <param name="fileName">Word文件名</param>
+            <param name="sentence">语句</param>
+            <param name="password">密码</param>
+        </member>
+        <member name="M:ValueOffice.Word.ValueWord.GetInstance(ValueOffice.Infrastructure.OfficeType)">
+            <summary>
+             获取Word单例实例
+            </summary>
+        </member>
+        <member name="T:ValueOffice.Interface.IAccess">
+            <summary>
+             Office.Access操作的封装
+            </summary>
+        </member>
+        <member name="M:ValueOffice.Interface.IAccess.Create(System.String)">
+            <summary>
+             创建数据库
+            </summary>
+            <param name="fileName">Access文件名</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IAccess.Create(System.String,System.String)">
+            <summary>
+             创建带密码数据库
+            </summary>
+            <param name="fileName">Access文件名</param>
+            <param name="password">密码</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IAccess.AddTable(System.String,System.String,ValueOffice.Infrastructure.AccessColumn[])">
+            <summary>
+             建表
+            </summary>
+            <param name="fileName">Access文件名</param>
+            <param name="tableName">表名</param>
+            <param name="columns">列头的属性</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IAccess.AddTable(System.String,System.String,ValueOffice.Infrastructure.AccessColumn[],System.String)">
+            <summary>
+             键表带密码
+            </summary>
+            <param name="fileName">Access文件名</param>
+            <param name="tableName">表名</param>
+            <param name="columns">列头的属性</param>
+            <param name="password">密码</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IAccess.DeleteTable(System.String,System.String)">
+            <summary>
+             删除表
+            </summary>
+            <param name="fileName">Access文件名</param>
+            <param name="tableName">表名</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IAccess.ExecuteSQL(System.String,System.String)">
+            <summary>
+             执行SQL语句
+            </summary>
+            <param name="fileName">Access文件名</param>
+            <param name="sql">SQL语句</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IAccess.ExecuteSQL(System.String,System.String,System.String)">
+            <summary>
+             执行SQL语句
+            </summary>
+            <param name="fileName">Access文件名</param>
+            <param name="sql">SQL语句</param>
+            <param name="password">密码</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IAccess.QuerySQL(System.String,System.String)">
+            <summary>
+             查询SQL语句
+            </summary>
+            <param name="fileName">Access文件名</param>
+            <param name="sql">SQL语句</param>
+        </member>
+        <member name="M:ValueOffice.Interface.IAccess.QuerySQL(System.String,System.String,System.String)">
+            <summary>
+             查询SQL语句
+            </summary>
+            <param name="fileName">Access文件名</param>
+            <param name="sql">SQL语句</param>
+            <param name="password">密码</param>
+        </member>
+        <member name="T:ValueOffice.Excel.ValueExcel">
+            <summary>
+             Excel2007操作封装
+            </summary>
+        </member>
+        <member name="M:ValueOffice.Excel.ValueExcel.GetInstance(ValueOffice.Infrastructure.OfficeType)">
+            <summary>
+             获取单例实例
+            </summary>
+        </member>
+        <member name="T:ValueOffice.Access.ValueAccess">
+            <summary>
+             Access2007操作封装
+            </summary>
+        </member>
+        <member name="M:ValueOffice.Access.ValueAccess.GetInstance(ValueOffice.Infrastructure.OfficeType)">
+            <summary>
+             获取单例实例
+            </summary>
+        </member>
+        <member name="T:ValueOffice.Infrastructure.AccessColumn">
+            <summary>
+             创建Access是用到的列属性
+            </summary>
+        </member>
+        <member name="M:ValueOffice.Infrastructure.AccessColumn.ToString">
+            <summary>
+             转化为字符串形式
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ValueOffice.Infrastructure.AccessColumn.Name">
+            <summary>
+             列名
+            </summary>
+        </member>
+        <member name="P:ValueOffice.Infrastructure.AccessColumn.Type">
+            <summary>
+             列类型
+            </summary>
+        </member>
+        <member name="P:ValueOffice.Infrastructure.AccessColumn.PrimaryKey">
+            <summary>
+             是否为主键
+            </summary>
+        </member>
+    </members>
+</doc>

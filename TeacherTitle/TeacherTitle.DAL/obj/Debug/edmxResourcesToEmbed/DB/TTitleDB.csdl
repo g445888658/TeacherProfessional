@@ -7,8 +7,8 @@
     <EntitySet Name="ActivityRemark" EntityType="TTitleDBModel.ActivityRemark" />
     <EntitySet Name="ActivitySignUp" EntityType="TTitleDBModel.ActivitySignUp" />
     <EntitySet Name="ClassHourSum" EntityType="TTitleDBModel.ClassHourSum" />
+    <EntitySet Name="Department" EntityType="TTitleDBModel.Department" />
     <EntitySet Name="Institute" EntityType="TTitleDBModel.Institute" />
-    <EntitySet Name="Major" EntityType="TTitleDBModel.Major" />
     <EntitySet Name="SysConfig" EntityType="TTitleDBModel.SysConfig" />
     <EntitySet Name="TeachingActivity" EntityType="TTitleDBModel.TeachingActivity" />
     <EntitySet Name="Users" EntityType="TTitleDBModel.Users" />
@@ -37,12 +37,12 @@
       <End Role="ActivitySignUp" EntitySet="ActivitySignUp" />
       <End Role="ClassHourSum" EntitySet="ClassHourSum" />
     </AssociationSet>
-    <AssociationSet Name="FK_USERS_REFERENCE_INSTITUT" Association="TTitleDBModel.FK_USERS_REFERENCE_INSTITUT">
-      <End Role="Institute" EntitySet="Institute" />
+    <AssociationSet Name="FK_USERS_REFERENCE_DEPARTME" Association="TTitleDBModel.FK_USERS_REFERENCE_DEPARTME">
+      <End Role="Department" EntitySet="Department" />
       <End Role="Users" EntitySet="Users" />
     </AssociationSet>
-    <AssociationSet Name="FK_USERS_REFERENCE_MAJOR" Association="TTitleDBModel.FK_USERS_REFERENCE_MAJOR">
-      <End Role="Major" EntitySet="Major" />
+    <AssociationSet Name="FK_USERS_REFERENCE_INSTITUT" Association="TTitleDBModel.FK_USERS_REFERENCE_INSTITUT">
+      <End Role="Institute" EntitySet="Institute" />
       <End Role="Users" EntitySet="Users" />
     </AssociationSet>
     <AssociationSet Name="FK_USERS_REFERENCE_USERTYPE" Association="TTitleDBModel.FK_USERS_REFERENCE_USERTYPE">
@@ -91,6 +91,7 @@
     <NavigationProperty Name="ActivityAttachment" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTIVITY" FromRole="ActivityPlan" ToRole="ActivityAttachment" />
     <NavigationProperty Name="ActivitySignUp" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN_1" FromRole="ActivityPlan" ToRole="ActivitySignUp" />
     <NavigationProperty Name="TeachingActivity" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_TEACHING" FromRole="ActivityPlan" ToRole="TeachingActivity" />
+    <Property Type="String" Name="AP_ClassHour" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="ActivityRemark">
     <Key>
@@ -128,6 +129,15 @@
     <Property Name="CH_Remark" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="ActivitySignUp" Relationship="TTitleDBModel.FK_CLASSHOU_REFERENCE_ACTIVITY" FromRole="ClassHourSum" ToRole="ActivitySignUp" />
   </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="D_Code" />
+    </Key>
+    <Property Name="D_Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="D_Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="D_IsValid" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="TTitleDBModel.FK_USERS_REFERENCE_DEPARTME" FromRole="Department" ToRole="Users" />
+  </EntityType>
   <EntityType Name="Institute">
     <Key>
       <PropertyRef Name="I_Code" />
@@ -136,15 +146,6 @@
     <Property Name="I_Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
     <Property Name="I_IsValid" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Users" Relationship="TTitleDBModel.FK_USERS_REFERENCE_INSTITUT" FromRole="Institute" ToRole="Users" />
-  </EntityType>
-  <EntityType Name="Major">
-    <Key>
-      <PropertyRef Name="M_Code" />
-    </Key>
-    <Property Name="M_Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="M_Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-    <Property Name="M_IsValid" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Users" Relationship="TTitleDBModel.FK_USERS_REFERENCE_MAJOR" FromRole="Major" ToRole="Users" />
   </EntityType>
   <EntityType Name="SysConfig">
     <Key>
@@ -176,17 +177,29 @@
     <Property Name="U_Account" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
     <Property Name="U_PassWord" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
     <Property Name="U_Name" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="U_Sex" Type="Int32" Nullable="false" />
+    <Property Name="U_Birth" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="U_Nation" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
     <Property Name="I_Code" Type="Int32" Nullable="false" />
-    <Property Name="M_Code" Type="Int32" Nullable="false" />
-    <Property Name="UT_Code" Type="Int32" Nullable="false" />
-    <Property Name="U_Degree" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="D_Code" Type="Int32" Nullable="false" />
+    <Property Name="U_SchoolTime" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="U_WorkTime" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="U_Subject" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="U_Major" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="U_Research" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
     <Property Name="U_Title" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
-    <Property Name="U_Mail" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
-    <Property Name="U_Phone" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="U_TitleLevel" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="U_EngageTime" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="U_IsDoubleTitle" Type="Int32" Nullable="false" />
+    <Property Name="U_LongPhone" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="U_ShortPhone" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="U_Mail" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="U_QQNum" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="UT_Code" Type="Int32" Nullable="false" />
     <Property Name="U_Remark" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="ActivitySignUp" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_USERS" FromRole="Users" ToRole="ActivitySignUp" />
+    <NavigationProperty Name="Department" Relationship="TTitleDBModel.FK_USERS_REFERENCE_DEPARTME" FromRole="Users" ToRole="Department" />
     <NavigationProperty Name="Institute" Relationship="TTitleDBModel.FK_USERS_REFERENCE_INSTITUT" FromRole="Users" ToRole="Institute" />
-    <NavigationProperty Name="Major" Relationship="TTitleDBModel.FK_USERS_REFERENCE_MAJOR" FromRole="Users" ToRole="Major" />
     <NavigationProperty Name="UserType" Relationship="TTitleDBModel.FK_USERS_REFERENCE_USERTYPE" FromRole="Users" ToRole="UserType" />
   </EntityType>
   <EntityType Name="UserType">
@@ -269,6 +282,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_USERS_REFERENCE_DEPARTME">
+    <End Role="Department" Type="TTitleDBModel.Department" Multiplicity="1" />
+    <End Role="Users" Type="TTitleDBModel.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="D_Code" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="D_Code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_USERS_REFERENCE_INSTITUT">
     <End Role="Institute" Type="TTitleDBModel.Institute" Multiplicity="1" />
     <End Role="Users" Type="TTitleDBModel.Users" Multiplicity="*" />
@@ -278,18 +303,6 @@
       </Principal>
       <Dependent Role="Users">
         <PropertyRef Name="I_Code" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_USERS_REFERENCE_MAJOR">
-    <End Role="Major" Type="TTitleDBModel.Major" Multiplicity="1" />
-    <End Role="Users" Type="TTitleDBModel.Users" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Major">
-        <PropertyRef Name="M_Code" />
-      </Principal>
-      <Dependent Role="Users">
-        <PropertyRef Name="M_Code" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

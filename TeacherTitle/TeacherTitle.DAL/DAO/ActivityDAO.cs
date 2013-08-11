@@ -80,6 +80,19 @@ namespace TeacherTitle.DAL.DAO
         }
 
         /// <summary>
+        /// 查询教师上传的附件
+        /// </summary>
+        /// <returns></returns>
+        public ActivityMaterial GetTeacherAttachmentById(int AM_Code)
+        {
+            using (TTitleDBEntities db = new TTitleDBEntities())
+            {
+                return db.ActivityMaterial.FirstOrDefault(x => x.AM_Code == AM_Code);
+            }
+        }
+
+
+        /// <summary>
         /// 查询活动的附件
         /// </summary>
         /// <returns></returns>
@@ -173,29 +186,7 @@ namespace TeacherTitle.DAL.DAO
             return new ArgsHelper(true, "添加教学活动成功");
         }
 
-        /// <summary>
-        /// 结束报名
-        /// </summary>
-        /// <param name="AP_Code">报名编号</param>
-        /// <returns></returns>
-        public ArgsHelper EndSignUp(int AP_Code)
-        {
-            using (TTitleDBEntities db = new TTitleDBEntities())
-            {
-                var result = db.ActivityPlan.FirstOrDefault(x => x.AP_Code == AP_Code);
-                result.AP_StatusKey = 0;
-                result.AP_StatusValue = "报名结束";
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    return new ArgsHelper(ex.Message.ToString());
-                }
-            }
-            return new ArgsHelper();
-        }
+        
 
 
         /// <summary>
@@ -247,7 +238,7 @@ namespace TeacherTitle.DAL.DAO
         }
 
         /// <summary>
-        /// 获取教学活动（详细）
+        /// 获取所有的教学活动（详细）
         /// </summary>
         /// <returns></returns>
         public ActivityPlan[] GetAllActivityPlan()
@@ -294,66 +285,9 @@ namespace TeacherTitle.DAL.DAO
             }
         }
 
-        /// <summary>
-        /// 获取报名信息
-        /// </summary>
-        /// <returns></returns>
-        public ActAndClaHourModel[] GetAllActSignUp()
-        {
-            using (TTitleDBEntities db = new TTitleDBEntities())
-            {
-                //查询出所有可用的教师报名(非候补)
-                var AllSignUp = db.ActivitySignUp.Where(x => x.ASU_StatusKey == 1 && x.ASU_IsCandidateKey == 0).ToArray();
-                List<ActAndClaHourModel> list = new List<ActAndClaHourModel>();
-                for (int i = 0; i < AllSignUp.Length; i++)
-                {
-                    list.Add(new ActAndClaHourModel()
-                    {
-                        SignUpCode = Convert.ToString(AllSignUp[i].ASU_Code),
-                        UserCode = new KeyValueModel()
-                        {
-                            Key = Convert.ToString(AllSignUp[i].U_Code),
-                            Value = AllSignUp[i].Users.U_Name
-                        },
-                        ActForm = new KeyValueModel()
-                        {
-                            Key = AllSignUp[i].ActivityPlan.TA_Code.ToString(),
-                            Value = AllSignUp[i].ActivityPlan.TeachingActivity.TA_Form
-                        },
-                        APCode = AllSignUp[i].ActivityPlan.AP_Code.ToString(),
-                        ActSpeaker = AllSignUp[i].ActivityPlan.AP_Speaker,
-                        ActPlace = AllSignUp[i].ActivityPlan.AP_Place,
-                        ActStart = AllSignUp[i].ActivityPlan.AP_StartTime,
-                        ActEnd = AllSignUp[i].ActivityPlan.AP_EndTime,
-                        ActReleaseTime = AllSignUp[i].ActivityPlan.AP_ReleaseTime,
-                        ActTheme = AllSignUp[i].ActivityPlan.AP_Theme,
-                        ActStatus = new KeyValueModel()
-                        {
-                            Key = AllSignUp[i].ActivityPlan.AP_StatusKey.ToString(),
-                            Value = AllSignUp[i].ActivityPlan.AP_StatusValue
-                        }
-                        //IsCandidate = new KeyValueModel()
-                        //{
-                        //    Key = AllSignUp[i].ASU_IsCandidateKey.ToString(),
-                        //    Value = AllSignUp[i].ASU_IsCandidateVal
-                        //}
-                    });
-                }
-                return list.ToArray();
-            }
-        }
+        
 
-        /// <summary>
-        /// 根据userCode获取报名信息
-        /// </summary>
-        /// <returns></returns>
-        public ActAndClaHourModel[] GetActSignUpByUCode(string userCode)
-        {
-            using (TTitleDBEntities db = new TTitleDBEntities())
-            {
-                return GetAllActSignUp().Where(x => x.UserCode.Key == userCode).ToArray();
-            }
-        }
+       
 
         /// <summary>
         /// 查询是否有候选人
@@ -376,11 +310,11 @@ namespace TeacherTitle.DAL.DAO
         /// </summary>
         /// <param name="ASU_Code"></param>
         /// <returns></returns>
-        public ArgsHelper RejectApply(int ASU_Code)
+        public ArgsHelper RejectApply(int U_Code, int AP_Code)
         {
             using (TTitleDBEntities db = new TTitleDBEntities())
             {
-                var result = db.ActivitySignUp.FirstOrDefault(x => x.ASU_Code == ASU_Code);
+                var result = db.ActivitySignUp.FirstOrDefault(x => x.U_Code == U_Code && x.AP_Code == AP_Code);
                 result.ASU_StatusKey = 0;
                 result.ASU_StatusValue = "剔除";
                 try
@@ -402,7 +336,7 @@ namespace TeacherTitle.DAL.DAO
         /// <param name="ASU_Code">报名编号</param>
         /// <param name="IsReplace">是否让候补顶替(0代表否,1代表是)</param>
         /// <returns></returns>
-        public ArgsHelper AfterRejectApply(int AP_Code, int ASU_Code, int IsReplace)
+        public ArgsHelper AfterRejectApply(int AP_Code, int IsReplace)
         {
             using (TTitleDBEntities db = new TTitleDBEntities())
             {
@@ -432,6 +366,56 @@ namespace TeacherTitle.DAL.DAO
             return new ArgsHelper(true, "剔除成功");
         }
 
+
+        /// <summary>
+        /// 选择一个候补人员顶上
+        /// </summary>
+        /// <param name="AP_Code">活动编号</param>
+        /// <param name="User_Code">候补人员编号</param>
+        /// <returns></returns>
+        public ArgsHelper ChooseCandidate(int AP_Code, int User_Code)
+        {
+            using (TTitleDBEntities db = new TTitleDBEntities())
+            {
+                var signUp = db.ActivitySignUp.FirstOrDefault(x => x.AP_Code == AP_Code && x.U_Code == User_Code);
+                signUp.ASU_IsCandidateKey = 0;
+                signUp.ASU_IsCandidateVal = "正式";
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return new ArgsHelper(ex.Message);
+                }
+                return new ArgsHelper();
+            }
+        }
+
+        /// <summary>
+        /// 修改活动状态
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public ArgsHelper AlterAP_Status(int AP_Code, int key, string value)
+        {
+            using (TTitleDBEntities db = new TTitleDBEntities())
+            {
+                var result = db.ActivityPlan.AsParallel().FirstOrDefault(x => x.AP_Code == AP_Code);
+                result.AP_StatusKey = key;
+                result.AP_StatusValue = value;
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return new ArgsHelper(ex.Message);
+                }
+            }
+            return new ArgsHelper();
+        }
 
     }
 }

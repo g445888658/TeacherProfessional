@@ -32,6 +32,12 @@ namespace TeacherTitle.BAL.Infrastructure
         ArgsHelper AddActivityMaterial(ActivityMaterial activityMaterial);
 
         /// <summary>
+        /// 根据id获取教师上传的附件
+        /// </summary>
+        /// <returns></returns>
+        ActivityMaterial GetTeacherAttachmentById(int AM_Code);
+
+        /// <summary>
         /// 根据id获取附件
         /// </summary>
         /// <param name="AA_Code"></param>
@@ -50,12 +56,12 @@ namespace TeacherTitle.BAL.Infrastructure
         /// <returns></returns>
         TeachingActivity[] GetAllActivity();
 
-        /// <summary>
-        /// 根据关键字获取所教学活动形式
-        /// </summary>
-        /// <param name="keyword"></param>
-        /// <returns></returns>
-        List<KeyValueModel> GetActForm(string keyword);
+        ///// <summary>
+        ///// 根据关键字获取所教学活动形式
+        ///// </summary>
+        ///// <param name="keyword"></param>
+        ///// <returns></returns>
+        //List<KeyValueModel> GetActForm(string keyword);
 
         /// <summary>
         /// 获取所有的教学活动形式
@@ -104,17 +110,16 @@ namespace TeacherTitle.BAL.Infrastructure
         ActivityPlan[] GetAllActivityPlan();
 
         /// <summary>
+        /// 根据条件获取教学活动（详细）
+        /// </summary>
+        /// <returns></returns>
+        ActivityPlan[] GetActivityPlan(int key);
+
+        /// <summary>
         /// 获取教学活动,有附件
         /// </summary>
         /// <returns></returns>
         ActivityPlanModels[] GetAllActivityPlans();
-
-        /// <summary>
-        /// 结束报名
-        /// </summary>
-        /// <param name="AP_Code">活动编号</param>
-        /// <returns></returns>
-        ArgsHelper EndSignUp(int AP_Code);
 
         /// <summary>
         /// 获取管理员发布的活动
@@ -122,17 +127,6 @@ namespace TeacherTitle.BAL.Infrastructure
         /// <returns></returns>
         ActivityPlan[] GetAdmActivityPlan();
 
-        /// <summary>
-        /// 获取还在报名的活动
-        /// </summary>
-        /// <returns></returns>
-        ActivityPlan[] GetActiveActivityPlan();
-
-        /// <summary>
-        /// 获取结束报名的活动
-        /// </summary>
-        /// <returns></returns>
-        ActivityPlan[] GetEndActivityPlan();
 
         /// <summary>
         /// 根据活动编号获取活动
@@ -147,13 +141,6 @@ namespace TeacherTitle.BAL.Infrastructure
         /// <param name="apCode"></param>
         /// <returns></returns>
         ActivityPlanModels GetActivityPlansById(Int32 apCode);
-
-        /// <summary>
-        /// 根据用户编号获取已报名的活动
-        /// </summary>
-        /// <param name="userCode"></param>
-        /// <returns></returns>
-        ActAndClaHourModel[] GetActSignUpByUCode(int userCode);
 
         /// <summary>
         /// 根据用户编号和活动详细编号查询教师报名情况
@@ -175,17 +162,32 @@ namespace TeacherTitle.BAL.Infrastructure
         /// </summary>
         /// <param name="ASU_Code"></param>
         /// <returns></returns>
-        ArgsHelper RejectApply(int ASU_Code);
+        ArgsHelper RejectApply(int U_Code, int AP_Code);
 
         /// <summary>
         /// 在将教师剔除后调用该方法,修改其对应的正式名额余量和候补名额余量
         /// </summary>
         /// <param name="AP_Code">活动详情编号</param>
-        /// <param name="ASU_Code">报名编号</param>
         /// <param name="IsReplace">是否让候补顶替(0代表否,1代表是)</param>
         /// <returns></returns>
-        ArgsHelper AfterRejectApply(int AP_Code, int ASU_Code, int IsReplace);
+        ArgsHelper AfterRejectApply(int AP_Code, int IsReplace);
 
+
+        /// <summary>
+        /// 选择一个候补人员顶上
+        /// </summary>
+        /// <param name="AP_Code">活动编号</param>
+        /// <param name="User_Code">候补人员编号</param>
+        /// <returns></returns>
+        ArgsHelper ChooseCandidate(int AP_Code, int User_Code);
+
+        /// <summary>
+        /// 修改活动状态
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        ArgsHelper AlterAP_Status(int AP_Code, int key, string value);
 
     }
 }

@@ -1,0 +1,130 @@
+﻿<script type="text/javascript">
+    $(function () {
+        $("#ActAndTeacherTable").flexigrid({
+            resizable: false,
+            title: "活动列表",
+            showToggleBtn: false
+        });
+        $(".table").flexigrid({
+            resizable: false,
+            height: 'auto',
+            title: "教师名单",
+            showToggleBtn: false
+        });
+    });
+
+    function showTeacherList(tag) {
+        var all = $(".tableDiv", $("#ActAndTeacherList"));
+        for (var i = 0; i < all.length; i++) {
+            if ($(all[i]).attr("id") == $(tag).attr('target')) {
+                $(all[i]).css("display", "block");
+            }
+            else {
+                $(all[i]).css("display", "none");
+            }
+        }
+    }
+</script>
+@{
+    var list = ViewData["resultList"] as TeacherTitle.DAL.Model.AlreadyEndOfActModels[];
+}
+<div id="ActAndTeacherList">
+    <table id="ActAndTeacherTable" class="table" style="font-size: 13px;">
+        <thead style="font-size: 13px;">
+            <tr>
+                <th width="40">
+                    编号
+                </th>
+                <th width="200">
+                    活动主题
+                </th>
+                <th width="60">
+                    主讲人
+                </th>
+                <th width="80">
+                    开始时间
+                </th>
+                <th width="80">
+                    结束时间
+                </th>
+                <th width="100">
+                    具体地点
+                </th>
+                <th width="80">
+                    参与人
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < list.Length; i++)
+            {
+                <tr>
+                    <td>
+                        @Html.Encode(i + 1)
+                    </td>
+                    <td>
+                        @Html.Encode(list[i].Plan.AP_Theme)
+                    </td>
+                    <td>
+                        @Html.Encode(list[i].Plan.AP_Speaker)
+                    </td>
+                    <td>
+                        @Html.Encode(list[i].Plan.AP_StartTime)
+                    </td>
+                    <td>
+                        @Html.Encode(list[i].Plan.AP_EndTime)
+                    </td>
+                    <td>
+                        @Html.Encode(list[i].Plan.AP_Place)
+                    </td>
+                    <td>
+                        <a onclick="showTeacherList(this);" target = "@list[i].Plan.AP_Code" style = "cursor:pointer; text-decoration:underline;">
+                            请点击</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @for (int i = 0; i < list.Length; i++)
+    {
+        <div style="display: none;"  class="tableDiv" id="@list[i].Plan.AP_Code">
+            <table class="table" style="font-size: 13px;">
+                <thead style="font-size: 13px;">
+                    <tr>
+                        <th width="40">
+                            编号
+                        </th>
+                        <th width="200">
+                            职工号
+                        </th>
+                        <th width="60">
+                            姓名
+                        </th>
+                        <th width="80">
+                            学时
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int j = 0; j < list[i].SignUpModels.Length; j++)
+                    {
+                        <tr>
+                            <td>
+                                @Html.Encode(j + 1)
+                            </td>
+                            <td>
+                                @Html.Encode(list[i].SignUpModels[j].U_Account)
+                            </td>
+                            <td>
+                                @Html.Encode(list[i].SignUpModels[j].U_Name)
+                            </td>
+                            <td>
+                                @Html.Encode(list[i].SignUpModels[j].CH_GetHour)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

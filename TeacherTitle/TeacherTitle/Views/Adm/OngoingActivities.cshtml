@@ -1,0 +1,30 @@
+﻿<script type="text/javascript">
+    function showActDetail(tag) {
+        $.ajax({
+            type: "GET",
+            url: "/Adm/OngoingDetail",
+            data: { "AP_Code": $(tag).attr("ap_Code") },
+            success: function (data) {
+                $("#Content").html(data);
+            }
+        });
+    }
+</script>
+<div id="PartailOngoingActivities">
+    @{
+        var menu = ViewData["AllActTheme"] as TeacherTitle.DAL.DB.ActivityPlan[];
+    }
+    <div id="Menu" style="border: solid 1px gray; height: 300px; width: 150px; overflow: scroll;">
+        <ul>
+            @for (int i = 0; i < menu.Length; i++)
+            {
+                <li id="@menu[i].AP_Code" onclick="showActDetail(this);" ap_Code="@menu[i].AP_Code" style="cursor: pointer;">
+                    @Html.Encode(menu[i].AP_Theme)
+                </li>
+            }
+        </ul>
+    </div>
+    <div style="border: solid 1px gray; overflow: scroll; right: 0px; position: absolute;
+        height: 300px; width: 590px; top: 0px;" id="Content">
+    </div>
+</div>

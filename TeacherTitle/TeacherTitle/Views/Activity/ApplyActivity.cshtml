@@ -43,8 +43,6 @@
                         @Html.Label("活动地点：")
                         @Html.Label(list.Plan.AP_Place)
                     </div>
-                </td>
-                <td style="vertical-align: top;">
                     <div class="editor-label">
                         @Html.Label("开始时间：")
                         @Html.Label(list.Plan.AP_StartTime)
@@ -53,6 +51,8 @@
                         @Html.Label("结束时间：")
                         @Html.Label(list.Plan.AP_EndTime)
                     </div>
+                </td>
+                <td style="vertical-align: top;">
                     <div class="editor-label">
                         @Html.Label("限制名额：")
                         @Html.Label(list.Plan.AP_Limit.ToString())
@@ -73,17 +73,25 @@
                         @Html.Label("状态：")
                         @Html.Label(list.Plan.AP_StatusValue)
                     </div>
+                </td>
+                <td>
+                    <div class="editor-label">
+                        @Html.Label("学时：")
+                        @Html.Label(list.Plan.AP_ClassHour)
+                    </div>
+                    <div class="editor-label">
+                        @Html.Label("状态：")
+                        @Html.Label(list.Plan.AP_StatusValue)
+                    </div>
                     <div class="editor-label">
                         @Html.Label("附件：")
                     </div>
                     @for (int i = 0; i < list.Attachment.Length; i++)
                     {
                         <div class="editor-label">
-                            @Html.ActionLink(list.Attachment[i].AA_Name, "DownloadFile", new { AA_Code = list.Attachment[i].AA_Code})
+                            @Html.ActionLink(list.Attachment[i].AA_Name, "DownloadFile", new { AA_Code = list.Attachment[i].AA_Code })
                         </div>
                     }
-                </td>
-                <td>
                     @using (Ajax.BeginForm("ApplyActivity", "Activity", null, new AjaxOptions { OnSuccess = "ApplyActivityCallBack(data);" }, new { id = "AddActivityForm" }))
                     {
                         @Html.Hidden("apCode", list.Plan.AP_Code)

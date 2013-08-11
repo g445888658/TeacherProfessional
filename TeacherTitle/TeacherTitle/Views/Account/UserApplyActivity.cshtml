@@ -21,7 +21,7 @@
                         @Html.ValidationMessage("ActForm")
                     </div>
                     <div class="editor-label">
-                        @Html.Label("主讲人")
+                        @Html.Label("主办方")
                     </div>
                     <div class="editor-label">
                         @Html.TextBox("ActSpeaker")
@@ -55,6 +55,13 @@
                     <div class="editor-label">
                         @Html.TextBox("ActEndTime", null, new { @class = "runcode", @readonly = "readonly" })
                         @Html.ValidationMessage("ActEndTime")
+                    </div>
+                    <div class="editor-label">
+                        @Html.Label("学时")
+                    </div>
+                    <div class="editor-label">
+                        @Html.TextBox("ActClassHour")
+                        @Html.ValidationMessage("ActClassHour")
                     </div>
                     <div class="editor-label">
                         @Html.Partial("_UploadPartail")

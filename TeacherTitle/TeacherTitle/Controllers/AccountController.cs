@@ -266,9 +266,10 @@ namespace TeacherTitle.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public PartialViewResult UserInfo(string U_Code, string U_Mail, string U_Phone)
+        public PartialViewResult UserInfo(string U_Code, string U_LongPhone, string U_ShortPhone, string U_Mail, string U_QQNum)
         {
-            var args = UserService.ChangeUserInfo(Convert.ToInt32(U_Code), U_Mail, U_Phone);
+            //未完成
+            var args = UserService.ChangeUserInfo(Convert.ToInt32(U_Code), U_LongPhone, U_ShortPhone, U_Mail, U_QQNum);
             ViewData["result"] = args.Msg;
             return PartialView("_ResultPartial");
         }
@@ -304,22 +305,14 @@ namespace TeacherTitle.Controllers
                     AP_StartTime = addActivityModels.ActStartTime,
                     AP_EndTime = addActivityModels.ActEndTime,
                     AP_Place = addActivityModels.ActPlace,
+                    AP_ClassHour = addActivityModels.ActClassHour,
                     AP_ReleaseTime = DateTime.Now.ToString(),
                     AP_StatusKey = 2,
                     AP_StatusValue = "教师申请"
                 };
 
                 var args = ActivityService.AddActivityPlan(ActivityPlan);
-                for (int i = 0; i < uploadModels.FileName.Length; i++)
-                {
-                    ActivityAttachment activityAttachment = new ActivityAttachment()
-                    {
-                        AP_Code = ActivityPlan.AP_Code,
-                        AA_Name = uploadModels.FileName[i],
-                        AA_Path = uploadModels.SaveName[i]
-                    };
-                    args = ActivityService.AddActivityAttachment(activityAttachment);
-                }
+
 
                 if (args.Flag)
                 {
@@ -334,6 +327,17 @@ namespace TeacherTitle.Controllers
                     };
 
                     args = ActivityService.TeacherSignUp(activitySignUp);
+
+                    for (int i = 0; i < uploadModels.FileName.Length; i++)
+                    {
+                        ActivityMaterial activityMaterial = new ActivityMaterial()
+                        {
+                            ASU_Code = activitySignUp.ASU_Code,
+                            AM_Name = uploadModels.FileName[i],
+                            AM_SavePath = uploadModels.SaveName[i]
+                        };
+                        args = ActivityService.AddActivityMaterial(activityMaterial);
+                    }
 
                     ViewData["result"] = args.Msg;
                     return PartialView("_ResultPartial");

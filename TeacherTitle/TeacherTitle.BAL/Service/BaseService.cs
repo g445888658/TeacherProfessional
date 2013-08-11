@@ -32,12 +32,12 @@ namespace TeacherTitle.BAL.Service
         }
 
         /// <summary>
-        /// 获取所有专业
+        /// 获取所有系
         /// </summary>
         /// <returns></returns>
-        public List<Major> GetAllMajor()
+        public List<Department> GetAllDepartment()
         {
-            return baseDAO.GetAllMajor();
+            return baseDAO.GetAllDepartment();
         }
 
 

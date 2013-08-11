@@ -30,22 +30,22 @@ namespace TeacherTitle.Controllers
             return View();
         }
 
-        /// <summary>
-        /// 根据关键字获取活动形式
-        /// </summary>
-        /// <param name="keyword"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public JsonResult GetActForm(string keyword)
-        {
-            var result = ActivityService.GetActForm(keyword);
-            var jsonData = result.Select(x => new
-            {
-                Key = x.Key,
-                Value = x.Value
-            });
-            return Json(jsonData);
-        }
+        ///// <summary>
+        ///// 根据关键字获取活动形式
+        ///// </summary>
+        ///// <param name="keyword"></param>
+        ///// <returns></returns>
+        //[HttpPost]
+        //public JsonResult GetActForm(string keyword)
+        //{
+        //    var result = ActivityService.GetActForm(keyword);
+        //    var jsonData = result.Select(x => new
+        //    {
+        //        Key = x.Key,
+        //        Value = x.Value
+        //    });
+        //    return Json(jsonData);
+        //}
 
         /// <summary>
         /// GET 教学活动列表
@@ -86,6 +86,16 @@ namespace TeacherTitle.Controllers
             return File(file.AA_Path, "text/plain", file.AA_Name);
         }
 
+        /// <summary>
+        /// 下载教师上传的资料
+        /// </summary>
+        /// <returns></returns>
+        public FileResult DownloadUserFile(string AM_Code)
+        {
+            var file = ActivityService.GetTeacherAttachmentById(Convert.ToInt32(AM_Code));
+            return File(file.AM_SavePath, "text/plain", file.AM_Name);
+        }
+
 
         /// <summary>
         /// POST 申请参加活动
@@ -117,7 +127,7 @@ namespace TeacherTitle.Controllers
                 else
                 {
                     var activityDeail = ActivityService.GetActivityPlanById(Convert.ToInt32(apCode));
-                    if (activityDeail.AP_StatusKey == 0)//报名结束
+                    if (activityDeail.AP_StatusKey != 1)//报名结束
                     {
                         flag = false;
                         msg = "报名已结束";
@@ -171,17 +181,6 @@ namespace TeacherTitle.Controllers
 
 
         /// <summary>
-        ///GET 教师活动列表
-        /// </summary>
-        /// <returns></returns>
-        public PartialViewResult ApplyList(SearchClassHourModelsl model)
-        {
-            var result = ClassHourService.GetTeacherJoinActivity(model.Teacher, false, model.ActivityForm, model.StartTime, model.EndTime, false);
-            ViewData["applyList"] = result;
-            return PartialView();
-        }
-
-        /// <summary>
         ///POST 教师活动列表
         /// </summary>
         /// <returns></returns>
@@ -221,122 +220,7 @@ namespace TeacherTitle.Controllers
             return Json(jsonData);
         }
 
-        /// <summary>
-        ///POST 查询是否有候选人
-        /// </summary>
-        /// <param name="AP_Code"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public JsonResult IsHaveCandidate(string AP_Code)
-        {
-            var result = ActivityService.IsHaveCandidate(Convert.ToInt32(AP_Code));
-            var jsonData = new
-            {
-                Flag = result.Flag,
-                Msg = result.Msg
-            };
-            return Json(jsonData);
-        }
-
-        /// <summary>
-        /// 从已报名的名单中剔除老师
-        /// </summary>
-        /// <param name="SignUpCode">报名编号</param>
-        /// <param name="AP_Code">活动详情编号</param>
-        /// <param name="IsReplace">是否让候选的老师顶替上</param>
-        /// <returns></returns>
-        [HttpPost]
-        public JsonResult RejectApply(string SignUpCode, string AP_Code, string IsReplace)
-        {
-            var args = ActivityService.RejectApply(Convert.ToInt32(SignUpCode));
-            args = ActivityService.AfterRejectApply(Convert.ToInt32(AP_Code), Convert.ToInt32(SignUpCode), Convert.ToInt32(IsReplace));
-            var jsonData = new
-            {
-                Flag = args.Flag,
-                Msg = args.Msg
-            };
-            return Json(jsonData);
-        }
-
-        /// <summary>
-        /// 用户参与的活动（包括得到学时和没得到的）
-        /// </summary>
-        /// <returns></returns>
-        public PartialViewResult ApplyListForUser(string U_Code)
-        {
-            if (!string.IsNullOrEmpty(U_Code))
-            {
-                var result = ClassHourService.GetTeacherJoinActivity(U_Code, true, null, null, null, false);
-                ViewData["applyList"] = result;
-            }
-            return PartialView();
-        }
-
-
-        /// <summary>
-        /// 搜索条件
-        /// </summary>
-        /// <returns></returns>
-        public PartialViewResult TeacherPerApply()
-        {
-            return PartialView();
-        }
-
-        /// <summary>
-        /// 教师申请列表(没有取得学时)
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public PartialViewResult TeacherPerApply(SearchClassHourModelsl model)
-        {
-            var list = ClassHourService.GetTeacherApplyActivity(model.Teacher, false, model.ActivityForm, model.StartTime, model.EndTime, false);
-            ViewData["applyList"] = list;
-            return PartialView("ApplyList");
-        }
-
-        /// <summary>
-        ///GET 搜索条件
-        /// </summary>
-        /// <returns></returns>
-        public PartialViewResult TeacherPerApplyFinish()
-        {
-            return PartialView();
-        }
-
-        /// <summary>
-        ///POST 查询教师申请的活动并且已经获取学时
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public PartialViewResult TeacherPerApplyFinish(SearchClassHourModelsl model)
-        {
-            var list = ClassHourService.GetTeacherApplyActivity(model.Teacher, false, model.ActivityForm, model.StartTime, model.EndTime, true);
-            ViewData["PerApplyFinishList"] = list;
-            return PartialView("ApplyFinishTable");
-        }
-
-        /// <summary>
-        /// 修改老师获得的学时
-        /// </summary>
-        /// <param name="ASUCode"></param>
-        /// <param name="ClassHour"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public JsonResult ApplyFinishTable(string ASUCode, string ClassHour)
-        {
-            var args = ClassHourService.AlterClaHourInfo(Convert.ToInt32(ASUCode), Convert.ToInt32(ClassHour));
-            string msg = string.Empty;
-            if (!args.Flag)
-                msg = "修改失败";
-            else
-                msg = "修改成功";
-            var jsonData = new
-            {
-                Flag = args.Flag,
-                Msg = msg
-            };
-            return Json(jsonData);
-        }
+       
 
 
     }

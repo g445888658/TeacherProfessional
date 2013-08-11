@@ -45,3 +45,6 @@ C:\Users\Administrator\Desktop\顾哲航\TeacherProfessional\TeacherProfessional
 C:\Users\Administrator\Desktop\顾哲航\TeacherProfessional\TeacherProfessional\TeacherTitle\TeacherTitle\obj\Debug\TeacherTitle.UI.csprojResolveAssemblyReference.cache
 C:\Users\Administrator\Desktop\顾哲航\TeacherProfessional\TeacherProfessional\TeacherTitle\TeacherTitle\obj\Debug\TeacherTitle.dll
 C:\Users\Administrator\Desktop\顾哲航\TeacherProfessional\TeacherProfessional\TeacherTitle\TeacherTitle\obj\Debug\TeacherTitle.pdb
+E:\程序猿\网站\TeacherProfessional\TeacherTitle\TeacherTitle\bin\ValueOffice.dll
+E:\程序猿\网站\TeacherProfessional\TeacherTitle\TeacherTitle\bin\ValueOffice.pdb
+E:\程序猿\网站\TeacherProfessional\TeacherTitle\TeacherTitle\bin\ValueOffice.xml

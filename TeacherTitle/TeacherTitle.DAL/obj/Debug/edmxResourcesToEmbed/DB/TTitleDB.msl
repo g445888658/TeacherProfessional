@@ -24,6 +24,7 @@
     <EntitySetMapping Name="ActivityPlan">
       <EntityTypeMapping TypeName="TTitleDBModel.ActivityPlan">
         <MappingFragment StoreEntitySet="ActivityPlan">
+          <ScalarProperty Name="AP_ClassHour" ColumnName="AP_ClassHour" />
           <ScalarProperty Name="AP_Code" ColumnName="AP_Code" />
           <ScalarProperty Name="TA_Code" ColumnName="TA_Code" />
           <ScalarProperty Name="AP_Theme" ColumnName="AP_Theme" />
@@ -75,21 +76,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Department">
+      <EntityTypeMapping TypeName="TTitleDBModel.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="D_Code" ColumnName="D_Code" />
+          <ScalarProperty Name="D_Name" ColumnName="D_Name" />
+          <ScalarProperty Name="D_IsValid" ColumnName="D_IsValid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Institute">
       <EntityTypeMapping TypeName="TTitleDBModel.Institute">
         <MappingFragment StoreEntitySet="Institute">
           <ScalarProperty Name="I_Code" ColumnName="I_Code" />
           <ScalarProperty Name="I_Name" ColumnName="I_Name" />
           <ScalarProperty Name="I_IsValid" ColumnName="I_IsValid" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Major">
-      <EntityTypeMapping TypeName="TTitleDBModel.Major">
-        <MappingFragment StoreEntitySet="Major">
-          <ScalarProperty Name="M_Code" ColumnName="M_Code" />
-          <ScalarProperty Name="M_Name" ColumnName="M_Name" />
-          <ScalarProperty Name="M_IsValid" ColumnName="M_IsValid" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -123,13 +124,25 @@
           <ScalarProperty Name="U_Account" ColumnName="U_Account" />
           <ScalarProperty Name="U_PassWord" ColumnName="U_PassWord" />
           <ScalarProperty Name="U_Name" ColumnName="U_Name" />
+          <ScalarProperty Name="U_Sex" ColumnName="U_Sex" />
+          <ScalarProperty Name="U_Birth" ColumnName="U_Birth" />
+          <ScalarProperty Name="U_Nation" ColumnName="U_Nation" />
           <ScalarProperty Name="I_Code" ColumnName="I_Code" />
-          <ScalarProperty Name="M_Code" ColumnName="M_Code" />
-          <ScalarProperty Name="UT_Code" ColumnName="UT_Code" />
-          <ScalarProperty Name="U_Degree" ColumnName="U_Degree" />
+          <ScalarProperty Name="D_Code" ColumnName="D_Code" />
+          <ScalarProperty Name="U_SchoolTime" ColumnName="U_SchoolTime" />
+          <ScalarProperty Name="U_WorkTime" ColumnName="U_WorkTime" />
+          <ScalarProperty Name="U_Subject" ColumnName="U_Subject" />
+          <ScalarProperty Name="U_Major" ColumnName="U_Major" />
+          <ScalarProperty Name="U_Research" ColumnName="U_Research" />
           <ScalarProperty Name="U_Title" ColumnName="U_Title" />
+          <ScalarProperty Name="U_TitleLevel" ColumnName="U_TitleLevel" />
+          <ScalarProperty Name="U_EngageTime" ColumnName="U_EngageTime" />
+          <ScalarProperty Name="U_IsDoubleTitle" ColumnName="U_IsDoubleTitle" />
+          <ScalarProperty Name="U_LongPhone" ColumnName="U_LongPhone" />
+          <ScalarProperty Name="U_ShortPhone" ColumnName="U_ShortPhone" />
           <ScalarProperty Name="U_Mail" ColumnName="U_Mail" />
-          <ScalarProperty Name="U_Phone" ColumnName="U_Phone" />
+          <ScalarProperty Name="U_QQNum" ColumnName="U_QQNum" />
+          <ScalarProperty Name="UT_Code" ColumnName="UT_Code" />
           <ScalarProperty Name="U_Remark" ColumnName="U_Remark" />
         </MappingFragment>
       </EntityTypeMapping>

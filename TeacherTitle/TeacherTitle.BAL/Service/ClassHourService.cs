@@ -45,114 +45,91 @@ namespace TeacherTitle.BAL.Service
             return classHourDAO.AlterClaHourInfo(ASUCode, ClassHour);
         }
 
-        /// <summary>
-        /// 查询教师参加的活动
-        /// </summary>
-        /// <param name="TeacherCode">名字</param>
-        /// <param name="isTeacherCode">TeacherName是否为教师编号</param>
-        /// <param name="ActFormCode">活动形式</param>
-        /// <param name="Start">开始时间</param>
-        /// <param name="End">结束时间</param>
-        /// <param name="IsGetClassHour">是否获取学时</param>
-        /// <returns></returns>
-        public ActAndClaHourModel[] GetActivityInfo(string TeacherName, bool isTeacherCode, string ActFormName, string Start, string End, bool IsGetClassHour)
-        {
-            ActAndClaHourModel[] list = activityDAO.GetAllActSignUp();
-            List<ActAndClaHourModel> newList = new List<ActAndClaHourModel>();
-            //删选出已获得学时的活动
-            for (int i = 0; i < list.Length; i++)
-            {
-                var classHour = GetClaHourInfoByASU_Code(Convert.ToInt32(list[i].SignUpCode));
-                if (IsGetClassHour)
-                {
-                    if (classHour != null)//有学时
-                    {
-                        if (classHour.CH_GetHour != null)
-                        {
-                            list[i].ClassHour = classHour.CH_GetHour.ToString();
-                            list[i].GetTime = classHour.CH_GetTime;
-                            newList.Add(list[i]);
-                        }
-                    }
-                }
-                else//无学时
-                {
-                    if (classHour != null)
-                    {
-                        if (classHour.CH_GetHour == null)
-                            newList.Add(list[i]);
-                    }
-                    else
-                        newList.Add(list[i]);
-                }
-            }
 
-            var arraTiaojian = new string[4] { TeacherName, ActFormName, Start, End };
+        /// <summary>
+        /// 根据apcode获取报名信息
+        /// </summary>
+        /// <param name="apcode"></param>
+        /// <returns></returns>
+        public SignUpModels[] GetSignUpByAPCode(int apcode)
+        {
+            return classHourDAO.GetSignUpByAPCode(apcode);
+        }
+
+        /// <summary>
+        /// 获取报名信息(正式)
+        /// </summary>
+        /// <param name="apcode"></param>
+        /// <returns></returns>
+        public SignUpModels[] GetSignUpZhenShiByAPCode(int apcode)
+        {
+            return classHourDAO.GetSignUpByAPCode(apcode).Where(x => x.ASU_IsCandidateKey == "0").ToArray();
+        }
+
+        /// <summary>
+        /// 获取报名信息(候补)
+        /// </summary>
+        /// <param name="apcode"></param>
+        /// <returns></returns>
+        public SignUpModels[] GetSignUpHouBuByAPCode(int apcode)
+        {
+            return classHourDAO.GetSignUpByAPCode(apcode).Where(x => x.ASU_IsCandidateKey == "1").ToArray();
+        }
+
+
+        /// <summary>
+        /// 查询已结束的活动
+        /// </summary>
+        /// <returns></returns>
+        public AlreadyEndOfActModels[] GetAlreadyEndOfAct(string Teacher, string Account, string StartTime, string EndTime)
+        {
+            var array = new string[4] { Teacher, Account, StartTime, EndTime };
+            List<AlreadyEndOfActModels> list = new List<AlreadyEndOfActModels>();
+            var allPlan = activityDAO.GetAllActivityPlan().Where(x => x.AP_StatusKey == 0).ToArray();//获取所有的已结束的活动
+            for (int i = 0; i < allPlan.Length; i++)
+            {
+                var SignUp = GetSignUpZhenShiByAPCode(allPlan[i].AP_Code);
+                list.Add(new AlreadyEndOfActModels()
+                {
+                    Plan = allPlan[i],
+                    SignUpModels = SignUp
+                });
+            }
             for (int i = 0; i < 4; i++)
             {
-                if (!string.IsNullOrEmpty(arraTiaojian[i]))
+                if (!string.IsNullOrEmpty(array[i]))
                 {
                     switch (i)
                     {
-                        case 0://用户名
+                        //根据教师名字筛选
+                        case 0:
+                            //List<AlreadyEndOfActModels> list0 = new List<AlreadyEndOfActModels>();
+                            for (int j = 0; j < list.Count; j++)
                             {
-                                if (isTeacherCode)
-                                    newList = newList.Where(x => x.UserCode.Key == TeacherName).ToList();
-                                else
-                                    newList = newList.Where(x => x.UserCode.Value == TeacherName).ToList();
+                                list[j].SignUpModels = list[j].SignUpModels.Where(x => x.U_Name == Teacher).ToArray();
                             }
+                            list.RemoveAll(x => x.SignUpModels.Length == 0);
                             break;
-                        case 1: //活动形式
+                        //根据工号筛选
+                        case 1:
+                            for (int j = 0; j < list.Count; j++)
                             {
-                                newList = newList.Where(x => x.ActForm.Value == ActFormName).ToList();
-                            };
+                                list[j].SignUpModels = list[j].SignUpModels.Where(x => x.U_Account == Account).ToArray();
+                            }
+                            list.RemoveAll(x => x.SignUpModels.Length == 0);
                             break;
-                        case 2://开始时间
-                            {
-                                newList = newList.Where(x => DateTime.Parse(x.ActStart) > DateTime.Parse(Start)).ToList();
-                            };
+                        //根据开始时间筛选
+                        case 2:
+                            list = list.Where(x => DateTime.Parse(x.Plan.AP_StartTime) > DateTime.Parse(StartTime)).ToList();
                             break;
-                        case 3://结束时间
-                            {
-                                newList = newList.Where(x => DateTime.Parse(x.ActEnd) < DateTime.Parse(End).AddDays(1)).ToList();
-                            };
+                        //根据结束时间筛选
+                        case 3:
+                            list = list.Where(x => DateTime.Parse(x.Plan.AP_EndTime) < DateTime.Parse(EndTime)).ToList();
                             break;
                     }
                 }
             }
-            return newList.ToArray();
-        }
-
-        /// <summary>
-        /// 获取教师参加的活动
-        /// </summary>
-        /// <param name="TeacherName"></param>
-        /// <param name="IsTeacherCode">TeacherName是否为教师编号</param>
-        /// <param name="ActFormName"></param>
-        /// <param name="Start"></param>
-        /// <param name="End"></param>
-        /// <param name="IsGetClassHour">是否获取学时</param>
-        /// <returns></returns>
-        public ActAndClaHourModel[] GetTeacherJoinActivity(string TeacherName, bool IsTeacherCode, string ActFormName, string Start, string End, bool IsGetClassHour)
-        {
-            var list = GetActivityInfo(TeacherName, IsTeacherCode, ActFormName, Start, End, IsGetClassHour);
-            return list.Where(x => x.ActStatus.Key == "1").ToArray();
-        }
-
-        /// <summary>
-        /// 获取教师申请的活动
-        /// </summary>
-        /// <param name="TeacherName"></param>
-        /// <param name="IsTeacherCode">TeacherName是否为教师编号</param>
-        /// <param name="ActFormName"></param>
-        /// <param name="Start"></param>
-        /// <param name="End"></param>
-        /// <param name="IsGetClassHour">是否获取学时</param>
-        /// <returns></returns>
-        public ActAndClaHourModel[] GetTeacherApplyActivity(string TeacherName, bool IsTeacherCode, string ActFormName, string Start, string End, bool IsGetClassHour)
-        {
-            var list = GetActivityInfo(TeacherName, IsTeacherCode, ActFormName, Start, End, IsGetClassHour);
-            return list.Where(x => x.ActStatus.Key == "2").ToArray();
+            return list.ToArray();
         }
 
 

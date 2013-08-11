@@ -34,14 +34,14 @@ namespace TeacherTitle.DAL.DAO
         }
 
         /// <summary>
-        /// 获取所有专业
+        /// 获取所有系
         /// </summary>
         /// <returns></returns>
-        public List<Major> GetAllMajor()
+        public List<Department> GetAllDepartment()
         {
             using (TTitleDBEntities db = new TTitleDBEntities())
             {
-                return db.Major.ToList();
+                return db.Department.ToList();
             }
         }
 

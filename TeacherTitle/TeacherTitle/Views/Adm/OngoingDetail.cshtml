@@ -1,0 +1,97 @@
+﻿<script type="text/javascript">
+    $(function () {
+        $("#OngoingDetail").flexigrid({
+            title: '教师列表',
+            resizable: false,
+            height: 'auto',
+            showToggleBtn:false
+        });
+    });
+
+    function showResult(data) {
+        $("#ui_dialog").html(data.Msg);
+        $('#ui_dialog').dialog({
+            modal: true,
+            show: 'blind',
+            hide: 'explode',
+            resizable: false,
+            title: "提示"
+        });
+    }
+</script>
+<div id="PartailOngoingDetail">
+    @{
+        var ZhenShi = ViewData["AllSigUpZhenShi"] as TeacherTitle.DAL.Model.SignUpModels[];
+    }
+    @using (Ajax.BeginForm("OngoingDetail", "Adm", null, new AjaxOptions { HttpMethod = "POST", OnSuccess = "showResult(data);" }, new { id = "OngoingDetailForm" }))
+    {
+        <table id="OngoingDetail" style="font-size: 13px;">
+            <thead>
+                <tr style="font-size: 13px;">
+                    <th width="70">
+                        编号
+                    </th>
+                    <th width="100">
+                        职工号
+                    </th>
+                    <th width="100">
+                        姓名
+                    </th>
+                    <th width="150">
+                        活动资料
+                    </th>
+                    <th width="70">
+                        学时
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ZhenShi.Length != 0)
+                {
+                    for (int i = 0; i < ZhenShi.Length; i++)
+                    {
+                    <tr>
+                        <td>
+                            @Html.Encode(i + 1)
+                            @Html.Hidden("ASU_Code", ZhenShi[i].ASU_Code)
+                        </td>
+                        <td>
+                            @Html.Encode(ZhenShi[i].U_Account)
+                        </td>
+                        <td>
+                            @Html.Encode(ZhenShi[i].U_Name)
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            @Html.TextBox("ClassHour", ZhenShi[i].CH_GetHour, new { style = "width:60px;" })
+                        </td>
+                    </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td>
+                            @Html.Encode("当前无数据")
+                        </td>
+                        <td>
+                            @Html.Encode("当前无数据")
+                        </td>
+                        <td>
+                            @Html.Encode("当前无数据")
+                        </td>
+                        <td>
+                            @Html.Encode("当前无数据")
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="editor-label">
+            @Html.Hidden("AP_code", ZhenShi[0].AP_Code)
+            <input type="submit" onclick="this.form.action='@Url.Action("OngoingDetail")';" value="保存" />
+            <input type="submit" onclick="this.form.action='@Url.Action("EndAlter")';" value="提交" />
+        </div>
+    }
+</div>

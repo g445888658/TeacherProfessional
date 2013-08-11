@@ -22,10 +22,10 @@ namespace TeacherTitle.BAL.Infrastructure
         List<Institute> GetAllInstitute();
 
         /// <summary>
-        /// 获取所有专业
+        /// 获取所有系
         /// </summary>
         /// <returns></returns>
-        List<Major> GetAllMajor();
+        List<Department> GetAllDepartment();
 
         /// <summary>
         /// 设置系统邮箱

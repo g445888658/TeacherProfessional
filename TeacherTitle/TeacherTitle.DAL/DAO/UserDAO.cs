@@ -36,20 +36,19 @@ namespace TeacherTitle.DAL.DAO
                             Key = Convert.ToString(user.I_Code),
                             Value = user.Institute.I_Name
                         },
-                        U_Major = new KeyValueModel
+                        U_Department = new KeyValueModel
                         {
-                            Key = Convert.ToString(user.M_Code),
-                            Value = user.Major.M_Name
+                            Key = Convert.ToString(user.Department),
+                            Value = user.Department.D_Name
                         },
                         U_Type = new KeyValueModel
                         {
                             Key = Convert.ToString(user.UT_Code),
                             Value = user.UserType.UTType
                         },
-                        U_Degree = user.U_Degree,
                         U_Title = user.U_Title,
                         U_Mail = user.U_Mail,
-                        U_Phone = user.U_Phone,
+                        U_LongPhone = user.U_LongPhone,
                         U_Remark = user.U_Remark
                     };
 
@@ -69,7 +68,6 @@ namespace TeacherTitle.DAL.DAO
         {
             using (TTitleDBEntities db = new TTitleDBEntities())
             {
-
                 var user = db.Users.FirstOrDefault(x => x.U_Code == ID);
                 if (user != null)
                 {
@@ -79,25 +77,41 @@ namespace TeacherTitle.DAL.DAO
                         U_Account = user.U_Account,
                         U_PassWord = user.U_PassWord,
                         U_Name = user.U_Name,
+                        U_Sex = new KeyValueModel()
+                        {
+                            Key = user.U_Sex.ToString(),
+                            Value = user.U_Sex == 1 ? "男" : "女"
+                        },
+                        U_Birth = user.U_Birth,
+                        U_Nation = user.U_Nation,
                         U_Institute = new KeyValueModel()
                         {
                             Key = Convert.ToString(user.I_Code),
                             Value = user.Institute.I_Name
                         },
-                        U_Major = new KeyValueModel
+                        U_Department = new KeyValueModel
                         {
-                            Key = Convert.ToString(user.M_Code),
-                            Value = user.Major.M_Name
+                            Key = Convert.ToString(user.D_Code),
+                            Value = user.Department.D_Name
                         },
+                        U_SchoolTime = user.U_SchoolTime,
+                        U_WorkTime = user.U_WorkTime,
+                        U_Subject = user.U_Subject,
+                        U_Major = user.U_Major,
+                        U_Research = user.U_Research,
+                        U_Title = user.U_Title,
+                        U_TitleLevel = user.U_TitleLevel,
+                        U_EngageTime = user.U_EngageTime,
+                        U_IsDoubleTitle = user.U_IsDoubleTitle.ToString(),
+                        U_LongPhone = user.U_LongPhone,
+                        U_ShortPhone = user.U_ShortPhone,
+                        U_Mail = user.U_Mail,
+                        U_QQNum = user.U_QQNum,
                         U_Type = new KeyValueModel
                         {
                             Key = Convert.ToString(user.UT_Code),
                             Value = user.UserType.UTType
                         },
-                        U_Degree = user.U_Degree,
-                        U_Title = user.U_Title,
-                        U_Mail = user.U_Mail,
-                        U_Phone = user.U_Phone,
                         U_Remark = user.U_Remark
                     };
 
@@ -223,13 +237,16 @@ namespace TeacherTitle.DAL.DAO
         /// </summary>
         /// <param name="users"></param>
         /// <returns></returns>
-        public ArgsHelper ChangeUserInfo(int U_Code, string Mail, string Phone)
+        public ArgsHelper ChangeUserInfo(int U_Code, string U_LongPhone, string U_ShortPhone, string U_Mail, string U_QQNum)
         {
             using (TTitleDBEntities db = new TTitleDBEntities())
             {
                 var user = db.Users.FirstOrDefault(x => x.U_Code == U_Code);
-                user.U_Mail = Mail;
-                user.U_Phone = Phone;
+
+                user.U_LongPhone = U_LongPhone;
+                user.U_ShortPhone = U_ShortPhone;
+                user.U_QQNum = U_QQNum;
+                //user.U_Mail = U_Mail;
                 try
                 {
                     db.SaveChanges();
@@ -241,6 +258,41 @@ namespace TeacherTitle.DAL.DAO
             }
             return new ArgsHelper(true, "修改成功");
         }
+
+        /// <summary>
+        /// 获取所有教师
+        /// </summary>
+        /// <returns></returns>
+        public TeacherDetailModels[] GetTeacherDetail()
+        {
+            List<TeacherDetailModels> list = new List<TeacherDetailModels>();
+            using (TTitleDBEntities db = new TTitleDBEntities())
+            {
+                var Institute = db.Institute.OrderBy(x => x.I_Code).ToArray();
+                for (int i = 0; i < Institute.Length; i++)
+                {
+                    var icode = Institute[i].I_Code;
+                    var teacher = db.Users.Where(x => x.UT_Code == 2 && x.I_Code == icode).ToArray();
+                    var name = teacher.Select(x => new KeyValueModel()
+                    {
+                        Key = x.U_Code.ToString(),
+                        Value = x.U_Name
+                    }).ToArray();
+                    list.Add(new TeacherDetailModels()
+                    {
+                        institute = new KeyValueModel()
+                        {
+                            Key = Institute[i].I_Code.ToString(),
+                            Value = Institute[i].I_Name
+                        },
+                        TeacherName = name
+                    });
+                }
+            }
+            return list.ToArray();
+        }
+
+
 
 
     }

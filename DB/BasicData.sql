@@ -3,19 +3,12 @@ insert into SysConfig(SC_FieldName,SC_FieldAttr,SC_FieldCode) values('kingdeetes
 insert into UserType(UTType) values('管理员');
 insert into UserType(UTType) values('用户');
 
-insert into Major(M_Name,M_IsValid) values('信息管理与信息系统',1);
-insert into Major(M_Name,M_IsValid) values('生物医学工程',1);
+insert into Department(D_Name,D_IsValid) values('计算机与信息管理系',1);
 
 insert into Institute(I_Name,I_IsValid) values('信息与工程学院',1);
 insert into Institute(I_Name,I_IsValid) values('仁济学院',1);
 
-insert into Users(U_Account,U_PassWord,U_Name,I_Code,M_Code,UT_Code,U_Degree,U_Title,U_Mail,U_Phone,U_Remark) values ('123','123','莱维哈特',1,1,1,'硕士','讲师','123456@qq.com','123456','备注');
-
-insert into Users(U_Account,U_PassWord,U_Name,I_Code,M_Code,UT_Code,U_Degree,U_Title,U_Mail,U_Phone,U_Remark) values ('111','111','空之轨迹',2,2,2,'博士','讲师','123456@126.com','456789','备注');
-
-insert into Users(U_Account,U_PassWord,U_Name,I_Code,M_Code,UT_Code,U_Degree,U_Title,U_Mail,U_Phone,U_Remark) values ('222','222','约修亚',2,2,2,'硕士','教授','123456@163.com','456789','备注');
-
-insert into Users(U_Account,U_PassWord,U_Name,I_Code,M_Code,UT_Code,U_Degree,U_Title,U_Mail,U_Phone,U_Remark) values ('333','333','艾斯蒂尔',2,2,2,'硕士','副教授','111@qq.com','8888','我是备注');
+insert into Users(U_Account,U_PassWord,U_Name,U_Sex,U_Birth,U_Nation,I_Code,D_Code,U_SchoolTime,U_WorkTime,U_Subject,U_Major,U_Research,U_Title,U_TitleLevel,U_EngageTime,U_IsDoubleTitle,U_LongPhone,U_ShortPhone,U_Mail,U_QQNum,UT_Code,U_Remark) values('adm','123','顾哲航','1','1992-10-24','汉','1','1','2011-10-1','2011-10-1','计算机软件与理论','计算机科学与技术','信息系统与移动医疗','讲师','中级','2012-10-1','0','18267858552','688552','445888658@qq.com','445888658','1','无备注');
 
 insert into ActivityRemark(AR_Content) values('每位教师参加培训后需提交培训学时申请（校级沙龙除外），并提供培训证书、邀请函/通知书、学术论文、活动内容介绍、活动过程影像资料等证明材料。各二级学院在每一学年结束前将青年教师培训学时汇总报教师教学发展中心。');
 

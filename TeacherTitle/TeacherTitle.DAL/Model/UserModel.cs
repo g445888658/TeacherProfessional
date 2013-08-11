@@ -29,6 +29,21 @@ namespace TeacherTitle.DAL.Model
         public string U_Name { get; set; }
 
         /// <summary>
+        /// 性别
+        /// </summary>
+        public KeyValueModel U_Sex { get; set; }
+
+        ///<summary>
+        /// 出生年月
+        /// </summary>
+        public string U_Birth { get; set; }
+
+        /// <summary>
+        /// 民族
+        /// </summary>
+        public string U_Nation { get; set; }
+
+        /// <summary>
         /// 学院
         /// </summary>
         public KeyValueModel U_Institute { get; set; }
@@ -36,22 +51,62 @@ namespace TeacherTitle.DAL.Model
         /// <summary>
         /// 专业
         /// </summary>
-        public KeyValueModel U_Major { get; set; }
+        public KeyValueModel U_Department { get; set; }
 
         /// <summary>
-        /// 用户类型
+        /// 来校年月
         /// </summary>
-        public KeyValueModel U_Type { get; set; }
+        public string U_SchoolTime { get; set; }
 
         /// <summary>
-        /// 学历学位
+        /// 参加工作年月
         /// </summary>
-        public string U_Degree { get; set; }
+        public string U_WorkTime { get; set; }
+
 
         /// <summary>
-        /// 职称
+        /// 现从事学科
+        /// </summary>
+        public string U_Subject { get; set; }
+
+        /// <summary>
+        /// 从事专业
+        /// </summary>
+        public string U_Major { get; set; }
+
+        /// <summary>
+        /// 研究方向
+        /// </summary>
+        public string U_Research { get; set; }
+
+        /// <summary>
+        /// 职称(专业技术资格)
         /// </summary>
         public string U_Title { get; set; }
+
+        /// <summary>
+        /// 资格级别
+        /// </summary>
+        public string U_TitleLevel { get; set; }
+
+        /// <summary>
+        /// 专业技术职务聘任时间
+        /// </summary>
+        public string U_EngageTime { get; set; }
+
+        /// <summary>
+        /// 是否双职称
+        /// </summary>
+        public string U_IsDoubleTitle { get; set; }
+
+        /// <summary>
+        /// 联系电话(长号)
+        /// </summary>
+        public string U_LongPhone { get; set; }
+        /// <summary>
+        /// 短号
+        /// </summary>
+        public string U_ShortPhone { get; set; }
 
         /// <summary>
         /// 邮箱
@@ -59,9 +114,14 @@ namespace TeacherTitle.DAL.Model
         public string U_Mail { get; set; }
 
         /// <summary>
-        /// 联系电话
+        /// QQ号
         /// </summary>
-        public string U_Phone { get; set; }
+        public string U_QQNum { get; set; }
+
+        /// <summary>
+        /// 权限类型编号
+        /// </summary>
+        public KeyValueModel U_Type { get; set; }
 
         /// <summary>
         /// 备注

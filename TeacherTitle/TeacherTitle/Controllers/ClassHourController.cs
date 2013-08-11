@@ -32,18 +32,7 @@ namespace TeacherTitle.Controllers
             return PartialView();
         }
 
-        /// <summary>
-        /// POST 根据条件查询老师已获取的学时
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public PartialViewResult SearchCriteria(SearchClassHourModelsl model)
-        {
-            var result = ClassHourService.GetTeacherJoinActivity(model.Teacher,false, model.ActivityForm, model.StartTime, model.EndTime, true);
-            ViewData["resultList"] = result;
-            return PartialView("ClassHourTable");
-        }
+       
 
         /// <summary>
         /// POST 修改教师获得的学时

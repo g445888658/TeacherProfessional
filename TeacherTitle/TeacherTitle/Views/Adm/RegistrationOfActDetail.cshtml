@@ -1,0 +1,260 @@
+﻿<script type="text/javascript">
+    $(function () {
+        $("#SignUpDetail").flexigrid({
+            title: '报名列表',
+            resizable: false,
+            height: 'auto',
+            showToggleBtn: false
+        });
+        $("#SignUpDetailCandidate").flexigrid({
+            title: '候选列表',
+            resizable: false,
+            height: 'auto',
+            showToggleBtn: false
+        });
+    });
+
+    //将老师从活动中剔除
+    function rejectApply(tag) {
+        var AP_Code = $("#AP_Code", $("#PartailRegistrationOfActDetail")).val();
+        //查询是否有候补人员
+        $.ajax({
+            type: "POST",
+            url: "/Adm/IsHaveCandidate",
+            data: { "AP_Code": AP_Code },
+            success: function (data) {
+                if (data.Flag) {
+                    $("#ui_dialog_button").html("在剔除该老师后会空出一个名额,将候补人员替换上请点\"是\",继续空着请点\"否\"");
+                    $('#ui_dialog_button').dialog({
+                        modal: true,
+                        show: 'blind',
+                        hide: 'explode',
+                        resizable: false,
+                        title: "提示",
+                        buttons: {
+                            是: function () {
+                                $(tag).parent().children("#IsReplace").val("1");
+                                $(tag).parent().submit();
+                            },
+                            否: function () {
+                                $(tag).parent().children("#IsReplace").val("0");
+                                $(tag).parent().submit();
+                            }
+                        }
+                    });
+                }
+                else {
+                    $(tag).parent().children("#IsReplace").val("0");
+                    $(tag).parent().submit();
+                }
+            }
+        });
+    }
+
+    function callBackPrompt(data) {
+        $('#ui_dialog_button').dialog('close');
+        $("#ui_dialog").html(data.Msg);
+        $('#ui_dialog').dialog({
+            modal: true,
+            show: 'blind',
+            hide: 'explode',
+            resizable: false,
+            title: "提示"
+        });
+        var ap_Code = $("#AP_Code", $("#PartailRegistrationOfActDetail")).val();
+        $("#Menu", $("#PartailRegistrationOfAct")).find("#" + ap_Code).click();  //重新刷新查询结果
+    }
+
+    function refreshThisPage(data) {
+        if (data.Msg != "") {
+            $("#ui_dialog").html(data.Msg);
+            $('#ui_dialog').dialog({
+                modal: true,
+                show: 'blind',
+                hide: 'explode',
+                resizable: false,
+                title: "提示"
+            });
+        }
+        $("#RegistrationOfAct").click(); //刷新
+    }
+</script>
+<div id="PartailRegistrationOfActDetail">
+    @{
+        var detail = ViewData["ActDetail"] as TeacherTitle.DAL.Model.ActivityPlanModels;
+        var ZhenShi = ViewData["AllSigUpZhenShi"] as TeacherTitle.DAL.Model.SignUpModels[];
+        var HouBu = ViewData["AllSigUpHouBu"] as TeacherTitle.DAL.Model.SignUpModels[];
+    }
+    <table id="SignUpDetail" style="font-size: 13px;">
+        <thead>
+            <tr style="font-size: 13px;">
+                <th width="70">
+                    编号
+                </th>
+                <th width="100">
+                    职工号
+                </th>
+                <th width="150">
+                    姓名
+                </th>
+                <th width="70">
+                    剔除
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (ZhenShi.Length != 0)
+            {
+                for (int i = 0; i < ZhenShi.Length; i++)
+                {
+                <tr>
+                    <td>
+                        @Html.Encode(i + 1)
+                    </td>
+                    <td>
+                        @Html.Encode(ZhenShi[i].U_Account)
+                    </td>
+                    <td>
+                        @Html.Encode(ZhenShi[i].U_Name)
+                    </td>
+                    <td>
+                        @using (Ajax.BeginForm("RejectApply", "Adm", null, new AjaxOptions { OnSuccess = "callBackPrompt(data);" }, new { id = "RejectApplyForm" }))
+                        {
+                            @Html.Hidden("User_Code", ZhenShi[i].U_Code)
+                            @Html.Hidden("AP_Code", detail.Plan.AP_Code)
+                            @Html.Hidden("IsReplace", "1")<!--1表示顶替,0表示不顶替-->
+                            <input type="button" value="剔除" onclick="rejectApply(this);" />
+                        }
+                    </td>
+                </tr>
+                }
+                for (int i = 0; i < detail.Plan.AP_Limit - ZhenShi.Length; i++)
+                {
+                <tr>
+                    <td>
+                        @Html.Encode("当前无数据")
+                    </td>
+                    <td>
+                        @Html.Encode("当前无数据")
+                    </td>
+                    <td>
+                        @Html.Encode("当前无数据")
+                    </td>
+                    <td>
+                        @Html.Encode("当前无数据")
+                    </td>
+                </tr>
+                }
+            }
+            else
+            {
+                for (int i = 0; i < detail.Plan.AP_Limit; i++)
+                {
+                <tr>
+                    <td>
+                        @Html.Encode("当前无数据")
+                    </td>
+                    <td>
+                        @Html.Encode("当前无数据")
+                    </td>
+                    <td>
+                        @Html.Encode("当前无数据")
+                    </td>
+                    <td>
+                        @Html.Encode("当前无数据")
+                    </td>
+                </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <table id="SignUpDetailCandidate" style="font-size: 13px;">
+        <thead>
+            <tr style="font-size: 13px;">
+                <th width="70">
+                    编号
+                </th>
+                <th width="100">
+                    职工号
+                </th>
+                <th width="150">
+                    姓名
+                </th>
+                <th width="70">
+                    剔除
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (HouBu.Length != 0)
+            {
+                for (int i = 0; i < HouBu.Length; i++)
+                {
+                <tr>
+                    <td>
+                        @Html.Encode(i + 1)
+                    </td>
+                    <td>
+                        @Html.Encode(HouBu[i].U_Account)
+                    </td>
+                    <td>
+                        @Html.Encode(HouBu[i].U_Name)
+                    </td>
+                    <td>
+                        @using (Ajax.BeginForm("ChooseCandidate", "Adm", null, new AjaxOptions { OnSuccess = "$('#Menu', $('#PartailRegistrationOfAct')).find('#'+$('#AP_Code', $('#PartailRegistrationOfActDetail')).val()).click();" }, new { id = "ChooseCandidateForm" }))
+                        {
+                            @Html.Hidden("AP_Code", HouBu[i].AP_Code)
+                            @Html.Hidden("User_Code", HouBu[i].U_Code)
+                            <input type="submit" value="顶上" />
+                        }
+                    </td>
+                </tr>
+                }
+                for (int i = 0; i < detail.Plan.AP_Candidate - HouBu.Length; i++)
+                {
+                <tr>
+                    <td>
+                        @Html.Encode("当前无数据")
+                    </td>
+                    <td>
+                        @Html.Encode("当前无数据")
+                    </td>
+                    <td>
+                        @Html.Encode("当前无数据")
+                    </td>
+                    <td>
+                        @Html.Encode("当前无数据")
+                    </td>
+                </tr>
+                }
+            }
+            else
+            {
+                for (int i = 0; i < detail.Plan.AP_Candidate; i++)
+                {
+                <tr>
+                    <td>
+                        @Html.Encode("当前无数据")
+                    </td>
+                    <td>
+                        @Html.Encode("当前无数据")
+                    </td>
+                    <td>
+                        @Html.Encode("当前无数据")
+                    </td>
+                    <td>
+                        @Html.Encode("当前无数据")
+                    </td>
+                </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div class="editor-label">
+        @using (Ajax.BeginForm("EndSignUp", "Adm", null, new AjaxOptions { OnSuccess = "refreshThisPage(data);" }, new { id = "EndSignUpForm" }))
+        {
+            @Html.Hidden("AP_Code", detail.Plan.AP_Code)
+            <input type="submit" value="结束报名" />
+        }
+    </div>
+</div>

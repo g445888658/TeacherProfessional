@@ -103,6 +103,21 @@
                         @Html.Label(list[i].UserCode.Value)
                     </div>
                     <div class="editor-label">
+                        @Html.Label("附件:")
+                        @if (list[i].Material.Length == 0)
+                        {
+                            @Html.Encode("无附件")
+                        }
+                        else
+                        {
+                            for (int j = 0; j < list[i].Material.Length; j++)
+                            {
+                            @Html.ActionLink(list[i].Material[j].AM_Name, "DownloadUserFile", "Activity", new { AM_Code = list[i].Material[j].AM_Code }, new { style = "text-decoration:underline;" })
+                            @Html.Encode("       ")
+                            }
+                        }
+                    </div>
+                    <div class="editor-label">
                         @Html.LabelFor(m => m.ClassHour)
                         @Html.TextBox("ClassHour", list[i].ClassHour)
                     </div>

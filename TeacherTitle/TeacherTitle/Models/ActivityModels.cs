@@ -47,6 +47,13 @@ namespace TeacherTitle.Models
         public string ActEndTime { get; set; }
 
         /// <summary>
+        /// 结束时间
+        /// </summary>
+        [Required(ErrorMessage = "请填写学时")]
+        [Display(Name = "学时")]
+        public string ActClassHour { get; set; }
+
+        /// <summary>
         /// 地点
         /// </summary>
         [Required(ErrorMessage = "请填写活动地点")]

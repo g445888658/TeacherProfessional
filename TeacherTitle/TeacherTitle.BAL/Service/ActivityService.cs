@@ -45,6 +45,15 @@ namespace TeacherTitle.BAL.Service
         }
 
         /// <summary>
+        /// 查询教师上传的附件
+        /// </summary>
+        /// <returns></returns>
+        public ActivityMaterial GetTeacherAttachmentById(int AM_Code)
+        {
+            return activityDAO.GetTeacherAttachmentById(AM_Code);
+        }
+
+        /// <summary>
         /// 获取附件
         /// </summary>
         /// <param name="AA_Code"></param>
@@ -72,29 +81,6 @@ namespace TeacherTitle.BAL.Service
             return activityDAO.GetAllActivity();
         }
 
-
-        /// <summary>
-        /// 根据关键字获取所教学活动形式
-        /// </summary>
-        /// <returns></returns>
-        public List<KeyValueModel> GetActForm(string keyword)
-        {
-            var act = GetAllActivity();
-            List<KeyValueModel> result = new List<KeyValueModel>();
-            for (int i = 0; i < act.Length; i++)
-            {
-                if (act[i].TA_Form.Contains(keyword) || GetSpelling.GetPYStr(act[i].TA_Form).Contains(keyword))
-                {
-                    result.Add(new KeyValueModel
-                    {
-                        Key = act[i].TA_Code.ToString(),
-                        Value = act[i].TA_Form
-                    });
-                }
-
-            }
-            return result;
-        }
 
         /// <summary>
         /// 获取所有的教学活动形式
@@ -173,6 +159,15 @@ namespace TeacherTitle.BAL.Service
         }
 
         /// <summary>
+        /// 根据条件获取教学活动（详细）
+        /// </summary>
+        /// <returns></returns>
+        public ActivityPlan[] GetActivityPlan(int key)
+        {
+            return activityDAO.GetAllActivityPlan().Where(x => x.AP_StatusKey == key).ToArray();
+        }
+
+        /// <summary>
         /// 获取教学活动,有附件
         /// </summary>
         /// <returns></returns>
@@ -181,15 +176,6 @@ namespace TeacherTitle.BAL.Service
             return activityDAO.GetAllActivityPlans();
         }
 
-        /// <summary>
-        /// 结束报名
-        /// </summary>
-        /// <param name="AP_Code">活动编号</param>
-        /// <returns></returns>
-        public ArgsHelper EndSignUp(int AP_Code)
-        {
-            return activityDAO.EndSignUp(AP_Code);
-        }
 
         /// <summary>
         /// 获取管理员发布的活动
@@ -200,23 +186,6 @@ namespace TeacherTitle.BAL.Service
             return GetAllActivityPlan().Where(x => x.AP_StatusKey != 2).ToArray();
         }
 
-        /// <summary>
-        /// 获取还在报名的活动
-        /// </summary>
-        /// <returns></returns>
-        public ActivityPlan[] GetActiveActivityPlan()
-        {
-            return GetAllActivityPlan().Where(x => x.AP_StatusKey == 1).ToArray();
-        }
-
-        /// <summary>
-        /// 获取结束报名的活动
-        /// </summary>
-        /// <returns></returns>
-        public ActivityPlan[] GetEndActivityPlan()
-        {
-            return GetAllActivityPlan().Where(x => x.AP_StatusKey == 0).ToArray();
-        }
 
         /// <summary>
         /// 根据活动编号获取活动
@@ -238,15 +207,7 @@ namespace TeacherTitle.BAL.Service
             return GetAllActivityPlans().FirstOrDefault(x => x.Plan.AP_Code == apCode);
         }
 
-        /// <summary>
-        /// 根据用户编号获取已报名的活动
-        /// </summary>
-        /// <param name="userCode"></param>
-        /// <returns></returns>
-        public ActAndClaHourModel[] GetActSignUpByUCode(int userCode)
-        {
-            return activityDAO.GetActSignUpByUCode(userCode.ToString()).ToArray();
-        }
+
 
 
         /// <summary>
@@ -277,9 +238,9 @@ namespace TeacherTitle.BAL.Service
         /// </summary>
         /// <param name="ASU_Code"></param>
         /// <returns></returns>
-        public ArgsHelper RejectApply(int ASU_Code)
+        public ArgsHelper RejectApply(int U_Code, int AP_Code)
         {
-            return activityDAO.RejectApply(ASU_Code);
+            return activityDAO.RejectApply(U_Code, AP_Code);
         }
 
 
@@ -287,13 +248,39 @@ namespace TeacherTitle.BAL.Service
         /// 在将教师剔除后调用该方法,修改其对应的正式名额余量和候补名额余量
         /// </summary>
         /// <param name="AP_Code">活动详情编号</param>
-        /// <param name="ASU_Code">报名编号</param>
         /// <param name="IsReplace">是否让候补顶替(0代表否,1代表是)</param>
         /// <returns></returns>
-        public ArgsHelper AfterRejectApply(int AP_Code, int ASU_Code, int IsReplace)
+        public ArgsHelper AfterRejectApply(int AP_Code, int IsReplace)
         {
-            return activityDAO.AfterRejectApply(AP_Code, ASU_Code, IsReplace);
+            return activityDAO.AfterRejectApply(AP_Code, IsReplace);
         }
+
+
+        /// <summary>
+        /// 选择一个候补人员顶上
+        /// </summary>
+        /// <param name="AP_Code">活动编号</param>
+        /// <param name="User_Code">候补人员编号</param>
+        /// <returns></returns>
+        public ArgsHelper ChooseCandidate(int AP_Code, int User_Code)
+        {
+            return activityDAO.ChooseCandidate(AP_Code, User_Code);
+        }
+
+
+        /// <summary>
+        /// 修改活动状态
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public ArgsHelper AlterAP_Status(int AP_Code, int key, string value)
+        {
+            return activityDAO.AlterAP_Status(AP_Code, key, value);
+        }
+
+        
+
 
 
     }

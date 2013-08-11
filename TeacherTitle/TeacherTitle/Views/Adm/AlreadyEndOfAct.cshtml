@@ -1,0 +1,101 @@
+﻿@model TeacherTitle.Models.SearchClassHourModelsl
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            type: "POST",
+            url: "/Adm/TeacherTable",
+            success: function (data) {
+                $("#PartailSearchCriteria").append(data);
+            }
+        });
+
+        $("#Teacher").dblclick(function () {
+            $("#PartailTeacherTable").css("display", "");
+        });
+
+
+        $("#StartTime").calendar({
+            format: 'yyyy-MM-dd',
+            maxDate: '#EndTime'
+        });
+        $("#EndTime").calendar({
+            format: 'yyyy-MM-dd',
+            minDate: '#StartTime'
+        });
+
+        $("#Teacher").bind("input.autocomplete", function () {
+            $(this).trigger('keydown.autocomplete');
+        });
+
+        $("#Teacher", $("#PartailSearchCriteria")).autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Account/GetUsers",  //要查询的Action
+                    type: "POST",  //Post提交
+                    dataType: "json", //json格式数据，默认是text
+                    data: { "keyword": request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.Value, value: item.Key }; //将返回的jsonresult的属性赋值给autocomplete item
+                        }))
+                    }
+                })
+            },
+            select: function (event, ui) {
+                //$("#TeacherValue").val(ui.item.label);
+                $("#Teacher").val(ui.item.label);
+                return false;
+            },
+            minLength: '0'
+        });
+
+        $("#ActivityForm", $("#PartailSearchCriteria")).bind("input.autocomplete", function () {
+            $(this).trigger('keydown.autocomplete');
+        });
+
+        $("#ActivityForm", $("#PartailSearchCriteria")).autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Activity/GetActForm",  //要查询的Action
+                    type: "POST",  //Post提交
+                    dataType: "json", //json格式数据，默认是text
+                    data: { "keyword": request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.Value, value: item.Key }; //将返回的jsonresult的属性赋值给autocomplete item
+                        }))
+                    }
+                })
+            },
+            select: function (event, ui) {
+                //$("#ActivityFormValue").val(ui.item.label);
+                $("#ActivityForm").val(ui.item.label);
+                return false;
+            },
+            minLength: '0'
+        });
+    });
+</script>
+<div id="PartailSearchCriteria">
+    <div id="searchCriteria">
+        @using (Ajax.BeginForm("ActAndTeacherList", "Adm", null, new AjaxOptions { UpdateTargetId = "searchResult" }, null))
+        {
+            <div class="editor-label">
+                @Html.LabelFor(Model => Model.Teacher)
+                @Html.TextBoxFor(Model => Model.Teacher, new { id = "Teacher" })
+                @Html.LabelFor(Model => Model.Account)
+                @Html.TextBoxFor(Model => Model.Account)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(Model => Model.StartTime)
+                @Html.TextBoxFor(Model => Model.StartTime, new { @class = "runcode", @readonly = "readonly" })
+                @Html.LabelFor(Model => Model.EndTime)
+                @Html.TextBoxFor(Model => Model.EndTime, new { @class = "runcode", @readonly = "readonly" })
+            </div>
+            
+            <input type="submit" value="查询" />
+        }
+    </div>
+    <div id="searchResult">
+    </div>
+</div>

@@ -13,6 +13,24 @@ namespace TeacherTitle.Infrastructure
         /// <summary>
         /// 活动地点
         /// </summary>
+        public static List<KeyValueModel> YesOrNo = new List<KeyValueModel>()
+        {
+            new KeyValueModel()
+            {
+                Key="1",
+                Value="是"
+            },
+            new KeyValueModel()
+            {
+                Key="0",
+                Value="否"
+            }
+        };
+
+
+        /// <summary>
+        /// 活动地点
+        /// </summary>
         public static List<KeyValueModel> AllPlace = new List<KeyValueModel>()
         {
             new KeyValueModel()
@@ -53,6 +71,23 @@ namespace TeacherTitle.Infrastructure
                 Key="教授",
                 Value="教授"
             }
+        };
+
+        /// <summary>
+        /// 性别
+        /// </summary>
+        public static List<KeyValueModel> AllSex = new List<KeyValueModel>()
+        {
+            new KeyValueModel()
+            {
+                Key="1",
+                Value="男"
+            },
+            new KeyValueModel()
+            {
+                Key="0",
+                Value="女"
+            },
         };
 
         /// <summary>
@@ -140,17 +175,17 @@ namespace TeacherTitle.Infrastructure
             return new SelectList(items, "Value", "Text");
         }
 
-        public static SelectList ProduceMajorList(List<Major> major)
+        public static SelectList ProduceMajorList(List<Department> department)
         {
             var items = CreateBaseItems();
-            if (major != null)
+            if (department != null)
             {
-                for (int i = 0; i < major.Count; i++)
+                for (int i = 0; i < department.Count; i++)
                 {
                     items.Add(new SelectListItem
                     {
-                        Text = major[i].M_Name,
-                        Value = Convert.ToString(major[i].M_Code)
+                        Text = department[i].D_Name,
+                        Value = Convert.ToString(department[i].D_Code)
                     });
                 }
             }

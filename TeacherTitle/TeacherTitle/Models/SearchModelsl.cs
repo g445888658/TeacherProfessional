@@ -18,10 +18,10 @@ namespace TeacherTitle.Models
         public string Teacher { get; set; }
 
         /// <summary>
-        /// 活动形式
+        /// 职工号
         /// </summary>
-        [Display(Name = "活动形式：")]
-        public string ActivityForm { get; set; }
+        [Display(Name = "职工号：")]
+        public string Account { get; set; }
 
         /// <summary>
         /// 开始时间

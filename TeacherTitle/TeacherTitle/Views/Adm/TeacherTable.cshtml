@@ -1,0 +1,52 @@
+﻿<script type="text/javascript">
+    $(function () {
+        $("#PartailTeacherTable").draggable({
+            cursor: 'move',
+            handle: '#draghandle',
+            containment: '#PartailSearchCriteria'
+        });
+    });
+
+    function closeTeacher() {
+        $("#PartailTeacherTable").css("display", "none");
+    }
+
+    function closeAndOpen(tag) {
+        var target = $($(tag).parent().children()[1]);
+        if (target.css("display") != "none") {
+            $(target).slideUp("normal");
+        }
+        else {
+            $(target).slideDown("normal");
+        }
+    }
+
+    function chooseThis(tag) {
+        $("#Teacher", $("#PartailSearchCriteria")).val($(tag).attr("value"));
+        closeTeacher();
+    }
+</script>
+<div style="border: solid 1px gray; background-color: White; overflow: scroll; height: 300px;
+    width: 150px; z-index: 1000; display: none;" id="PartailTeacherTable">
+    <div id="draghandle" style="height: 20px; background-color: LightBlue;">
+        <span onclick="closeTeacher();" style="float: right; cursor: pointer;">X</span>
+    </div>
+    @{
+        var teacher = ViewData["teacherTable"] as TeacherTitle.DAL.Model.TeacherDetailModels[];
+    }
+    <ul>
+        @for (int i = 0; i < teacher.Length; i++)
+        {
+            <li><a onclick="closeAndOpen(this);" style=" cursor: pointer;"  id="@Html.Encode(teacher[i].institute.Key)">@Html.Encode(teacher[i].institute.Value)</a>
+                <ul style="padding-left: 15px;">
+                    @for (int j = 0; j < teacher[i].TeacherName.Length; j++)
+                    {
+                        <li><a value="@Html.Encode(teacher[i].TeacherName[j].Value)" onclick="chooseThis(this);" style=" cursor: pointer;" id="@Html.Encode(teacher[i].TeacherName[j].Key)">
+                            @Html.Encode(teacher[i].TeacherName[j].Value)
+                        </a></li>
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+</div>

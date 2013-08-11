@@ -13,6 +13,7 @@ namespace TeacherTitle.BAL.Service
     public class UserService : IUserService
     {
         UserDAO userDAO = new UserDAO();
+        ExcelDAO excelDAO = new ExcelDAO();
 
         /// <summary>
         /// 登陆
@@ -85,6 +86,16 @@ namespace TeacherTitle.BAL.Service
         }
 
         /// <summary>
+        /// 导入教师信息
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public ArgsHelper AddTeachers(string fileName)
+        {
+            return excelDAO.AddTeachers(fileName);
+        }
+
+        /// <summary>
         /// 确认邮箱是否存在
         /// </summary>
         /// <param name="Mail"></param>
@@ -118,9 +129,19 @@ namespace TeacherTitle.BAL.Service
         /// </summary>
         /// <param name="users"></param>
         /// <returns></returns>
-        public ArgsHelper ChangeUserInfo(int U_Code, string Mail, string Phone)
+        public ArgsHelper ChangeUserInfo(int U_Code, string U_LongPhone, string U_ShortPhone, string U_Mail, string U_QQNum)
         {
-            return userDAO.ChangeUserInfo(U_Code, Mail, Phone);
+            return userDAO.ChangeUserInfo(U_Code, U_LongPhone, U_ShortPhone, U_Mail, U_QQNum);
+        }
+
+
+        /// <summary>
+        /// 获取所有教师
+        /// </summary>
+        /// <returns></returns>
+        public TeacherDetailModels[] GetTeacherDetail()
+        {
+            return userDAO.GetTeacherDetail();
         }
 
 

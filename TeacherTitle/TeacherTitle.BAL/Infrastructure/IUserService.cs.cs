@@ -51,6 +51,13 @@ namespace TeacherTitle.BAL.Infrastructure
         ArgsHelper AddUser(Users users);
 
         /// <summary>
+        /// 导入教师信息
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        ArgsHelper AddTeachers(string fileName);
+
+        /// <summary>
         /// 确认邮箱是否存在
         /// </summary>
         /// <param name="Mail"></param>
@@ -75,6 +82,12 @@ namespace TeacherTitle.BAL.Infrastructure
         /// </summary>
         /// <param name="users"></param>
         /// <returns></returns>
-        ArgsHelper ChangeUserInfo(int U_Code, string Mail, string Phone);
+        ArgsHelper ChangeUserInfo(int U_Code, string U_LongPhone, string U_ShortPhone, string U_Mail, string U_QQNum);
+
+        /// <summary>
+        /// 获取所有的教师
+        /// </summary>
+        /// <returns></returns>
+        TeacherDetailModels[] GetTeacherDetail();
     }
 }

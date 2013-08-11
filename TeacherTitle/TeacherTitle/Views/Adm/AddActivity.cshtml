@@ -49,6 +49,13 @@
                 </td>
                 <td style="vertical-align: top;">
                     <div class="editor-label">
+                        @Html.Label("学时")
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBox("ActClassHour")
+                        @Html.ValidationMessage("ActClassHour")
+                    </div>
+                    <div class="editor-label">
                         @Html.Label("开始时间")
                     </div>
                     <div class="editor-field">
