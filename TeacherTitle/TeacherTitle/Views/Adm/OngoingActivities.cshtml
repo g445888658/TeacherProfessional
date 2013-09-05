@@ -1,4 +1,13 @@
 ﻿<script type="text/javascript">
+    $(function () {
+        $("#MenuTable").flexigrid({
+            title: '进行中的活动',
+            resizable: false,
+            height: 'auto',
+            showToggleBtn: false
+        });
+    });
+
     function showActDetail(tag) {
         $.ajax({
             type: "GET",
@@ -14,17 +23,57 @@
     @{
         var menu = ViewData["AllActTheme"] as TeacherTitle.DAL.DB.ActivityPlan[];
     }
-    <div id="Menu" style="border: solid 1px gray; height: 300px; width: 150px; overflow: scroll;">
-        <ul>
-            @for (int i = 0; i < menu.Length; i++)
-            {
-                <li id="@menu[i].AP_Code" onclick="showActDetail(this);" ap_Code="@menu[i].AP_Code" style="cursor: pointer;">
-                    @Html.Encode(menu[i].AP_Theme)
-                </li>
-            }
-        </ul>
+    
+    <div id="Menu">
+        <table id="MenuTable" cellpadding="2px" cellspacing="2px">
+            <thead>
+                <tr style="font-size: 13px;">
+                    <th width="70">
+                        编号
+                    </th>
+                    <th width="300">
+                        主题
+                    </th>
+                    <th width="250">
+                        主讲人(主办方)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (menu.Length != 0)
+                {
+                    for (int i = 0; i < menu.Length; i++)
+                    {
+                    <tr id="@menu[i].AP_Code" onclick="showActDetail(this);" ap_Code="@menu[i].AP_Code" style="cursor: pointer;">
+                        <td>
+                            @Html.Encode(i + 1)
+                        </td>
+                        <td>
+                            @Html.Encode(menu[i].AP_Theme)
+                        </td>
+                        <td>
+                            @Html.Encode(menu[i].AP_Speaker)
+                        </td>
+                    </tr>
+                    }
+                }
+                else
+                { 
+                    <tr>
+                        <td>
+                            无数据
+                        </td>
+                        <td>
+                            无数据
+                        </td>
+                        <td>
+                            无数据
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-    <div style="border: solid 1px gray; overflow: scroll; right: 0px; position: absolute;
-        height: 300px; width: 590px; top: 0px;" id="Content">
+    <div style="padding-top: 50px;" id="Content">
     </div>
 </div>

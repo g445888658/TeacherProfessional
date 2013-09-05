@@ -17,11 +17,37 @@ namespace TeacherTitle.DAL.Model
         /// </summary>
         public ActivityPlan Plan { get; set; }
 
+
+        public TeachingActivity teachingActivity { get; set; }
+
+
         /// <summary>
         /// 报名信息(包含学时信息)
         /// </summary>
         public SignUpModels[] SignUpModels { get; set; }
     }
+
+
+    public class AlreadySignUpModels
+    {
+        /// <summary>
+        /// 活动信息
+        /// </summary>
+        public ActivityPlan Plan { get; set; }
+
+
+        public TeachingActivity teachingActivity { get; set; }
+
+
+        /// <summary>
+        /// 报名人
+        /// </summary>
+        public SignUpModels[] SignUpModels { get; set; }
+
+
+    }
+
+
 
 
     public class ActivityPlanModels

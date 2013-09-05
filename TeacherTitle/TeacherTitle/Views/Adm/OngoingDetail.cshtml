@@ -4,8 +4,24 @@
             title: '教师列表',
             resizable: false,
             height: 'auto',
-            showToggleBtn:false
+            showToggleBtn: false
         });
+
+        $(".qtipClass").each(function () {
+            var obj = $(this);
+            $(obj).poshytip({
+                className: 'tip-darkgray',
+                bgImageFrameSize: 11,
+                offsetX: -25,
+                content: $($(obj).parent().children()[1]).children().html()
+            });
+        });
+
+        $("#ClassHour", $("#PartailOngoingDetail")).each(function () {
+            onlyNum($(this));
+        });
+
+
     });
 
     function showResult(data) {
@@ -17,6 +33,36 @@
             resizable: false,
             title: "提示"
         });
+        if (data.Flag) {
+            if ($("#OngoingDetailForm").attr("action") == "/Adm/EndAlter") {
+                $("#activityManagement").find("#OngoingActivitiesLi").click(); //刷新
+            }
+        }
+    }
+
+    function saveClassHour() {
+        var flag = true;
+        var classHour = $("input[id='ClassHour']");
+        for (var i = 0; i < classHour.length; i++) {
+            if ($(classHour[i]).val() == "") {
+                flag = false;
+                break;
+            }
+        }
+        if (flag) {
+            $("#OngoingDetailForm").attr("action", "/Adm/OngoingDetail");
+        }
+        else {
+            $("#ui_dialog").html("请填写完整再保存");
+            $('#ui_dialog').dialog({
+                modal: true,
+                show: 'blind',
+                hide: 'explode',
+                resizable: false,
+                title: "提示"
+            });
+            return false;
+        }
     }
 </script>
 <div id="PartailOngoingDetail">
@@ -62,9 +108,20 @@
                             @Html.Encode(ZhenShi[i].U_Name)
                         </td>
                         <td>
+                            <a style="cursor: pointer;" class="qtipClass">点击展开</a>
+                            <div style="display: none;">
+                                <ul>
+                                    @for (int j = 0; j < ZhenShi[i].ActivityMaterial.Length; j++)
+                                    {
+                                        <li>
+                                            @Html.ActionLink(ZhenShi[i].ActivityMaterial[j].AM_Name, "DownloadUserFile", "Activity", new { AM_Code = ZhenShi[i].ActivityMaterial[j].AM_Code }, new { style = "color:white;" })
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
                         </td>
                         <td>
-                            @Html.TextBox("ClassHour", ZhenShi[i].CH_GetHour, new { style = "width:60px;" })
+                            @Html.TextBox("ClassHour", ZhenShi[i].CH_GetHour, new { style = "width:60px;border:0px;" })
                         </td>
                     </tr>
                     }
@@ -88,10 +145,14 @@
                 }
             </tbody>
         </table>
+                if (ZhenShi.Length != 0)
+                {
         <div class="editor-label">
             @Html.Hidden("AP_code", ZhenShi[0].AP_Code)
-            <input type="submit" onclick="this.form.action='@Url.Action("OngoingDetail")';" value="保存" />
-            <input type="submit" onclick="this.form.action='@Url.Action("EndAlter")';" value="提交" />
+            <input type="submit" onclick="return saveClassHour();" value="保存" />
+            <input type="submit"
+            onclick="this.form.action='@Url.Action("EndAlter")';" value="提交" />
         </div>
+                }
     }
 </div>

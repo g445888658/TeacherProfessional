@@ -39,5 +39,11 @@ namespace TeacherTitle.BAL.Infrastructure
         /// </summary>
         /// <returns></returns>
         SysConfig GetMailConfig();
+
+        /// <summary>
+        /// 获取所有的学年
+        /// </summary>
+        /// <returns></returns>
+        List<String> GetAllSchoolYear();
     }
 }

@@ -1,22 +1,29 @@
 ﻿@model TeacherTitle.Models.LogOnModel
 <script type="text/javascript">
+    $(function () {
+        $("#Password").keypress(function (e) {
+            if (e.keyCode == 13) {
+                $("#LogInForm").submit();
+            }
+        });
+
+    });
     //登陆
     function LogIn() {
         $("#LogInForm").submit();
     }
 </script>
-@Html.ValidationSummary(true)
 @using (Ajax.BeginForm("LogOn", "Account", null, new AjaxOptions { UpdateTargetId = "LogOnDiv", HttpMethod = "POST" }, new { id = "LogInForm" }))
 {
     <div class="topline_l">
+    
         欢迎访问 温州医科大学 高校教师学习档案系统！<span id="timeSpan"> </span>
     </div>
     <div class="topline_r">
-        账号：@Html.TextBoxFor(x => x.UserName)
-        @Html.ValidationMessageFor(x => x.UserName)
+        职工号：@Html.TextBoxFor(x => x.UserName)
         &nbsp;&nbsp;密码：@Html.PasswordFor(x => x.Password)&nbsp;&nbsp; <a href="#" onclick="LogIn();">
             登陆</a> |@Ajax.ActionLink("忘记密码", "ForgetPassword", "Account", null, new AjaxOptions { UpdateTargetId = "ui_dialog_button" }, null)
-        @Html.ValidationMessageFor(x => x.Password)
     </div>
-  
+    <div class="topline_rr">
+        @Html.ValidationMessageFor(x => x.UserName) &nbsp;&nbsp;&nbsp;@Html.ValidationMessageFor(x => x.Password)</div>
 }

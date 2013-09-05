@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=7" />
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
     <title>@ViewBag.Title</title>
     <script src="../../Scripts/jquery-1.5.1-vsdoc.js" type="text/javascript"></script>
     <link href="@Url.Content("~/Plug-in/css/common.css")" rel="stylesheet" type="text/css" />
@@ -15,10 +15,6 @@
     <!--时间插件-->
     <script src="@Url.Content("~/Plug-in/calendar/_doc/prettify/prettify.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Plug-in/calendar/lhgcalendar.js")" type="text/javascript"></script>
-    @*<script src="@Url.Content("~/Plug-in/calendar/_demo/demo.js")" type="text/javascript"></script>*@
-    <!--分页插件-->
-    @*<script src="@Url.Content("~/Plug-in/jPaginate/jquery.paginate.js")" type="text/javascript"></script>
-    <link href="@Url.Content("~/Plug-in/jPaginate/css/style.css")" rel="stylesheet" type="text/css" />*@
     <!--UI-->
     <script src="@Url.Content("~/Plug-in/jquery-ui-1.8.16/ui/jquery-ui.js")" type="text/javascript"></script>
     <link href="@Url.Content("~/Plug-in/jquery-ui-1.8.16/themes/base/jquery.ui.all.css")" rel="stylesheet"
@@ -32,8 +28,12 @@
     <link href="@Url.Content("~/Plug-in/flexigrid-1.1/css/flexigrid.pack.css")" rel="stylesheet"
         type="text/css" />
     <script src="@Url.Content("~/Plug-in/flexigrid-1.1/js/flexigrid.js")" type="text/javascript"></script>
+    <!--提示插件-->
+    <link href="../../Plug-in/poshytip-1.0/poshytip-1.0/src/tip-darkgray/tip-darkgray.css"
+        rel="stylesheet" type="text/css" />
+    <script src="../../Plug-in/poshytip-1.0/poshytip-1.0/src/jquery.poshytip.js" type="text/javascript"></script>
     <script type="text/javascript">
-        function resetUrl(action, home, UpdateTargetId) {
+        function resetUrl(action, home, UpdateTargetId, tag) {
             var route = $("#U_Code").val();
             if (route == undefined) {
                 $("#ui_dialog").html("请登录");
@@ -55,6 +55,11 @@
                         $("#" + UpdateTargetId).html(data);
                     }
                 });
+
+                var path1 = $($(tag).parent().parent().parent().children()[0]).children().html();
+                var path2 = $(tag).children().html();
+                $("#AdmPageStatus").children("h3").html(path1);
+                $("#position_nowtitle").html(path2);
             }
         }
 
@@ -110,12 +115,24 @@
                 return true;
             }
         }
+
+        //        window.onbeforeunload = function () {
+
+        //            alert($("#U_Code").val());
+        //            var ucode = $("#U_Code").val();
+        //            if (ucode != undefined) {
+        //                location.href = "/Home/Index?U_Code=" + ucode;
+        //                return false;
+        //            }
+        //        }
     </script>
 </head>
 <body>
     <div class="header mauto clearfix">
         <div class="topline" id="LogOnDiv">
-            @Html.Partial("_LogOnPartial")
+            @{
+                Html.RenderAction("LogOn", "Account");
+            }
         </div>
         <div class="topbar">
             <div class="logo">
@@ -132,10 +149,30 @@
             </div>
         </div>
     </div>
-    <div class="i_nav mauto clearfix" id="com_mainmenu">
+    <div class="nav mauto clearfix">
+        <div class="ddsmoothmenu">
+            <ul>
+                <li class="navline">@Ajax.ActionLink("首页", "Main", "Home", null, new AjaxOptions { UpdateTargetId = "containerDiv" }, new { id = "returnToIndex", @class = "nava_selected" })</a>
+                </li>
+                <li class="navline"><a href="#" class="nava">教学管理</a>
+                    <ul>
+                        <li><a href="#">课程建设</a> <a href="#">实践教学</a> <a href="#">选课系统</a> </li>
+                    </ul>
+                </li>
+                <li class="navline"><a href="#" class="nava">教务信息化</a> </li>
+                <li class="navline"><a href="#" class="nava">教学管理</a> </li>
+                <li class="navline"><a href="#" class="nava">最新公告</a> </li>
+                <li class="navline"><a href="#" class="nava">科研成果</a> </li>
+                <li class="navline"><a href="#" class="nava">教学质量监控</a> </li>
+                <li class="navline"><a href="#" class="nava">图片新闻</a> </li>
+                <li><a href="#" class="nava">活动公告</a> </li>
+            </ul>
+        </div>
+    </div>
+    @*<div class="i_nav mauto clearfix" id="com_mainmenu">
         <div id="smoothmenu1" class="ddsmoothmenu">
             <ul>
-                <li class="navline">@Ajax.ActionLink("首页", "Main", "Home", null, new AjaxOptions { UpdateTargetId = "containerDiv" }, new { @class = "navaactive", id = "returnToIndex" })</li>
+                <li class="navline"></li>
                 <li class="navline"><a href="http://www.baidu.com" class="nava">教学管理</a>
                     <ul>
                         <li><a href="#">课程建设</a> <a href="#">实践教学</a> <a href="#">选课系统</a> </li>
@@ -150,8 +187,8 @@
                 <li><a href="#" class="nava">最新信息</a> </li>
             </ul>
         </div>
-    </div>
-    <div class="i_navb mauto clearfix">
+    </div>*@
+    <div class="navb mauto clearfix">
     </div>
     <div class="i_container clearfix" id="containerDiv">
         @RenderBody()
@@ -159,13 +196,12 @@
     <div class="footer mauto clearfix">
         <div class="footer_nav">
             <div class="footer_nav_l" id="com_othermenu" editok="online">
-                <a href="/cn/menu_47.htm" class="othermenu_a">教学管理</a> <a href="/cn/menu_36.htm?menuid=36"
-                    class="othermenu_a">选课系统</a> <a href="/cn/menu_39.htm?menuid=39" class="othermenu_a">
-                        最新信息</a> <a href="/cn/menu_47.htm?menuid=47" class="othermenu_a">课程建设</a>
-                <a href="/cn/menu_51.htm?menuid=51" class="othermenu_a">教学质量监控</a> <a href="/cn/sitemap.html#all_link"
-                    class="othermenu_a" target="_blank">All-Link</a>
+                <a href="#" class="othermenu_a">教学管理</a> <a href="#" class="othermenu_a">选课系统</a>
+                <a href="#" class="othermenu_a">最新信息</a> <a href="#" class="othermenu_a">课程建设</a>
+                <a href="#" class="othermenu_a">教学质量监控</a> <a href="#" class="othermenu_a" target="_blank">
+                    All-Link</a>
             </div>
-            <div class="f_link" id="com_indexistop_alinks" editok="online">
+            <div class="footer_link" id="com_indexistop_alinks" editok="online">
                 <select name="index_links" onchange="open_alinkurl('',this)">
                     <option value="" selected="selected">友情链接 </option>
                     <option value="http://www.baidu.com">baidu</option>
@@ -181,7 +217,7 @@
         </div>
         <div class="copyright" id="com_copyright" editok="online">
             <div id="com_copyright" editok="online">
-                <font face="宋体">Copyright <span style="font-size: medium;">&copy;</span> 2012-2013 温州医科大学</font>
+                Copyright &copy; 2012-2013 温州医科大学
             </div>
         </div>
     </div>
@@ -189,5 +225,7 @@
     </div>
     <div id="ui_dialog_button" style="display: none;">
     </div>
+    <form action="" method="post" id="DownLoadForm" style="display: none;">
+    </form>
 </body>
 </html>

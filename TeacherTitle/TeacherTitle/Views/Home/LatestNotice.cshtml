@@ -1,11 +1,11 @@
 ﻿<div class="i_right">
-    <div class="i_news02" id="com_indexistop_news" editok="online" style="height: 510px;">
+    <div class="i_news02" id="com_indexistop_news" editok="online">
         <div class="title02">
-            <h3 class="tbg_01">
+            <h3>
                 最新活动公告
             </h3>
         </div>
-        <div class="i_news02_l" style="height: 455px;">
+        <div class="i_news02_l">
             <ul>
                 @{
                     var notice = ViewData["Notice"] as TeacherTitle.DAL.DB.ActivityPlan[];
@@ -16,35 +16,32 @@
                     }                 
                 }
             </ul>
-            @{
-                var pageInfo = ViewData["PageInfo"] as TeacherTitle.Infrastructure.PageInfo;
+            @*@{
+                var pageInfo = ViewData["PageInfo"] as TeacherTitle.Infrastructure.NewPageInfo;
             }
-            @Ajax.PageLinks(pageInfo, index => Url.Action("LatestNotice", new { page = index, }), new AjaxOptions
+            @Ajax.NewPageLinks(pageInfo, index => Url.Action("LatestNotice", new { page = index, }), new AjaxOptions
             {
                 UpdateTargetId = "PartialLatestNotice",
                 HttpMethod = "POST"
-            }, new { id = "latestNoticePage", style = "position: absolute; bottom: -100px;" })
-            @*@Ajax.PageLinks(pageInfo, Url.Action("LatestNotice"), new { test = "$('#asd').val()", test1 = "$('#qwe').val()" }, new AjaxOptions { UpdateTargetId = "PartialLatestNotice", HttpMethod = "POST" }, new { id="wqnmlgb"})
-            <input type="text" id="asd" />
-            <input type="text" id="qwe" />
-            <br />*@
+            }, new { id = "NoticeContentPager", @class = "navPage" })*@
+            <div style="position: absolute; bottom: 80px; right: 180px;">
+                @Ajax.ActionLink("更多", "ActivityContent", "Home", null, new AjaxOptions { UpdateTargetId = "containerDiv" }, null)
+            </div>
         </div>
     </div>
-    @*<div class="i_news03">
+    <div class="i_news03">
         <div class="title03">
-            <h3 class="tbg_02">
+            <h3>
                 教学管理</h3>
         </div>
         <div class="i_news03_l">
             <ul>
-                <li><a href="/cn/menu_47.htm?menuid=47">课程建设</a> </li>
-                <li><a href="/cn/menu_35.htm?menuid=35">实践教学</a> </li>
-                <li><a href="/cn/menu_36.htm?menuid=36">选课系统</a> </li>
+                <li style="margin-top: 0px;"><a href="#">课程建设</a> </li>
+                <li><a href="#">实践教学</a> </li>
+                <li><a href="#">选课系统</a> </li>
             </ul>
         </div>
-    </div>*@
-    <div class="bot_01">
     </div>
-    <div class="edit_nullmodule" id="com_definedkeys_3" editok="online">
+    <div class="newbottom_01">
     </div>
 </div>

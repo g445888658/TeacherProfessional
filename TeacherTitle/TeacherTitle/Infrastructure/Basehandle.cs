@@ -124,6 +124,66 @@ namespace TeacherTitle.Infrastructure
             return items;
         }
 
+
+        /// <summary>
+        /// 获取学年(当前学年)
+        /// </summary>
+        /// <returns></returns>
+        public static List<KeyValueModel> GetSchoolYear()
+        {
+            int nowYear = DateTime.Now.Year;
+            List<KeyValueModel> keyvalmodel = new List<KeyValueModel>();
+
+            for (int i = 5; i > 0; i--)
+            {
+                keyvalmodel.Add(new KeyValueModel()
+                {
+                    Key = (nowYear + i - 1) + "-" + (nowYear + i),
+                    Value = (nowYear + i - 1) + "-" + (nowYear + i)
+                });
+            }
+
+            for (int i = 1; i < 6; i++)
+            {
+                keyvalmodel.Add(new KeyValueModel()
+                {
+                    Key = (nowYear - i) + "-" + (nowYear - i + 1),
+                    Value = (nowYear - i) + "-" + (nowYear - i + 1)
+                });
+            }
+
+            //{
+            //     new KeyValueModel()
+            //    {
+            //        Key=(nowYear-1)+"-"+ (nowYear),
+            //        Value=(nowYear-1)+"-"+ (nowYear)
+            //    },
+            //    new KeyValueModel()
+            //    {
+            //        Key=nowYear+"-"+ (nowYear+1),
+            //        Value=nowYear+"-"+ (nowYear+1)
+            //    }
+            //};
+            return keyvalmodel;
+        }
+
+        public static SelectList ProduceSelectList(List<string> list)
+        {
+            var items = CreateBaseItems();
+            if (list.Count != 0)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    items.Add(new SelectListItem
+                    {
+                        Text = list[i],
+                        Value = list[i]
+                    });
+                }
+            }
+            return new SelectList(items, "Value", "Text");
+        }
+
         public static SelectList ProduceSelectList(List<KeyValueModel> keyvalmodel)
         {
             var items = CreateBaseItems();

@@ -8,6 +8,7 @@
             format: 'yyyy-MM-dd  HH:mm',
             minDate: '#ActStartTime'
         });
+        onlyNum($("#ActClassHour"));
         onlyNum($("#ActLimit"));
         onlyNum($("#ActCandidate"));
     });
@@ -15,8 +16,98 @@
 <div id="PartialAddActivity">
     @using (Ajax.BeginForm("AddActivity", "Adm", null, new AjaxOptions { UpdateTargetId = "releaseNews" }, new { id = "AddActivityForm" }))
     {
-        <table>
+        <table class="myTable" cellpadding="2px" cellspacing="2px">
             <tr>
+                <td>
+                    @Html.Label("活动形式：")
+                </td>
+                <td>
+                    @Html.DropDownList("ActForm", ViewData["AllActForm"] as SelectList, new { @class = "text-long", style = "width:280px;" })
+                    @Html.ValidationMessage("ActForm")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("主讲人(主办方)：")
+                </td>
+                <td>
+                    @Html.TextBox("ActSpeaker", null, new { @class = "text-long" })
+                    @Html.ValidationMessage("ActSpeaker")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("活动主题：")
+                </td>
+                <td>
+                    @Html.TextArea("ActTheme", null, new { @class = "text-long" })
+                    @Html.ValidationMessage("ActTheme")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("学年：")
+                </td>
+                <td>
+                    @Html.DropDownList("ActSchoolYear", ViewData["Year"] as SelectList, new { @class = "text-long", style = "width:280px;" })
+                    @Html.ValidationMessage("ActSchoolYear")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("活动地点：")
+                </td>
+                <td>
+                    @Html.TextBox("ActPlace", null, new { @class = "text-long" })
+                    @Html.ValidationMessage("ActPlace")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("学时：")
+                </td>
+                <td>
+                    @Html.TextBox("ActClassHour", null, new { @class = "text-long" })
+                    @Html.ValidationMessage("ActClassHour")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("开始时间：")
+                </td>
+                <td>
+                    @Html.TextBox("ActStartTime", null, new { @class = "runcode", @readonly = "readonly" })
+                    @Html.ValidationMessage("ActStartTime")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("结束时间：")
+                </td>
+                <td>
+                    @Html.TextBox("ActEndTime", null, new { @class = "runcode", @readonly = "readonly" })
+                    @Html.ValidationMessage("ActEndTime")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("限制人数：")
+                </td>
+                <td>
+                    @Html.TextBox("ActLimit", null, new { @class = "text-long" })
+                    @Html.ValidationMessage("ActLimit")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("候选人数：")
+                </td>
+                <td>
+                    @Html.TextBox("ActCandidate", null, new { @class = "text-long" })
+                    @Html.ValidationMessage("ActCandidate")
+                </td>
+            </tr>
+            @*<tr>
                 <td>
                     <div class="editor-label">
                         @Html.Label("活动形式")
@@ -90,7 +181,13 @@
                         <input type="submit" value="提交" onclick="return checkCondition();" />
                     </div>
                 </td>
-            </tr>
+            </tr>*@
         </table>
+        <div style="padding-top: 10px; padding-left: 180px;">
+            @Html.Partial("_UploadPartail")
+        </div>
+        <div class="button" style="padding-left: 190px;">
+            <input type="submit" value="提交" onclick="return checkCondition();" />
+        </div>
     }
 </div>

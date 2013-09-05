@@ -1,4 +1,5 @@
-﻿function isIE() {
+﻿
+function isIE() {
     if ($.browser.msie)
         return true
     else
@@ -94,13 +95,13 @@ function bindUploadify(target) {
                 'U_Code': $("#U_Code").val(),
                 'ASU_Code': ASU_Code
             },
-            'buttonImg': '../../Plug-in/jquery.uploadify-v2.1.4/selectfile.png',
+            'buttonImg': '../../Plug-in/jquery.uploadify-v2.1.4/xuanze.png',
             'uploader': '../../Plug-in/jquery.uploadify-v2.1.4/uploadify.swf', //指定上传控件的主体文件，默认‘uploader.swf’
             //            'folder': 'Attachment', //要上传到的服务器路径，默认‘/’
             'script': $(tag).attr('url'), //上传文件的后台
             'cancelImg': '../../Plug-in/jquery.uploadify-v2.1.4/cancel.png', //指定取消上传的图片，默认‘cancel.png’
-            'width': 78,
-            'height': 22,
+            'width': 83,
+            'height': 28,
             'auto': false, //选定文件后是否自动上传，默认false
             'method': 'POST',
             'queueID': fileQueue,

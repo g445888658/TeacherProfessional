@@ -81,6 +81,7 @@
           <Property Name="TA_Code" Type="int" Nullable="false" />
           <Property Name="AP_Theme" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="AP_Speaker" Type="nvarchar" MaxLength="20" />
+          <Property Name="AP_SchoolYear" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="AP_StartTime" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="AP_EndTime" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="AP_Place" Type="nvarchar" Nullable="false" MaxLength="100" />
@@ -401,6 +402,7 @@
           <NavigationProperty Name="ActivitySignUp" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_ACTPLAN_1" FromRole="ActivityPlan" ToRole="ActivitySignUp" />
           <NavigationProperty Name="TeachingActivity" Relationship="TTitleDBModel.FK_ACTIVITY_REFERENCE_TEACHING" FromRole="ActivityPlan" ToRole="TeachingActivity" />
           <Property Type="String" Name="AP_ClassHour" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AP_SchoolYear" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ActivityRemark">
           <Key>
@@ -646,7 +648,8 @@
             <ScalarProperty Name="AM_SavePath" ColumnName="AM_SavePath" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="ActivityPlan"><EntityTypeMapping TypeName="TTitleDBModel.ActivityPlan"><MappingFragment StoreEntitySet="ActivityPlan">
-            <ScalarProperty Name="AP_ClassHour" ColumnName="AP_ClassHour" />
+            <ScalarProperty Name="AP_SchoolYear" ColumnName="AP_SchoolYear" />
+                <ScalarProperty Name="AP_ClassHour" ColumnName="AP_ClassHour" />
                 <ScalarProperty Name="AP_Code" ColumnName="AP_Code" />
             <ScalarProperty Name="TA_Code" ColumnName="TA_Code" />
             <ScalarProperty Name="AP_Theme" ColumnName="AP_Theme" />

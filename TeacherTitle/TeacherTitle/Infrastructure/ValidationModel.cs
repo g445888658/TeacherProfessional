@@ -62,6 +62,60 @@ namespace TeacherTitle.Infrastructure
             }
         }
 
+
+
+        /// <summary>
+        /// 两个字段中必须有一个不为空
+        /// </summary>
+        [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
+        public sealed class PropertiesOneOfNotNullAttribute : ValidationAttribute
+        {
+            private const string _defaultErrorMessage = "'{0}' 和 '{1}' 需填写其中一个.";
+            private readonly object _typeId = new object();
+
+            /// <summary>
+            /// 两个字段中必须有一个不为空
+            /// </summary>
+            /// <param name="originalProperty"></param>
+            /// <param name="confirmProperty"></param>
+            public PropertiesOneOfNotNullAttribute(string oneProperty, string twoProperty)
+                : base(_defaultErrorMessage)
+            {
+                OneProperty = oneProperty;
+                TwoProperty = twoProperty;
+            }
+
+            public string OneProperty { get; private set; }
+
+            public string TwoProperty { get; private set; }
+
+            public override object TypeId
+            {
+                get
+                {
+                    return _typeId;
+                }
+            }
+
+            public override string FormatErrorMessage(string name)
+            {
+                return String.Format(CultureInfo.CurrentUICulture, ErrorMessageString,
+                    OneProperty, TwoProperty);
+            }
+
+            public override bool IsValid(object value)
+            {
+                PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(value);
+                object oneProperty = properties.Find(OneProperty, true /* ignoreCase */).GetValue(value);
+                object twoProperty = properties.Find(TwoProperty, true /* ignoreCase */).GetValue(value);
+                if (oneProperty == null && twoProperty == null)
+                    return false;
+                else
+                    return true;
+            }
+        }
+
+
         /// <summary>
         /// 将用户ID存到cookie中
         /// </summary>

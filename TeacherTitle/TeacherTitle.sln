@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeacherTitle.DAL", "Teacher
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeacherTitle.BAL", "TeacherTitle.BAL\TeacherTitle.BAL.csproj", "{9DD75972-C1FD-4C0F-A604-EB066A573A6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTitleInstaller", "TTitleInstaller\TTitleInstaller.csproj", "{40584EFE-2FDE-48D8-99C5-9680919A2BA5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{9DD75972-C1FD-4C0F-A604-EB066A573A6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DD75972-C1FD-4C0F-A604-EB066A573A6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DD75972-C1FD-4C0F-A604-EB066A573A6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40584EFE-2FDE-48D8-99C5-9680919A2BA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40584EFE-2FDE-48D8-99C5-9680919A2BA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40584EFE-2FDE-48D8-99C5-9680919A2BA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40584EFE-2FDE-48D8-99C5-9680919A2BA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

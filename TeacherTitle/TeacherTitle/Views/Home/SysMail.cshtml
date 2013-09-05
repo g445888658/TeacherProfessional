@@ -2,22 +2,29 @@
 <div id="PartailSysMail">
     @using (Ajax.BeginForm("SysMail", "Home", null, new AjaxOptions { UpdateTargetId = "releaseNews" }, new { id = "SysMailForm" }))
     {
-        <div class="editor-label">
-            @Html.LabelFor(Model => Model.SysMail)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(Model => Model.SysMail, new { style = "width:200px;" })
-            @Html.ValidationMessageFor(Model => Model.SysMail)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(Model => Model.SysMailPsw)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(Model => Model.SysMailPsw, new { style = "width:200px;" })
-            @Html.ValidationMessageFor(Model => Model.SysMailPsw)
-        </div>
-        <div class="editor-field">
+        <table  class="myTable"  cellpadding="2px" cellspacing="2px">
+            <tr>
+                <td>
+                    @Html.LabelFor(Model => Model.SysMail)
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.SysMail, new { @class = "text-long" })
+                    @Html.ValidationMessageFor(Model => Model.SysMail)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(Model => Model.SysMailPsw)
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.SysMailPsw, new { @class = "text-long" })
+                    @Html.ValidationMessageFor(Model => Model.SysMailPsw)
+                </td>
+            </tr>
+        </table>
+        <div class="button" style="padding-left: 120px;">
             <input type="submit" value="确定" onclick="return checkCondition();" />
         </div>
+
     }
 </div>

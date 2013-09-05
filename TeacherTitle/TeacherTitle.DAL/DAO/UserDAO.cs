@@ -241,12 +241,16 @@ namespace TeacherTitle.DAL.DAO
         {
             using (TTitleDBEntities db = new TTitleDBEntities())
             {
+                if (db.Users.FirstOrDefault(x => x.U_Mail == U_Mail && x.U_Code != U_Code) != null)
+                {
+                    return new ArgsHelper("该邮箱已存在");
+                }
                 var user = db.Users.FirstOrDefault(x => x.U_Code == U_Code);
 
                 user.U_LongPhone = U_LongPhone;
                 user.U_ShortPhone = U_ShortPhone;
                 user.U_QQNum = U_QQNum;
-                //user.U_Mail = U_Mail;
+                user.U_Mail = U_Mail;
                 try
                 {
                     db.SaveChanges();

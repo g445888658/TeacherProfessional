@@ -15,3 +15,9 @@ C:\Users\Administrator\Desktop\顾哲航\TeacherProfessional\TeacherProfessional
 C:\Users\Administrator\Desktop\顾哲航\TeacherProfessional\TeacherProfessional\TeacherTitle\TeacherTitle.DAL\obj\Debug\TeacherTitle.DAL.dll
 C:\Users\Administrator\Desktop\顾哲航\TeacherProfessional\TeacherProfessional\TeacherTitle\TeacherTitle.DAL\obj\Debug\TeacherTitle.DAL.pdb
 C:\Users\Administrator\Desktop\顾哲航\TeacherProfessional\TeacherProfessional\TeacherTitle\TeacherTitle.DAL\obj\Debug\TeacherTitle.DAL.csprojResolveAssemblyReference.cache
+E:\CodeMonkey\MVC\TeacherProfessional\TeacherTitle\DynamicLink\TeacherTitle.DAL.dll.config
+E:\CodeMonkey\MVC\TeacherProfessional\TeacherTitle\DynamicLink\TeacherTitle.DAL.dll
+E:\CodeMonkey\MVC\TeacherProfessional\TeacherTitle\DynamicLink\TeacherTitle.DAL.pdb
+E:\CodeMonkey\MVC\TeacherProfessional\TeacherTitle\TeacherTitle.DAL\obj\Debug\ResolveAssemblyReference.cache
+E:\CodeMonkey\MVC\TeacherProfessional\TeacherTitle\TeacherTitle.DAL\obj\Debug\TeacherTitle.DAL.dll
+E:\CodeMonkey\MVC\TeacherProfessional\TeacherTitle\TeacherTitle.DAL\obj\Debug\TeacherTitle.DAL.pdb

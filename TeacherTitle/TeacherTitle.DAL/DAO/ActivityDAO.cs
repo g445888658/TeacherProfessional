@@ -58,7 +58,7 @@ namespace TeacherTitle.DAL.DAO
 
 
         /// <summary>
-        /// 添加附件
+        /// 添加材料
         /// </summary>
         /// <param name="activityAttachment"></param>
         /// <returns></returns>

@@ -13,3 +13,8 @@ C:\Users\Administrator\Desktop\顾哲航\TeacherProfessional\TeacherProfessional
 C:\Users\Administrator\Desktop\顾哲航\TeacherProfessional\TeacherProfessional\TeacherTitle\TeacherTitle.BAL\obj\Debug\TeacherTitle.BAL.csprojResolveAssemblyReference.cache
 C:\Users\Administrator\Desktop\顾哲航\TeacherProfessional\TeacherProfessional\TeacherTitle\TeacherTitle.BAL\obj\Debug\TeacherTitle.BAL.dll
 C:\Users\Administrator\Desktop\顾哲航\TeacherProfessional\TeacherProfessional\TeacherTitle\TeacherTitle.BAL\obj\Debug\TeacherTitle.BAL.pdb
+E:\CodeMonkey\MVC\TeacherProfessional\TeacherTitle\DynamicLink\TeacherTitle.BAL.dll
+E:\CodeMonkey\MVC\TeacherProfessional\TeacherTitle\DynamicLink\TeacherTitle.BAL.pdb
+E:\CodeMonkey\MVC\TeacherProfessional\TeacherTitle\TeacherTitle.BAL\obj\Debug\ResolveAssemblyReference.cache
+E:\CodeMonkey\MVC\TeacherProfessional\TeacherTitle\TeacherTitle.BAL\obj\Debug\TeacherTitle.BAL.dll
+E:\CodeMonkey\MVC\TeacherProfessional\TeacherTitle\TeacherTitle.BAL\obj\Debug\TeacherTitle.BAL.pdb

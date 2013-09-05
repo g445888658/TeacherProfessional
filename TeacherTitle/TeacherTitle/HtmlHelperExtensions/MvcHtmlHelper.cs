@@ -29,6 +29,12 @@ namespace TeacherTitle.HtmlHelperExtensions
             return PageLinksHelper(helper, pageInfo, pageUrl, ajaxOptions, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
+        public static MvcHtmlString NewPageLinks(this AjaxHelper helper,
+            NewPageInfo pageInfo, Func<Int32, String> pageUrl, AjaxOptions ajaxOptions, object htmlAttributes)
+        {
+            return NewPageLinksHelper(helper, pageInfo, pageUrl, ajaxOptions, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
         /// <summary>
         /// 翻页
         /// </summary>
@@ -42,6 +48,8 @@ namespace TeacherTitle.HtmlHelperExtensions
         {
             return PageLinksHelper(helper, pageInfo, pageUrl, ajaxOptions, null);
         }
+
+
 
         /// <summary>
         /// 翻页
@@ -305,6 +313,118 @@ namespace TeacherTitle.HtmlHelperExtensions
 
             return MvcHtmlString.Create(div.ToString());
         }
+
+
+        /// <summary>
+        /// 顾哲航 2013.08.15 对翻页插件更新
+        /// </summary>
+        /// <param name="helper"></param>
+        /// <param name="pageInfo"></param>
+        /// <param name="pageUrl"></param>
+        /// <param name="ajaxOptions"></param>
+        /// <param name="htmlAttributes"></param>
+        /// <returns></returns>
+        private static MvcHtmlString NewPageLinksHelper(this AjaxHelper helper,
+            NewPageInfo pageInfo, Func<Int32, String> pageUrl, AjaxOptions ajaxOptions, IDictionary<string, object> htmlAttributes)
+        {
+            pageInfo.TotalItems = pageInfo.TotalItems == 0 ? 1 : pageInfo.TotalItems;
+
+            StringBuilder result = new StringBuilder();
+            var ul = new TagBuilder("ul");
+            var li = new TagBuilder("li");
+
+            //首页
+            var firstPage = CreatLink("a", "|&lt;", "首页");
+            if (pageInfo.CurrentPage != 1)
+                setAttribute(firstPage, pageUrl(1), ajaxOptions);
+            li.InnerHtml = firstPage.ToString();
+            result.AppendLine(li.ToString());
+
+            //上一页
+            var prePage = CreatLink("a", "&lt;&lt;", "上一页");
+            if (pageInfo.CurrentPage > 1)
+                setAttribute(prePage, pageUrl(pageInfo.CurrentPage - 1), ajaxOptions);
+            li.InnerHtml = prePage.ToString();
+            result.AppendLine(li.ToString());
+
+            int PagesEveryTurn = 0;
+            if (pageInfo.TotalPages < pageInfo.pageMultiple * pageInfo.PagesEveryTurn)//此时每次呈现的页数已不够
+                PagesEveryTurn = pageInfo.PagesEveryTurn - (pageInfo.pageMultiple * pageInfo.PagesEveryTurn - pageInfo.TotalPages);
+            else
+                PagesEveryTurn = pageInfo.PagesEveryTurn;
+
+
+            //具体呈现的页数
+            for (int i = 0; i < PagesEveryTurn; i++)
+            {
+                var Page = new TagBuilder("a");
+                Page.MergeAttribute("style", "cursor:pointer;");
+
+                int CurrentPage = i + 1 + (pageInfo.pageMultiple - 1) * pageInfo.PagesEveryTurn;
+
+                if ((i + 1) == pageInfo.Position || (pageInfo.Position == 0 && i == pageInfo.PagesEveryTurn - 1))
+                {
+                    Page.MergeAttribute("class", "pagebarCurrent");
+                    Page.MergeAttribute("style", "color:Gray");
+                }
+                else
+                    setAttribute(Page, pageUrl(CurrentPage), ajaxOptions);
+
+                Page.InnerHtml = CurrentPage + "";
+                li.InnerHtml = Page.ToString();
+                result.AppendLine(li.ToString());
+            }
+
+            //下一页
+            var nextPage = CreatLink("a", "&gt;&gt;", "下一页");
+            if (pageInfo.CurrentPage < pageInfo.TotalPages)
+                setAttribute(nextPage, pageUrl(pageInfo.CurrentPage + 1), ajaxOptions);
+            li.InnerHtml = nextPage.ToString();
+            result.AppendLine(li.ToString());
+
+            //末页
+            var lastPage = CreatLink("a", "&gt;|", "末页");
+            if (pageInfo.TotalPages != 1)
+                setAttribute(lastPage, pageUrl(pageInfo.TotalPages), ajaxOptions);
+            li.InnerHtml = lastPage.ToString();
+            result.AppendLine(li.ToString());
+
+
+            ul.InnerHtml = result.ToString();
+
+            TagBuilder div = new TagBuilder("div");
+            div.MergeAttributes(htmlAttributes);
+            div.InnerHtml = ul.ToString();
+
+            return MvcHtmlString.Create(div.ToString());
+        }
+
+
+        public static TagBuilder CreatLink(string tagName, string innerHTML, string title)
+        {
+            var Tag = new TagBuilder(tagName);
+            Tag.MergeAttribute("title", title);
+            Tag.MergeAttribute("style", "cursor:pointer;");
+            if (!string.IsNullOrEmpty(innerHTML))
+                Tag.InnerHtml = innerHTML;
+
+            return Tag;
+        }
+
+
+
+        public static void setAttribute(TagBuilder tag, string pageUrl, AjaxOptions ajaxOptions)
+        {
+            tag.MergeAttribute("href", pageUrl);
+            tag.MergeAttribute("data-ajax-update", "#" + ajaxOptions.UpdateTargetId);
+            tag.MergeAttribute("data-ajax-mode", ajaxOptions.InsertionMode.ToString());
+            tag.MergeAttribute("data-ajax-method", ajaxOptions.HttpMethod);
+            tag.MergeAttribute("data-ajax", "true");
+        }
+
+
+
+
     }
 
 

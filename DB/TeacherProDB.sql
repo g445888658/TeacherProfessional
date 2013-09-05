@@ -1,7 +1,7 @@
 /*==============================================================*/
 /* Database name:  TTitleDB                                     */
 /* DBMS name:      Microsoft SQL Server 2005                    */
-/* Created on:     2013/8/6 10:21:00                            */
+/* Created on:     2013/9/4 14:02:13                            */
 /*==============================================================*/
 
 
@@ -57,6 +57,7 @@ create table ActivityPlan (
    TA_Code              int                  not null,
    AP_Theme             nvarchar(100)        not null,
    AP_Speaker           nvarchar(20)         null,
+   AP_SchoolYear        char(10)             not null,
    AP_StartTime         nvarchar(20)         not null,
    AP_EndTime           nvarchar(20)         not null,
    AP_Place             nvarchar(100)        not null,

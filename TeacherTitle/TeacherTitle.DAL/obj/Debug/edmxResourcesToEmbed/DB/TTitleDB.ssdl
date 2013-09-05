@@ -76,6 +76,7 @@
     <Property Name="TA_Code" Type="int" Nullable="false" />
     <Property Name="AP_Theme" Type="nvarchar" Nullable="false" MaxLength="100" />
     <Property Name="AP_Speaker" Type="nvarchar" MaxLength="20" />
+    <Property Name="AP_SchoolYear" Type="nvarchar" Nullable="false" MaxLength="20" />
     <Property Name="AP_StartTime" Type="nvarchar" Nullable="false" MaxLength="20" />
     <Property Name="AP_EndTime" Type="nvarchar" Nullable="false" MaxLength="20" />
     <Property Name="AP_Place" Type="nvarchar" Nullable="false" MaxLength="100" />

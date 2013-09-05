@@ -189,5 +189,36 @@ namespace TeacherTitle.BAL.Infrastructure
         /// <returns></returns>
         ArgsHelper AlterAP_Status(int AP_Code, int key, string value);
 
+
+        /// <summary>
+        /// 获取自己报名的活动
+        /// </summary>
+        /// <param name="u_Code">编号</param>
+        /// <param name="isPersonApply">是否为教师自己申请的活动</param>
+        /// <returns></returns>
+        AlreadySignUpModels[] GetAlreadySignUp(int u_Code, bool isPersonApply);
+
+        /// <summary>
+        /// 获取活动
+        /// </summary>
+        /// <param name="u_Code">用户编号</param>
+        /// <param name="isPersonApply">是否为教师自己申请</param>
+        /// <param name="status">活动状态(0结束3进行中)</param>
+        /// <returns></returns>
+        AlreadySignUpModels[] GetSignUp(int u_Code, bool isPersonApply, bool isEnd, int status);
+
+        /// <summary>
+        /// 对活动进行筛选
+        /// </summary>
+        /// <param name="data">要进行筛选的数据</param>
+        /// <param name="Teacher">教师名字</param>
+        /// <param name="Account">职工号</param>
+        /// <param name="Institute">学院</param>
+        /// <param name="StartTime">开始时间</param>
+        /// <param name="EndTime">结束时间</param>
+        /// <returns></returns>
+        AlreadySignUpModels[] TeacherPerApplyFinishSearch(AlreadySignUpModels[] data, string Teacher, string Account, string Institute, string StartTime, string EndTime);
+
+
     }
 }

@@ -13,7 +13,7 @@ namespace TeacherTitle.Controllers
 {
     public class HomeController : Controller
     {
-        PageInfo pageInfo = new PageInfo();
+        NewPageInfo pageInfo = new NewPageInfo();
 
         IActivityService ActivityService { get; set; }
         IBaseService BaseService { get; set; }
@@ -31,9 +31,8 @@ namespace TeacherTitle.Controllers
         /// GET 显示首页
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index()
+        public ActionResult Index(string U_Code)
         {
-            
             return View();
         }
 
@@ -46,6 +45,24 @@ namespace TeacherTitle.Controllers
             return PartialView();
         }
 
+        /// <summary>
+        /// GET 显示信息
+        /// </summary>
+        /// <returns></returns>
+        public PartialViewResult Information()
+        {
+            return PartialView();
+        }
+
+        /// <summary>
+        /// POST 显示信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public PartialViewResult Information(string infoKeywords)
+        {
+            return PartialView();
+        }
 
         /// <summary>
         /// GET 最新活动公告
@@ -55,8 +72,38 @@ namespace TeacherTitle.Controllers
         {
             var list = ActivityService.GetAdmActivityPlan();
 
+            ViewData["Notice"] = list.Take(10).ToArray();
+            return PartialView();
+        }
+
+        ///// <summary>
+        ///// POST 最新活动公告
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpPost]
+        //public PartialViewResult LatestNotice(string page)
+        //{
+        //    var list = ActivityService.GetAdmActivityPlan();
+        //    pageInfo.TotalItems = list.Length;
+        //    pageInfo.ItemsPerPage = 4;
+
+        //    pageInfo.PagesEveryTurn = 5;
+        //    pageInfo.CurrentPage = Convert.ToInt32(page);
+        //    ViewData["PageInfo"] = pageInfo;
+        //    ViewData["Notice"] = list.Skip(pageInfo.ItemsPerPage * (Convert.ToInt32(page) - 1)).Take(pageInfo.ItemsPerPage).ToArray();
+        //    return PartialView();
+        //}
+
+        /// <summary>
+        /// GET 最新活动公告列表
+        /// </summary>
+        /// <returns></returns>
+        public PartialViewResult ActivityContent()
+        {
+            var list = ActivityService.GetAdmActivityPlan();
             pageInfo.TotalItems = list.Length;
             pageInfo.ItemsPerPage = 10;
+            pageInfo.PagesEveryTurn = 5;
             pageInfo.CurrentPage = 1;
             ViewData["PageInfo"] = pageInfo;
             var asd = list.Take(pageInfo.ItemsPerPage).ToArray();
@@ -65,15 +112,17 @@ namespace TeacherTitle.Controllers
         }
 
         /// <summary>
-        /// POST 最新活动公告
+        /// POST 最新活动公告列表
         /// </summary>
+        /// <param name="page"></param>
         /// <returns></returns>
         [HttpPost]
-        public PartialViewResult LatestNotice(string page)
+        public PartialViewResult ActivityContent(string page)
         {
             var list = ActivityService.GetAdmActivityPlan();
             pageInfo.TotalItems = list.Length;
             pageInfo.ItemsPerPage = 10;
+            pageInfo.PagesEveryTurn = 5;
             pageInfo.CurrentPage = Convert.ToInt32(page);
             ViewData["PageInfo"] = pageInfo;
             ViewData["Notice"] = list.Skip(pageInfo.ItemsPerPage * (Convert.ToInt32(page) - 1)).Take(pageInfo.ItemsPerPage).ToArray();

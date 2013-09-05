@@ -1,105 +1,185 @@
-﻿<div id="PartailUserInfo">
+﻿<script type="text/javascript">
+    $(function () {
+        onlyNum($("#U_LongPhone"));
+        onlyNum($("#U_ShortPhone"));
+        onlyNum($("#U_QQNum"));
+    });
+</script>
+<div id="PartailUserInfo">
     @{
         var userInfo = ViewData["UserInfo"] as TeacherTitle.Models.UserModel;
     }
     @using (Ajax.BeginForm("UserInfo", "Account", new { U_Code = userInfo.userModel.U_Code }, new AjaxOptions { UpdateTargetId = "releaseNews" }, new { id = "UserInfoForm" }))
     { 
-        <table>
+        <table class="myTable" cellpadding="2px" cellspacing="2px">
             <tr>
                 <td>
-                    <div class="editor-label">
-                        @Html.Label("职工号：")
-                        @Html.Label(userInfo.userModel.U_Account)
-                    </div>
-                    <div class="editor-label">
-                        @Html.Label("用户名：")
-                        @Html.Label(userInfo.userModel.U_Name)
-                    </div>
-                    <div class="editor-label">
-                        @Html.Label("性别：")
-                        @Html.Label(userInfo.userModel.U_Sex.Value)
-                    </div>
-                    <div class="editor-label">
-                        @Html.Label("出生年月：")
-                        @Html.Label(userInfo.userModel.U_Birth)
-                    </div>
-                    <div class="editor-label">
-                        @Html.Label("民族：")
-                        @Html.Label(userInfo.userModel.U_Nation)
-                    </div>
-                    <div class="editor-label">
-                        @Html.Label("学院：")
-                        @Html.Label(userInfo.userModel.U_Institute.Value)
-                    </div>
-                    <div class="editor-label">
-                        @Html.Label("系：")
-                        @Html.Label(userInfo.userModel.U_Department.Value)
-                    </div>
-                    <div class="editor-label">
-                        @Html.Label("来校年月：")
-                        @Html.Label(userInfo.userModel.U_SchoolTime)
-                    </div>
-                    <div class="editor-label">
-                        @Html.Label("参加工作年月：")
-                        @Html.Label(userInfo.userModel.U_WorkTime)
-                    </div>
+                    @Html.Label("职工号：")
                 </td>
                 <td>
-                    <div class="editor-label">
-                        @Html.Label("现从事学科：")
-                        @Html.Label(userInfo.userModel.U_Subject)
-                    </div>
-                    <div class="editor-label">
-                        @Html.Label("从事专业：")
-                        @Html.Label(userInfo.userModel.U_Major)
-                    </div>
-                    <div class="editor-label">
-                        @Html.Label("研究方向：")
-                        @Html.Label(userInfo.userModel.U_Research)
-                    </div>
-                    <div class="editor-label">
-                        @Html.Label("职业技术资格：")
-                        @Html.Label(userInfo.userModel.U_Title)
-                    </div>
-                    <div class="editor-label">
-                        @Html.Label("资格级别：")
-                        @Html.Label(userInfo.userModel.U_TitleLevel)
-                    </div>
-                    <div class="editor-label">
-                        @Html.Label("专业技术职务聘任时间：")
-                        @Html.Label(userInfo.userModel.U_EngageTime)
-                    </div>
-                    <div class="editor-label">
-                        @Html.Label("是否双职称：")
-                        @Html.Label(userInfo.userModel.U_IsDoubleTitle)
-                    </div>
-                    <div class="editor-label">
-                        @Html.Label("资格级别：")
-                        @Html.Label(userInfo.userModel.U_TitleLevel)
-                    </div>
-                    <div class="editor-label">
-                        @Html.Label("长号：")
-                        @Html.TextBox("U_LongPhone", userInfo.userModel.U_LongPhone)
-                    </div>
+                    @Html.Label(userInfo.userModel.U_Account)
+                    @*@Html.TextBox("U_Account", userInfo.userModel.U_Account, new { @class = "text-long", @readonly = "readonly" })*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("用户名：")
                 </td>
                 <td>
-                    <div class="editor-label">
-                        @Html.Label("短号：")
-                        @Html.TextBox("U_ShortPhone", userInfo.userModel.U_ShortPhone)
-                    </div>
-                    <div class="editor-label">
-                        @Html.Label("邮箱：")
-                        @Html.Label(userInfo.userModel.U_Mail)
-                    </div>
-                    <div class="editor-label">
-                        @Html.Label("QQ号：")
-                        @Html.TextBox("U_QQNum", userInfo.userModel.U_QQNum)
-                    </div>
-                    <div class="editor-label">
-                        <input type="submit" value="修改" onclick="return checkCondition();" />
-                    </div>
+                    @Html.Label(userInfo.userModel.U_Name)
+                    @*@Html.TextBox("U_Name", userInfo.userModel.U_Name, new { @class = "text-long", @readonly = "readonly" })*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("性别：")
+                </td>
+                <td>
+                    @Html.Label(userInfo.userModel.U_Sex.Value)
+                    @*@Html.TextBox("U_Sex", userInfo.userModel.U_Sex.Value, new { @class = "text-long", @readonly = "readonly" })*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("出生年月：")
+                </td>
+                <td>@Html.Label(userInfo.userModel.U_Birth)
+                    @*@Html.TextBox("U_Birth", userInfo.userModel.U_Birth, new { @class = "text-long", @readonly = "readonly" })*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("民族：")
+                </td>
+                <td>@Html.Label(userInfo.userModel.U_Nation)
+                    @*@Html.TextBox("U_Nation", userInfo.userModel.U_Nation, new { @class = "text-long", @readonly = "readonly" })*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("学院：")
+                </td>
+                <td>@Html.Label(userInfo.userModel.U_Institute.Value)
+                    @*@Html.TextBox("U_Institute", userInfo.userModel.U_Institute.Value, new { @class = "text-long", @readonly = "readonly" })*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("系：")
+                </td>
+                <td>@Html.Label(userInfo.userModel.U_Department.Value)
+                    @*@Html.TextBox("U_Department", userInfo.userModel.U_Department.Value, new { @class = "text-long", @readonly = "readonly" })*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("来校年月：")
+                </td>
+                <td>@Html.Label(userInfo.userModel.U_SchoolTime)
+                    @*@Html.TextBox("U_SchoolTime", userInfo.userModel.U_SchoolTime, new { @class = "text-long", @readonly = "readonly" })*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("参加工作年月：")
+                </td>
+                <td>@Html.Label(userInfo.userModel.U_WorkTime)
+                    @*@Html.TextBox("U_WorkTime", userInfo.userModel.U_WorkTime, new { @class = "text-long", @readonly = "readonly" })*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("现从事学科：")
+                </td>
+                <td>@Html.Label(userInfo.userModel.U_Subject)
+                    @* @Html.TextBox("U_Subject", userInfo.userModel.U_Subject, new { @class = "text-long", @readonly = "readonly" })*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("从事专业：")
+                </td>
+                <td>@Html.Label(userInfo.userModel.U_Major)
+                    @*@Html.TextBox("U_Major", userInfo.userModel.U_Major, new { @class = "text-long", @readonly = "readonly" })*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("研究方向：")
+                </td>
+                <td>
+                    @Html.Label(userInfo.userModel.U_Research)
+                    @*@Html.TextBox("U_Research", userInfo.userModel.U_Research, new { @class = "text-long", @readonly = "readonly" })*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("职业技术资格：")
+                </td>
+                <td>
+                    @Html.Label(userInfo.userModel.U_Title)
+                    @*@Html.TextBox("U_Title", userInfo.userModel.U_Title, new { @class = "text-long", @readonly = "readonly" })*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("资格级别：")
+                </td>
+                <td>@Html.Label(userInfo.userModel.U_TitleLevel)
+                    @*@Html.TextBox("U_TitleLevel", userInfo.userModel.U_TitleLevel, new { @class = "text-long", @readonly = "readonly" })*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("专业技术职务聘任时间：")
+                </td>
+                <td>@Html.Label(userInfo.userModel.U_EngageTime)
+                    @* @Html.TextBox("U_EngageTime", userInfo.userModel.U_EngageTime, new { @class = "text-long", @readonly = "readonly" })*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("是否双职称：")
+                </td>
+                <td>@Html.Label(userInfo.userModel.U_IsDoubleTitle == "0" ? "否" : "是")
+                    @*@Html.TextBox("U_IsDoubleTitle", userInfo.userModel.U_IsDoubleTitle == "0" ? "否" : "是", new { @class = "text-long", @readonly = "readonly" })*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("长号：")
+                </td>
+                <td>
+                    @Html.TextBox("U_LongPhone", userInfo.userModel.U_LongPhone, new { @class = "text-long" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("短号：")
+                </td>
+                <td>
+                    @Html.TextBox("U_ShortPhone", userInfo.userModel.U_ShortPhone, new { @class = "text-long" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("邮箱：")
+                </td>
+                <td>
+                    @Html.TextBox("U_Mail", userInfo.userModel.U_Mail, new { @class = "text-long", @readonly = "readonly" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("QQ号：")
+                </td>
+                <td>
+                    @Html.TextBox("U_QQNum", userInfo.userModel.U_QQNum, new { @class = "text-long" })
                 </td>
             </tr>
         </table>
+        <div class="button" style="padding-left: 220px;">
+            <input type="submit" value="修改" onclick="return checkCondition();" />
+        </div>
     }
 </div>

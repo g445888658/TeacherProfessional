@@ -746,7 +746,8 @@ namespace TeacherTitle.DAL.DB
         /// <param name="aP_StatusKey">AP_StatusKey 属性的初始值。</param>
         /// <param name="aP_StatusValue">AP_StatusValue 属性的初始值。</param>
         /// <param name="aP_ClassHour">AP_ClassHour 属性的初始值。</param>
-        public static ActivityPlan CreateActivityPlan(global::System.Int32 aP_Code, global::System.Int32 tA_Code, global::System.String aP_Theme, global::System.String aP_StartTime, global::System.String aP_EndTime, global::System.String aP_Place, global::System.String aP_ReleaseTime, global::System.Int32 aP_StatusKey, global::System.String aP_StatusValue, global::System.String aP_ClassHour)
+        /// <param name="aP_SchoolYear">AP_SchoolYear 属性的初始值。</param>
+        public static ActivityPlan CreateActivityPlan(global::System.Int32 aP_Code, global::System.Int32 tA_Code, global::System.String aP_Theme, global::System.String aP_StartTime, global::System.String aP_EndTime, global::System.String aP_Place, global::System.String aP_ReleaseTime, global::System.Int32 aP_StatusKey, global::System.String aP_StatusValue, global::System.String aP_ClassHour, global::System.String aP_SchoolYear)
         {
             ActivityPlan activityPlan = new ActivityPlan();
             activityPlan.AP_Code = aP_Code;
@@ -759,6 +760,7 @@ namespace TeacherTitle.DAL.DB
             activityPlan.AP_StatusKey = aP_StatusKey;
             activityPlan.AP_StatusValue = aP_StatusValue;
             activityPlan.AP_ClassHour = aP_ClassHour;
+            activityPlan.AP_SchoolYear = aP_SchoolYear;
             return activityPlan;
         }
 
@@ -1127,6 +1129,30 @@ namespace TeacherTitle.DAL.DB
         private global::System.String _AP_ClassHour;
         partial void OnAP_ClassHourChanging(global::System.String value);
         partial void OnAP_ClassHourChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String AP_SchoolYear
+        {
+            get
+            {
+                return _AP_SchoolYear;
+            }
+            set
+            {
+                OnAP_SchoolYearChanging(value);
+                ReportPropertyChanging("AP_SchoolYear");
+                _AP_SchoolYear = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("AP_SchoolYear");
+                OnAP_SchoolYearChanged();
+            }
+        }
+        private global::System.String _AP_SchoolYear;
+        partial void OnAP_SchoolYearChanging(global::System.String value);
+        partial void OnAP_SchoolYearChanged();
 
         #endregion
     

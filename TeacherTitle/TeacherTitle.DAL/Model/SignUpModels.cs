@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TeacherTitle.DAL.DB;
 
 namespace TeacherTitle.DAL.Model
 {
@@ -48,6 +49,21 @@ namespace TeacherTitle.DAL.Model
         public string U_Name { get; set; }
 
         /// <summary>
+        /// 职称
+        /// </summary>
+        public string U_Title { get; set; }
+
+        /// <summary>
+        /// 学院编号
+        /// </summary>
+        public string I_Code { get; set; }
+
+        /// <summary>
+        /// 学院
+        /// </summary>
+        public string Institute { get; set; }
+
+        /// <summary>
         /// 学时统计编号
         /// </summary>
         public string CH_Code { get; set; }
@@ -62,6 +78,10 @@ namespace TeacherTitle.DAL.Model
         /// </summary>
         public string CH_GetHour { get; set; }
 
+        /// <summary>
+        /// 活动材料
+        /// </summary>
+        public ActivityMaterial[] ActivityMaterial { get; set; }
 
     }
 }

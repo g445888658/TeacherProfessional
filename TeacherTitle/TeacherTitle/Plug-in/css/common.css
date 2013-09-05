@@ -1,4 +1,7 @@
-
+.myTable
+{
+    padding-left: 80px;
+}
 
 .runcode
 {
@@ -7,7 +10,7 @@
     cursor: pointer;
     font: 12px tahoma,arial;
     height: 21px;
-    width: 150px;
+    width: 280px;
 }
 
 .dialog-forgetPsw input.text
@@ -49,7 +52,15 @@
 }
 
 
-/************************/
+
+
+.field-validation-error
+{
+    color: #ff0000;
+}
+
+
+/***********************
 .field-validation-error
 {
     color: #ff0000;
@@ -86,13 +97,16 @@
 {
     margin: 0.5em 0 0 0;
 }
+*/
 
 
 
-/* CSS Document */
+
+
+/*公共部分*/
 body
 {
-    background: url(../images/bg.jpg) repeat-x scroll left top #DEF0FB;
+    background: url(../images/body_bg.jpg) repeat-x scroll left top #DEF0FB;
     color: #555555;
     font-family: Verdana;
     font-size: 12px;
@@ -118,10 +132,6 @@ img, a img
     border: 0 none;
     vertical-align: top;
 }
-input, select, textarea
-{
-    vertical-align: middle;
-}
 h1, h2, h3, h4, h5, h6
 {
     font-size: 12px;
@@ -140,6 +150,7 @@ a:hover
     text-decoration: underline;
 }
 
+/*header*/
 .header
 {
     height: 177px;
@@ -172,6 +183,15 @@ a:hover
 {
     float: right;
 }
+.topline_rr
+{
+    position: absolute;
+    height: 27px;
+    line-height: 27px;
+    left: 1175px;
+    top: 0px;
+    color: #FF0000;
+}
 .topbar
 {
     background: url(../images/header_bg.jpg) no-repeat scroll left top transparent;
@@ -186,7 +206,7 @@ a:hover
 }
 .outlink
 {
-    background: url(../images/icon01.png) no-repeat scroll left top transparent;
+    background: url(../images/header_outlink.png) no-repeat scroll left top transparent;
     height: 49px;
     position: absolute;
     right: 35px;
@@ -202,7 +222,7 @@ a:hover
 }
 .outlink li a
 {
-    background: url(../images/icon02.png) no-repeat scroll 20px center transparent;
+    background: url(../images/header_outlink_li.png) no-repeat scroll 20px center transparent;
     color: #FFFFFF;
     padding-left: 40px;
 }
@@ -218,21 +238,129 @@ a:hover
 {
     line-height: 43px;
 }
-.i_nav
+
+.nav
 {
     background: url(../images/nav_bg.jpg) repeat-x scroll left top transparent;
     height: 35px;
 }
-.i_navb
+
+.ddsmoothmenu
 {
-    background: url(../images/icon03.jpg) no-repeat scroll left top transparent;
+    font-size: 14px;
+    margin: 0 auto;
+}
+* html .ddsmoothmenu
+{
+    height: 1%;
+}
+.ddsmoothmenu a
+{
+    text-align: center;
+}
+.ddsmoothmenu a:hover
+{
+    color: #2F7DCD;
+}
+.ddsmoothmenu ul
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    z-index: 100;
+}
+.ddsmoothmenu ul li
+{
+    display: inline;
+    float: left;
+    position: relative;
+    text-align: center;
+}
+.ddsmoothmenu li.navline
+{
+    background: url(../images/nav_line.jpg) no-repeat scroll right center transparent;
+    height: 35px;
+    padding: 0 4px 0 1px;
+}
+.ddsmoothmenu .nava
+{
+    color: #000000;
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    width: 105px;
+}
+* html .nava
+{
+    display: inline-block;
+}
+.nava_selected, .nava:hover
+{
+    background: url(../images/nav_hover.jpg) repeat-x scroll transparent;
+    color: #2F7DCD;
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    height: 35px;
+    line-height: 35px;
+    text-decoration: none;
+    width: 105px;
+}
+.navline ul li a
+{
+    display: block;
+    white-space: nowrap;
+    width: 100%;
+}
+.nav ul li ul
+{
+    left: 0;
+    position: absolute;
+    visibility: hidden;
+    background: url(../images/nav_ul_bg.jpg) left bottom no-repeat;
+    padding-bottom: 10px;
+    width: 106px;
+}
+.nav ul li:hover ul
+{
+    visibility: visible;
+    -ms-filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=120, Color=#AAAAAA); /* For IE 8 ;横向偏移3像素，纵向偏移3像素，模糊4像素，颜色*/
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#AAAAAA,direction=120,strength=4); /*ie*/ /* For IE 5.5 - 7 */
+    -moz-box-shadow: 5px 5px 5px #AAAAAA; /*firefox*/
+    -webkit-box-shadow: 5px 5px 5px #AAAAAA; /*safari或chrome*/
+    box-shadow: 5px 5px 5px #AAAAAA; /*opera或ie9*/
+}
+.nav ul li ul li
+{
+    float: none;
+}
+.nav ul li ul li a
+{
+    color: #666666;
+    display: block;
+    font: 12px/30px Verdana;
+    height: 34px;
+    width: 106px;
+}
+.nav ul li ul li a:hover
+{
+    background: url(../images/nav_ul_bg.jpg) no-repeat scroll right top transparent;
+    color: #FFFFFF;
+}
+.navb
+{
+    background: url(../images/navb.jpg) no-repeat scroll left top transparent;
     height: 2px;
     overflow: hidden;
 }
 
+
 .i_container
 {
-    margin: 10px auto 0;
+    margin: 10px auto;
     width: 1002px;
 }
 .i_left
@@ -247,18 +375,18 @@ a:hover
 }
 .i_box
 {
-    background: url(../images/icon04.jpg) no-repeat scroll left top transparent;
+    background: url(../images/i_box.jpg) no-repeat scroll left top transparent;
     height: 341px;
     position: relative;
     width: 712px;
 }
-.i_box_t
+.i_box_top
 {
     left: -4px;
     position: absolute;
     top: -5px;
 }
-.i_box_l
+.i_box_left
 {
     border-right: 1px solid #BFDFF4;
     display: inline;
@@ -267,7 +395,7 @@ a:hover
     margin: 1px 0 0 1px;
     width: 318px;
 }
-.i_box_r
+.i_box_right
 {
     display: inline;
     float: left;
@@ -275,8 +403,6 @@ a:hover
     margin-top: 1px;
     width: 391px;
 }
-
-
 .i_banner
 {
     height: 228px;
@@ -289,11 +415,9 @@ a:hover
     padding: 15px 20px;
     width: 278px;
 }
-
-
 .i_time
 {
-    background: url("../Images/icon07.jpg") repeat-x scroll left top transparent;
+    background: url(../images/i_time_bg.jpg) repeat-x scroll left top transparent;
     height: 111px;
     width: 318px;
 }
@@ -308,7 +432,7 @@ a:hover
 }
 .i_time span a
 {
-    background: url(../images/icon08.gif) no-repeat scroll left top transparent;
+    background: url(../images/i_time.gif) no-repeat scroll left top transparent;
     color: #FFFFFF;
     display: inline-block;
     font-weight: bold;
@@ -325,7 +449,7 @@ a:hover
 }
 .i_time dl
 {
-    background: url("../Images/icon09.jpg") no-repeat scroll left top transparent;
+    background: url(../images/i_time_dl.jpg) no-repeat scroll left top transparent;
     float: left;
     height: 90px;
     margin-top: 11px;
@@ -346,125 +470,12 @@ a:hover
     text-align: center;
 }
 
-#keywords
+.i_news01
 {
-    float: left;
-    margin-top: 5px;
+    height: 264px;
+    padding: 10px 10px 0;
+    width: 371px;
 }
-.search_btn
-{
-    background: url("../Images/icon14.gif") no-repeat scroll left top transparent;
-    border: medium none;
-    color: #FFFFFF;
-    float: left;
-    font-size: 14px;
-    font-weight: bold;
-    height: 44px;
-    line-height: 35px;
-    margin-left: 10px;
-    padding-bottom: 9px;
-    padding-left: 20px;
-    text-align: left;
-    width: 123px;
-}
-input, select, textarea
-{
-    vertical-align: middle;
-}
-
-#productSearch
-{
-    float: left;
-    padding-left: 10px;
-}
-.m_auto
-{
-    margin: 0 auto;
-}
-.mtop
-{
-    margin-top: 10px;
-}
-.fb
-{
-    font-weight: bold;
-}
-.f11px
-{
-    font-size: 11px;
-}
-.f14px
-{
-    font-size: 14px;
-}
-.f16px
-{
-    font-size: 16px;
-}
-.f10px
-{
-    font-size: 10px;
-}
-.li20px
-{
-    line-height: 20px;
-}
-.f18px
-{
-    font-size: 18px;
-}
-.f20px
-{
-    font-size: 20px;
-}
-.f24px
-{
-    font-size: 24px;
-}
-.f30px
-{
-    font-size: 30px;
-}
-.yahei
-{
-    font-family: microsoft yahei;
-}
-.mt5
-{
-    margin-top: 5px;
-}
-.mt10
-{
-    margin-top: 10px;
-}
-.mt15
-{
-    margin-top: 15px;
-}
-.ml19
-{
-    margin-left: 19px;
-}
-.fl
-{
-    float: left;
-}
-.fr
-{
-    float: right;
-}
-.ovht
-{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-
-
-
-
-
 .title01
 {
     height: 26px;
@@ -485,22 +496,17 @@ input, select, textarea
 }
 .title01 dl dd.title01_l
 {
-    background: url("../Images/icon10.jpg") no-repeat scroll left top transparent;
+    background: url(../images/title01_l.jpg) no-repeat scroll left top transparent;
     width: 5px;
 }
 .title01 dl dd.title01_r
 {
-    background: url("../Images/icon11.jpg") no-repeat scroll left top transparent;
+    background: url(../images/title01_r.jpg) no-repeat scroll left top transparent;
     width: 5px;
-}
-.title01 dl dd.line
-{
-    background: url("../Images/title_bg01_l.jpg") no-repeat scroll left top transparent;
-    width: 1px;
 }
 .title01 dl dd a
 {
-    background: url("../Images/title_bg01.jpg") no-repeat scroll left top transparent;
+    background: url(../images/title_bg01.jpg) no-repeat scroll left top transparent;
     color: #FFFFFF;
     display: block;
     font-size: 14px;
@@ -522,82 +528,12 @@ input, select, textarea
     color: #FFFFFF;
     text-decoration: none;
 }
-.title01 span
-{
-    display: block;
-    float: right;
-    font-family: "����";
-    padding-right: 5px;
-}
-.title01 span a
-{
-    color: #999999;
-}
-.title01 span a:hover
-{
-    color: #BD0100;
-    text-decoration: underline;
-}
-.title02
-{
-    background: url("../Images/title_bg02.jpg") no-repeat scroll left top transparent;
-    height: 37px;
-    line-height: 37px;
-    padding-left: 70px;
-}
-.title02 h3
-{
-    color: #000000;
-    font-size: 14px;
-    font-weight: bold;
-    padding-left: 30px;
-}
-.title03
-{
-    background: url("../Images/title_bg03.jpg") no-repeat scroll left top transparent;
-    height: 36px;
-    line-height: 36px;
-    padding-left: 70px;
-}
-.title03 h3
-{
-    color: #000000;
-    font-size: 14px;
-    font-weight: bold;
-    padding-left: 30px;
-}
-.tbg_01
-{
-    background: url("../Images/icont01.gif") no-repeat scroll left center transparent;
-}
-.tbg_02
-{
-    background: url("../Images/icont02.gif") no-repeat scroll left center transparent;
-}
-.bot_01
-{
-    background: url("../Images/bot_bg01.jpg") no-repeat scroll left top transparent;
-    height: 5px;
-    overflow: hidden;
-}
-.bot_02
-{
-    background: url("../Images/bot_bg02.jpg") no-repeat scroll left top transparent;
-    height: 20px;
-    overflow: hidden;
-}
-
-
-.i_news01
-{
-    height: 264px;
-    padding: 10px 10px 0;
-    width: 371px;
-}
 .i_news01_l
 {
-    height: 238px;
+    height: 231px;
+    padding-top: 7px;
     width: 371px;
+    overflow: hidden;
 }
 .i_news01_l li
 {
@@ -621,48 +557,54 @@ input, select, textarea
     display: block;
     float: right;
 }
+
 .i_search
 {
-    background: url("../Images/icon12.jpg") repeat-x scroll left top transparent;
+    background: url(../images/i_search_bg.jpg) repeat-x scroll left top transparent;
     height: 50px;
     padding: 15px 10px 0;
     width: 371px;
 }
 .i_search span
 {
-    background: url("../Images/icon13.jpg") no-repeat scroll left top transparent;
+    background: url(../images/i_search_icon.jpg) no-repeat scroll left top transparent;
     display: inline-block;
     float: left;
     height: 28px;
     margin-left: 10px;
     width: 32px;
 }
-.i_search strong
+#productSearch
 {
     float: left;
-    padding: 4px 10px 0;
+    padding-left: 10px;
 }
-.i_search a
+.search_text
 {
-    background: url("../Images/icon14.gif") no-repeat scroll left top transparent;
+    float: left;
+    margin-top: 5px;
+}
+.search_btn
+{
+    background: url(../images/i_search.gif) no-repeat scroll left top transparent;
+    border: medium none;
     color: #FFFFFF;
-    display: block;
     float: left;
     font-size: 14px;
     font-weight: bold;
     height: 44px;
-    line-height: 35px;
+    cursor: pointer;
+    margin-left: 10px;
+    padding-bottom: 12px;
     padding-left: 20px;
-    width: 103px;
+    text-align: left;
+    width: 123px;
 }
-.i_search a:hover
-{
-    color: #FFFFFF;
-    text-decoration: none;
-}
+
+
 .i_quick
 {
-    background: url("../Images/icon15.jpg") no-repeat scroll left top transparent;
+    background: url(../images/i_quick_bg.jpg) no-repeat scroll left top transparent;
     height: 164px;
     margin-top: 10px;
     padding-left: 24px;
@@ -677,7 +619,7 @@ input, select, textarea
 }
 .i_quick h3
 {
-    background: url("../Images/icon16.gif") no-repeat scroll left center transparent;
+    background: url(../images/title03_icon.png) no-repeat scroll left center transparent;
     color: #000000;
     display: inline-block;
     font-size: 14px;
@@ -688,7 +630,7 @@ input, select, textarea
 }
 .i_quick li
 {
-    background: url("../Images/icon17.jpg") no-repeat scroll left top transparent;
+    background: url(../images/i_quick_li_bg.jpg) no-repeat scroll left top transparent;
     display: inline;
     float: left;
     font-size: 14px;
@@ -699,16 +641,35 @@ input, select, textarea
     text-align: center;
     width: 110px;
 }
+
+
 .i_news02
 {
     overflow: hidden;
     width: 280px;
 }
+.title02
+{
+    background: url(../images/title_bg02.jpg) no-repeat scroll left top transparent;
+    height: 37px;
+    line-height: 37px;
+    padding-left: 70px;
+}
+.title02 h3
+{
+    color: #000000;
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 30px;
+    background: url(../images/title02_icon.gif) no-repeat scroll left center transparent;
+}
 .i_news02_l
 {
-    background: url("../Images/bg01.jpg") repeat-y scroll left top transparent;
+    background: url(../images/news_bg.jpg) repeat-y scroll left top transparent;
     padding: 10px;
     width: 260px;
+    height: 270px;
+    overflow: hidden;
 }
 .i_news02_l li
 {
@@ -719,20 +680,36 @@ input, select, textarea
 {
     color: #999999;
 }
+
 .i_news03
 {
     overflow: hidden;
     width: 280px;
 }
+.title03
+{
+    background: url(../images/title_bg03.jpg) no-repeat scroll left top transparent;
+    height: 36px;
+    line-height: 36px;
+    padding-left: 70px;
+}
+.title03 h3
+{
+    color: #000000;
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 30px;
+    background: url(../images/title03_icon.png) no-repeat scroll left center transparent;
+}
 .i_news03_l
 {
-    background: url("../Images/bg01.jpg") repeat-y scroll left top transparent;
-    padding: 10px;
+    background: url(../images/news_bg.jpg) repeat-y scroll left top transparent;
+    padding: 18px 10px 10px 10px;
     width: 260px;
 }
 .i_news03_l li
 {
-    background: url("../Images/icon18.jpg") no-repeat scroll left top transparent;
+    background: url(../images/news03_l_li_bg.jpg) no-repeat scroll left top transparent;
     font-size: 14px;
     height: 33px;
     line-height: 33px;
@@ -745,12 +722,19 @@ input, select, textarea
     color: #000000;
 }
 
+.newbottom_01
+{
+    background: url(../images/newbottom_bg01.jpg) no-repeat scroll left top transparent;
+    height: 5px;
+    overflow: hidden;
+}
 
 
 .footer
 {
-    padding: 10px 0;
+    padding: 0;
     text-align: center;
+    clear: both;
 }
 .footer_nav
 {
@@ -771,14 +755,7 @@ input, select, textarea
 {
     color: #FFFFFF;
 }
-
-
-
-
-
-
-
-.f_link
+.footer_link
 {
     float: right;
     padding: 8px 15px 0 0;
@@ -789,14 +766,9 @@ input, select, textarea
     line-height: 20px;
     padding-top: 15px;
 }
-.p_banner
-{
-}
-.p_container
-{
-    margin: 10px auto 0;
-    width: 1002px;
-}
+
+
+
 .p_left
 {
     float: left;
@@ -807,30 +779,52 @@ input, select, textarea
 {
     float: right;
     overflow: hidden;
+    background: url(../images/p_rbg.jpg) repeat-y scroll left top transparent;
     width: 712px;
 }
-.p_right1
+.i_news04_l
 {
-    background: url("../Images/p_rbg.jpg") repeat-y scroll left top transparent;
-    float: right;
-    width: 712px;
+    background: url(../images/news_bg.jpg) repeat-y scroll left top transparent;
+    padding: 18px 10px 10px 10px;
+    width: 260px;
+}
+.i_news04_l li
+{
+    background: url(../images/p_left_li_bg.png) no-repeat scroll left top transparent;
+    font-size: 14px;
+    height: 33px;
+    line-height: 33px;
+    margin: 10px auto 0;
+    text-align: center;
+    width: 201px;
+}
+.i_news04_l li:hover
+{
+    background: url(../images/p_left_li_bg_h.png);
+    cursor: pointer;
+}
+.i_news04_l li:hover a
+{
+    color: #FFFFFF;
+    text-decoration: none;
 }
 .p_r_t
 {
-    background: url("../Images/p_r_tbg.jpg") no-repeat scroll left top transparent;
-    height: 51px;
-    width: 712px;
+    background: url(../images/p_r_tbg.jpg) no-repeat scroll left top transparent;
+    height: 37px;
+    width: 710px;
+    padding: 0px 1px;
 }
 .p_r_t h3
 {
-    background: url("../Images/icon19.gif") no-repeat scroll left center transparent;
+    background: url(../images/p_r_t_icon.gif) no-repeat scroll left center transparent;
     color: #000000;
     display: inline;
     float: left;
     font-size: 14px;
     font-weight: bold;
-    height: 51px;
-    line-height: 51px;
+    height: 37px;
+    line-height: 37px;
     margin-left: 20px;
     overflow: hidden;
     padding-left: 35px;
@@ -841,17 +835,199 @@ input, select, textarea
 .p_path
 {
     float: right;
-    line-height: 51px;
-    padding-right: 10px;
+    line-height: 37px;
+    padding-right: 20px;
 }
 .p_news
 {
     margin: 0 1px;
     width: 710px;
 }
-.bot03
+.p_n_list
 {
-    background: url("/templates/images/bot_bg03.jpg") no-repeat scroll 0 0 transparent;
+    max-height: 400px;
+}
+.p_n_list li
+{
+    background: url(../Images/p_n_list.jpg) repeat-x scroll left bottom transparent;
+    height: 40px;
+    line-height: 40px;
+}
+.p_n_list li span
+{
+    float: right;
+    padding-right: 20px;
+}
+.p_n_list li a
+{
+    display: block;
+    float: left;
+    overflow: hidden;
+    padding-left: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 550px;
+}
+.navPage
+{
+    clear: both;
+    float: left;
+    font-family: arial,simsun,sans-serif;
+    font-size: 10px;
+    padding: 15px 0 10px 20px;
+    text-align: center;
+    width: 660px;
+}
+.navPage ul
+{
+    text-align: center;
+}
+.navPage li
+{
+    float: left;
+    padding: 0 2px;
+    width: 20px;
+}
+.navPage a
+{
+    border: 1px solid #CFD0D0;
+    color: #555555;
+    display: block;
+    height: 12px;
+    line-height: 12px;
+    padding: 2px 4px;
+    width: 10px;
+}
+.navPage a:hover, a.pagebarCurrent
+{
+    border: 1px solid #ED9620;
+    color: #ED9620;
+    text-decoration: none;
+}
+.newbottom_02
+{
+    background: url(../images/newbottom_02_bg.jpg) no-repeat scroll left top transparent;
     height: 20px;
-    width: 1002px;
+    overflow: hidden;
+    clear: both;
+}
+.p_n_title
+{
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 30px;
+    padding-top: 20px;
+    text-align: center;
+    text-overflow: ellipsis;
+}
+.p_n_info
+{
+    line-height: 30px;
+    text-align: center;
+}
+.p_news_center
+{
+    line-height: 24px;
+    font-size: 14px;
+    padding-top: 15px;
+    border-bottom: 1px dashed #C3C3C3;
+    border-top: 1px dashed #C3C3C3;
+    padding-bottom: 30px;
+    width: 672px;
+    margin: 0px auto;
+}
+.p_news_center_ul
+{
+    padding: 0px 40px;
+    font-family: 宋体,Arial, Helvetica, sans-serif;
+}
+.p_news_center_ul li
+{
+    clear: both;
+}
+.p_news_center_ul li span
+{
+    width: 502px;
+    display: block;
+    float: right;
+}
+.button input
+{
+    width: 57px;
+    height: 28px;
+    background: url(../images/button.png);
+    border: none;
+    color: #555555;
+    padding: 0px;
+    margin: 0px;
+    cursor: pointer;
+}
+.button input:hover
+{
+    width: 57px;
+    height: 28px;
+    background: url(../images/button_h.png);
+    border: none;
+    color: #FFFFFF;
+    padding: 0px;
+    margin: 0px;
+    cursor: pointer;
+}
+.prevnext
+{
+    line-height: 20px;
+    padding: 10px 20px 10px 30px;
+}
+.prevrecord, .nextrecord
+{
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 600px;
+}
+.p_center
+{
+    min-height: 706px;
+    padding: 20px;
+    font-family: 宋体,Arial, Helvetica, sans-serif;
+}
+.text-long
+{
+    border: 1px solid #ddd;
+    background: #fff url(../images/input-shaddow.gif) no-repeat left top;
+    font: 11px Arial, Helvetica, sans-serif;
+    color: #646464;
+    padding: 5px 7px;
+    width: 264px;
+    margin: 0 10px 0 0;
+}
+.text-medium
+{
+    border: 1px solid #ddd;
+    background: #fff url(../img/input-shaddow.gif) no-repeat left top;
+    font: 11px Arial, Helvetica, sans-serif;
+    color: #646464;
+    padding: 5px 7px;
+    width: 130px;
+    float: left;
+    margin: 0 10px 0 0;
+}
+.text-long:focus, textarea:focus, .text-medium:focus
+{
+    background: #fdfcf6 url(../images/input-shaddow-hover.gif) no-repeat left top;
+}
+textarea
+{
+    border: 1px solid #ddd;
+    background: #fff url(../images/input-shaddow.gif) no-repeat left top;
+    font: 11px Arial, Helvetica, sans-serif;
+    color: #646464;
+    padding: 5px 7px;
+    width: 364px;
+    float: left;
+    margin: 0 10px 0 0;
+    height: 148px;
+    overflow: hidden;
+    resize: none;
 }

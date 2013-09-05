@@ -2,14 +2,26 @@
     $(function () {
         $("#ActAndTeacherTable").flexigrid({
             resizable: false,
+            height: 'auto',
             title: "活动列表",
             showToggleBtn: false
         });
+
         $(".table").flexigrid({
             resizable: false,
             height: 'auto',
-            title: "教师名单",
+            title: "参与人名单",
             showToggleBtn: false
+        });
+
+        $(".qtipClass").each(function () {
+            var obj = $(this);
+            $(obj).poshytip({
+                className: 'tip-darkgray',
+                bgImageFrameSize: 11,
+                offsetX: -25,
+                content: $($(obj).parent().children()[1]).children().html()
+            });
         });
     });
 
@@ -24,6 +36,19 @@
             }
         }
     }
+
+    //导出excel
+    function exportEndAct() {
+        var teacher = $("#Teacher", $("#PartailSearchCriteria")).val();
+        var account = $("#Account", $("#PartailSearchCriteria")).val();
+        var institute = $("#Institute", $("#PartailSearchCriteria")).val();
+        var startTime = $("#StartTime", $("#PartailSearchCriteria")).val();
+        var endTime = $("#EndTime", $("#PartailSearchCriteria")).val();
+
+        var url = "/Adm/ExportEndAct?Teacher=" + teacher + "&Account=" + account + "&Institute=" + institute + "&StartTime=" + startTime + "&EndTime=" + endTime;
+
+        window.location.href = url;
+    }
 </script>
 @{
     var list = ViewData["resultList"] as TeacherTitle.DAL.Model.AlreadyEndOfActModels[];
@@ -35,7 +60,7 @@
                 <th width="40">
                     编号
                 </th>
-                <th width="200">
+                <th width="170">
                     活动主题
                 </th>
                 <th width="60">
@@ -50,7 +75,7 @@
                 <th width="100">
                     具体地点
                 </th>
-                <th width="80">
+                <th width="50">
                     参与人
                 </th>
             </tr>
@@ -87,21 +112,27 @@
     </table>
     @for (int i = 0; i < list.Length; i++)
     {
-        <div style="display: none;"  class="tableDiv" id="@list[i].Plan.AP_Code">
+        <div style="display: none;  padding-top:20px;"  class="tableDiv"  id="@list[i].Plan.AP_Code">
             <table class="table" style="font-size: 13px;">
                 <thead style="font-size: 13px;">
                     <tr>
                         <th width="40">
                             编号
                         </th>
-                        <th width="200">
+                        <th width="100">
                             职工号
                         </th>
-                        <th width="60">
+                        <th width="100">
                             姓名
+                        </th>
+                        <th width="100">
+                            学院
                         </th>
                         <th width="80">
                             学时
+                        </th>
+                        <th>
+                            活动资料
                         </th>
                     </tr>
                 </thead>
@@ -119,7 +150,23 @@
                                 @Html.Encode(list[i].SignUpModels[j].U_Name)
                             </td>
                             <td>
+                                @Html.Encode(list[i].SignUpModels[j].Institute)
+                            </td>
+                            <td>
                                 @Html.Encode(list[i].SignUpModels[j].CH_GetHour)
+                            </td>
+                            <td>
+                                <a style="cursor: pointer;" class="qtipClass">点击展开</a>
+                                <div style="display: none;">
+                                    <ul>
+                                        @for (int k = 0; k < list[i].SignUpModels[j].ActivityMaterial.Length; k++)
+                                        {
+                                            <li>
+                                                @Html.ActionLink(list[i].SignUpModels[j].ActivityMaterial[k].AM_Name, "DownloadUserFile", "Activity", new { AM_Code = list[i].SignUpModels[j].ActivityMaterial[k].AM_Code }, new { style = "color:white;" })
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
                             </td>
                         </tr>
                     }
@@ -127,4 +174,9 @@
             </table>
         </div>
     }
+    <div style="padding-top: 15px;">
+        <div class="button" style="padding-left: 150px;">
+            <input type="button" value="导出" onclick="exportEndAct();" />
+        </div>
+    </div>
 </div>

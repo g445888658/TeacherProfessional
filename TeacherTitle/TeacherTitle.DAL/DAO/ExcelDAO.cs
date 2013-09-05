@@ -45,11 +45,11 @@ namespace TeacherTitle.DAL.DAO
                     }
                     if (userDAO.GetAllUsers().FirstOrDefault(x => x.U_Account == dt.Rows[i][0].ToString()) != null)
                     {
-                        return new ArgsHelper("工号" + dt.Rows[i][0].ToString() + "已存在");
+                        return new ArgsHelper("工号" + dt.Rows[i][0].ToString() + "已存在,请修改后在上传");
                     }
                     else if (userDAO.GetAllUsers().FirstOrDefault(x => x.U_Mail == dt.Rows[i][18].ToString()) != null)
                     {
-                        return new ArgsHelper("邮箱" + dt.Rows[i][18].ToString() + "已存在");
+                        return new ArgsHelper("邮箱" + dt.Rows[i][18].ToString() + "已存在,请修改后在上传");
                     }
                     var i_Code = baseDAO.GetAllInstitute().FirstOrDefault(x => x.I_Name == dt.Rows[i][5].ToString()).I_Code;
                     var d_Code = baseDAO.GetAllDepartment().FirstOrDefault(x => x.D_Name == dt.Rows[i][6].ToString()).D_Code;

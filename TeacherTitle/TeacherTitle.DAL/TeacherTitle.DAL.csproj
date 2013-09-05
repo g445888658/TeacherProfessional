@@ -62,6 +62,7 @@
     <Compile Include="Infrastructure\KeyValueModel.cs" />
     <Compile Include="Model\ActivityModels.cs" />
     <Compile Include="Model\SignUpModels.cs" />
+    <Compile Include="Model\PerClassHourSumModels.cs" />
     <Compile Include="Model\TeacherModels.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

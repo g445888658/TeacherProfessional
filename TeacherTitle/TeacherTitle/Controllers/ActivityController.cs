@@ -72,6 +72,17 @@ namespace TeacherTitle.Controllers
             var act = ActivityService.GetActivityPlansById(Convert.ToInt32(apCode));
             ViewData["ActivityDetail"] = act;
             ViewData["ActForm"] = ActivityService.GetAllActForm().FirstOrDefault(x => x.Key == act.Plan.TA_Code.ToString()).Value;
+            var all = ActivityService.GetAdmActivityPlan();
+
+            for (int i = 0; i < all.Length; i++)
+            {
+                if (all[i].AP_Code == Convert.ToInt32(apCode))
+                {
+                    ViewData["last"] = i == 0 ? null : all[i - 1];
+                    ViewData["next"] = i == all.Length - 1 ? null : all[i + 1];
+                    break;
+                }
+            }
             return PartialView();
         }
 
@@ -220,7 +231,6 @@ namespace TeacherTitle.Controllers
             return Json(jsonData);
         }
 
-       
 
 
     }

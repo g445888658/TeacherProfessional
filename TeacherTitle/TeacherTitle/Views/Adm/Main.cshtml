@@ -1,96 +1,110 @@
-﻿<div class="i_left" style="width: 1002px;">
-    <div class="i_box" style="width: 1000px;">
-        <div class="i_box_l" style="width: 250px;">
-            <center>
-                <table>
-                    <tr>
-                        <td>
-                            <a onclick="resetUrl('ChangePassword','Account','releaseNews');" style="cursor: pointer">
-                                修改密码</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a onclick="resetUrl('UserInfo','Account','releaseNews');" style="cursor: pointer">个人信息</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a onclick="resetUrl('Register','Adm','releaseNews');" style="cursor: pointer">添加教师</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a onclick="resetUrl('AddHourCountStandard','Adm','releaseNews');" style="cursor: pointer">
-                                添加学时计算标准</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a onclick="resetUrl('AddActivity','Adm','releaseNews');" style="cursor: pointer">发布活动公告</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a id="RegistrationOfAct" onclick="resetUrl('RegistrationOfAct','Adm','releaseNews');"
-                                style="cursor: pointer">报名中的活动</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a id="OngoingActivities" onclick="resetUrl('OngoingActivities','Adm','releaseNews');"
-                                style="cursor: pointer">进行中的活动</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a id="AlreadyEndOfAct" onclick="resetUrl('AlreadyEndOfAct','Adm','releaseNews');"
-                                style="cursor: pointer">已结束的活动</a>
-                        </td>
-                    </tr>
-                    @* <tr>
-                        <td>
-                            <a onclick="resetUrl('CheckTeacherApply','Adm','releaseNews');" style="cursor: pointer">
-                                未审核活动列表</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a onclick="resetUrl('SearchCriteria','ClassHour','releaseNews');" style="cursor: pointer">
-                                已审核活动列表</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a onclick="resetUrl('TeacherPerApply','Activity','releaseNews');" style="cursor: pointer">
-                                未审批的教师申请</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a onclick="resetUrl('TeacherPerApplyFinish','Activity','releaseNews');" style="cursor: pointer">
-                                已审批的教师申请</a>
-                        </td>
-                    </tr>*@
-                    @*<tr>
-                        <td>
-                            <a onclick="resetUrl('Activiting','Adm','releaseNews');" style="cursor: pointer">正在进行的活动</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a onclick="resetUrl('Activitied','Adm','releaseNews');" style="cursor: pointer">已经结束的活动</a>
-                        </td>
-                    </tr>*@
-                    <tr>
-                        <td>
-                            <a onclick="resetUrl('SysMail','Home','releaseNews');" style="cursor: pointer">配置邮箱</a>
-                        </td>
-                    </tr>
-                </table>
-            </center>
+﻿<div class="i_container clearfix">
+    <div class="p_left">
+        <div class="i_news02" id="com_indexistop_news" editok="online">
+            <div class="title02">
+                <h3>
+                    个人中心
+                </h3>
+            </div>
+            <div class="i_news04_l">
+                <ul>
+                    <li style="margin-top: 0px;" onclick="resetUrl('ChangePassword','Account','releaseNews',this);">
+                        <a>修改密码</a> </li>
+                    <li onclick="resetUrl('UserInfo','Account','releaseNews',this);"><a>个人信息</a> </li>
+                </ul>
+            </div>
         </div>
-        <div id="releaseNews" class="i_box_r" style="width: 740px;">
+        <div class="i_news03" id="teacherManagement">
+            <div class="title03">
+                <h3>
+                    教师管理</h3>
+            </div>
+            <div class="i_news04_l">
+                <ul>
+                    <li style="margin-top: 0px;" onclick="resetUrl('Register','Adm','releaseNews',this);">
+                        <a href="#">添加教师</a> </li>
+                    <li onclick="resetUrl('RegisterByExcel','Adm','releaseNews',this);"><a href="#">从EXCEl导入教师</a>
+                    </li>
+                    <li onclick="resetUrl('TeacherClassHourSum','Adm','releaseNews',this);"><a href="#">教师个人学时汇总</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="i_news04" id="noticeManagement">
+            <div class="title03">
+                <h3>
+                    公告管理</h3>
+            </div>
+            <div class="i_news04_l">
+                <ul>
+                    <li style="margin-top: 0px;" onclick="resetUrl('AddHourCountStandard','Adm','releaseNews',this);">
+                        <a href="#">添加学时计算标准</a> </li>
+                    <li onclick="resetUrl('AddActivity','Adm','releaseNews',this);"><a href="#">发布活动公告</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="i_news05" id="activityManagement">
+            <div class="title03">
+                <h3>
+                    活动管理</h3>
+            </div>
+            <div class="i_news04_l">
+                <ul>
+                    <li id="RegistrationOfActLi" style="margin-top: 0px;" onclick="resetUrl('RegistrationOfAct','Adm','releaseNews',this);">
+                        <a href="#">报名中的活动</a> </li>
+                    <li id="OngoingActivitiesLi" onclick="resetUrl('OngoingActivities','Adm','releaseNews',this);">
+                        <a href="#">进行中的活动</a> </li>
+                    <li onclick="resetUrl('AlreadyEndOfAct','Adm','releaseNews',this);"><a href="#">已结束的活动</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="i_news06" id="applyManagement">
+            <div class="title03">
+                <h3>
+                    教师申请管理</h3>
+            </div>
+            <div class="i_news04_l">
+                <ul>
+                    <li id="TeacherPerApplyLi" style="margin-top: 0px;" onclick="resetUrl('TeacherPerApply','Adm','releaseNews',this);">
+                        <a href="#">教师申请列表</a> </li>
+                    <li onclick="resetUrl('TeacherPerApplyFinishSearch','Adm','releaseNews',this);"><a
+                        href="#">教师申请历史</a> </li>
+                </ul>
+            </div>
+        </div>
+        <div class="i_news07" id="sysManagement">
+            <div class="title03">
+                <h3>
+                    系统配置</h3>
+            </div>
+            <div class="i_news04_l">
+                <ul>
+                    <li style="margin-top: 0px;" onclick="resetUrl('SysMail','Home','releaseNews',this);">
+                        <a href="#">配置邮箱</a> </li>
+                </ul>
+            </div>
+        </div>
+        <div class="newbottom_01">
+        </div>
+    </div>
+    <div class="p_right">
+        <div class="p_r_t" id="AdmPageStatus">
+            <h3>
+                个人中心</h3>
+            <div class="p_path">
+                当前位置 ： <a id="position_nowtitle"></a></div>
+        </div>
+        <div class="p_news">
+            <div class="p_center" id="releaseNews">
+            </div>
+            @*<div class="prevnext">
+                <div class="button" style="padding-left: 80px;">
+                    <input type="button" value="添加" /></div>
+            </div>*@
+        </div>
+        <div class="newbottom_02">
         </div>
     </div>
 </div>

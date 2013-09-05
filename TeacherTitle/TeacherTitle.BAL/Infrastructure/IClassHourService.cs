@@ -37,27 +37,38 @@ namespace TeacherTitle.BAL.Infrastructure
         /// </summary>
         /// <param name="apcode"></param>
         /// <returns></returns>
-        SignUpModels[] GetSignUpByAPCode(int apcode);
+        SignUpModels[] GetSignUpByAPCode(int apcode, bool isPersonApply, bool isEnd);
 
         /// <summary>
         /// 获取报名信息(正式)
         /// </summary>
         /// <param name="apcode"></param>
         /// <returns></returns>
-        SignUpModels[] GetSignUpZhenShiByAPCode(int apcode);
+        SignUpModels[] GetSignUpZhenShiByAPCode(int apcode, bool isPersonApply, bool isEnd);
 
         /// <summary>
         /// 获取报名信息(候补)
         /// </summary>
         /// <param name="apcode"></param>
         /// <returns></returns>
-        SignUpModels[] GetSignUpHouBuByAPCode(int apcode);
+        SignUpModels[] GetSignUpHouBuByAPCode(int apcode, bool isPersonApply, bool isEnd);
 
         /// <summary>
         /// 查询已结束的活动
         /// </summary>
         /// <returns></returns>
-        AlreadyEndOfActModels[] GetAlreadyEndOfAct(string Teacher, string Account, string StartTime, string EndTime);
+        AlreadyEndOfActModels[] GetAlreadyEndOfAct(string Teacher, string Account, string Institute, string StartTime, string EndTime);
 
+    
+        /// <summary>
+        /// 教师个人学时统计
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="Account"></param>
+        /// <param name="StartYear"></param>
+        /// <param name="EndYear"></param>
+        /// <returns></returns>
+        PerClassHourSumModels[] PerClassHourSum(string Name, string Account, string StartYear, string EndYear);
+    
     }
 }

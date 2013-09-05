@@ -17,182 +17,221 @@
             format: 'yyyy-MM-dd'
         });
 
-        bindUploadify($("div[id='AdmAddteachers']", $("#PartailRegister")));
+        //        bindUploadify($("div[id='AdmAddteachers']", $("#PartailRegister")));
+
+        onlyNum($("#Account", $("#PartailRegister")));
+        onlyNum($("#UserLongPhone", $("#PartailRegister")));
+        onlyNum($("#UserShortPhone", $("#PartailRegister")));
+        onlyNum($("#UserQQNum", $("#PartailRegister")));
     });
 
-    function uploadifyCallBack(response) {
-        $("#ui_dialog").html(response);
-        $('#ui_dialog').dialog({
-            modal: true,
-            show: 'blind',
-            hide: 'explode',
-            resizable: false,
-            title: "提示"
-        });
-    }
+    //    function uploadifyCallBack(response) {
+    //        $("#ui_dialog").html(response);
+    //        $('#ui_dialog').dialog({
+    //            modal: true,
+    //            show: 'blind',
+    //            hide: 'explode',
+    //            resizable: false,
+    //            title: "提示"
+    //        });
+    //    }
 </script>
 @Html.ValidationSummary(true)
 @using (Ajax.BeginForm("Register", "Adm", null, new AjaxOptions { UpdateTargetId = "releaseNews" }, new { id = "RegisterForm" }))
 {
     <div id="PartailRegister">
-        <table>
+        <table class="myTable" cellpadding="2px" cellspacing="2px">
             <tr>
                 <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.Account)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(m => m.Account)
-                        @Html.ValidationMessageFor(m => m.Account)
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.UserName)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(m => m.UserName)
-                        @Html.ValidationMessageFor(m => m.UserName)
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.UserSex)
-                    </div>
-                    <div class="editor-field">
-                        @Html.DropDownListFor(m => m.UserSex, ViewData["AllSexList"] as SelectList)
-                        @Html.ValidationMessageFor(m => m.UserSex)
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.UserBirth)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(m => m.UserBirth, new { @class = "runcode" })
-                        @Html.ValidationMessageFor(m => m.UserBirth)
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.UserNation)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(m => m.UserNation)
-                        @Html.ValidationMessageFor(m => m.UserNation)
-                    </div>
-                </td>
-                <td style="vertical-align: top;">
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.Institute)
-                    </div>
-                    <div class="editor-field">
-                        @Html.DropDownListFor(m => m.Institute, ViewData["AllInstituteList"] as SelectList)
-                        @Html.ValidationMessageFor(m => m.Institute)
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.Department)
-                    </div>
-                    <div class="editor-field">
-                        @Html.DropDownListFor(m => m.Department, ViewData["AllDepartmentList"] as SelectList)
-                        @Html.ValidationMessageFor(m => m.Department)
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.UserSchoolTime)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(m => m.UserSchoolTime, new { @class = "runcode" })
-                        @Html.ValidationMessageFor(m => m.UserSchoolTime)
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.UserWorkTime)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(m => m.UserWorkTime, new { @class = "runcode" })
-                        @Html.ValidationMessageFor(m => m.UserWorkTime)
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.UserSubject)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(m => m.UserSubject)
-                        @Html.ValidationMessageFor(m => m.UserSubject)
-                    </div>
+                    @Html.LabelFor(m => m.Account)
                 </td>
                 <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.UserMajor)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(m => m.UserMajor)
-                        @Html.ValidationMessageFor(m => m.UserMajor)
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.UserResearch)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(m => m.UserResearch)
-                        @Html.ValidationMessageFor(m => m.UserResearch)
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.UserTitle)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(m => m.UserTitle)
-                        @Html.ValidationMessageFor(m => m.UserTitle)
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.UserTitleLevel)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(m => m.UserTitleLevel)
-                        @Html.ValidationMessageFor(m => m.UserTitleLevel)
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.UserEngageTime)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(m => m.UserEngageTime, new { @class = "runcode" })
-                        @Html.ValidationMessageFor(m => m.UserEngageTime)
-                    </div>
+                    @Html.TextBoxFor(m => m.Account, new { @class = "text-long" })
+                    @Html.ValidationMessageFor(m => m.Account)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.UserName)
                 </td>
                 <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.UserIsDoubleTitle)
-                    </div>
-                    <div class="editor-field">
-                        @Html.DropDownListFor(m => m.UserIsDoubleTitle, ViewData["YesOrNo"] as SelectList)
-                        @Html.ValidationMessageFor(m => m.UserIsDoubleTitle)
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.UserLongPhone)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(m => m.UserLongPhone)
-                        @Html.ValidationMessageFor(m => m.UserLongPhone)
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.UserShortPhone)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(m => m.UserShortPhone)
-                        @Html.ValidationMessageFor(m => m.UserShortPhone)
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.UserMail)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(m => m.UserMail)
-                        @Html.ValidationMessageFor(m => m.UserMail)
-                    </div>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.UserQQNum)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(m => m.UserQQNum)
-                        @Html.ValidationMessageFor(m => m.UserQQNum)
-                    </div>
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "text-long" })
+                    @Html.ValidationMessageFor(m => m.UserName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.UserSex)
                 </td>
                 <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(m => m.Remark)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextAreaFor(m => m.Remark)
-                        @Html.ValidationMessageFor(m => m.Remark)
-                    </div>
+                    @Html.DropDownListFor(m => m.UserSex, ViewData["AllSexList"] as SelectList, new { @class = "text-long", style = "width:280px;" })
+                    @Html.ValidationMessageFor(m => m.UserSex)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.UserBirth)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.UserBirth, new { @class = "runcode" })
+                    @Html.ValidationMessageFor(m => m.UserBirth)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.UserNation)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.UserNation, new { @class = "text-long" })
+                    @Html.ValidationMessageFor(m => m.UserNation)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.Institute)
+                </td>
+                <td>
+                    @Html.DropDownListFor(m => m.Institute, ViewData["AllInstituteList"] as SelectList, new { @class = "text-long", style = "width:280px;" })
+                    @Html.ValidationMessageFor(m => m.Institute)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.Department)
+                </td>
+                <td>
+                    @Html.DropDownListFor(m => m.Department, ViewData["AllDepartmentList"] as SelectList, new { @class = "text-long", style = "width:280px;" })
+                    @Html.ValidationMessageFor(m => m.Department)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.UserSchoolTime)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.UserSchoolTime, new { @class = "runcode" })
+                    @Html.ValidationMessageFor(m => m.UserSchoolTime)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.UserWorkTime)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.UserWorkTime, new { @class = "runcode" })
+                    @Html.ValidationMessageFor(m => m.UserWorkTime)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.UserSubject)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.UserSubject, new { @class = "text-long" })
+                    @Html.ValidationMessageFor(m => m.UserSubject)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.UserMajor)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.UserMajor, new { @class = "text-long" })
+                    @Html.ValidationMessageFor(m => m.UserMajor)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.UserResearch)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.UserResearch, new { @class = "text-long" })
+                    @Html.ValidationMessageFor(m => m.UserResearch)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.UserTitle)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.UserTitle, new { @class = "text-long" })
+                    @Html.ValidationMessageFor(m => m.UserTitle)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.UserTitleLevel)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.UserTitleLevel, new { @class = "text-long" })
+                    @Html.ValidationMessageFor(m => m.UserTitleLevel)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.UserEngageTime)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.UserEngageTime, new { @class = "runcode" })
+                    @Html.ValidationMessageFor(m => m.UserEngageTime)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.UserIsDoubleTitle)
+                </td>
+                <td>
+                    @Html.DropDownListFor(m => m.UserIsDoubleTitle, ViewData["YesOrNo"] as SelectList, new { @class = "text-long", style = "width:280px;" })
+                    @Html.ValidationMessageFor(m => m.UserIsDoubleTitle)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.UserLongPhone)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.UserLongPhone, new { @class = "text-long" })
+                    @Html.ValidationMessageFor(m => m.UserLongPhone)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.UserShortPhone)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.UserShortPhone, new { @class = "text-long" })
+                    @Html.ValidationMessageFor(m => m.UserShortPhone)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.UserMail)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.UserMail, new { @class = "text-long" })
+                    @Html.ValidationMessageFor(m => m.UserMail)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.UserQQNum)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.UserQQNum, new { @class = "text-long" })
+                    @Html.ValidationMessageFor(m => m.UserQQNum)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.Remark)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Remark, new { @class = "text-long" })
+                    @Html.ValidationMessageFor(m => m.Remark)
+                </td>
+            </tr>
+            @*<tr>
+                <td>
                     <div class="editor-label">
                         @Html.Hidden("UserType", "2")
                         <input type="submit" value="添加" />
@@ -212,7 +251,11 @@
                         </div>
                     </div>
                 </td>
-            </tr>
+            </tr>*@
         </table>
+        <div class="button" style="padding-left: 210px;">
+            @Html.Hidden("UserType", "2")
+            <input type="submit" value="添加" />
+        </div>
     </div>
 }

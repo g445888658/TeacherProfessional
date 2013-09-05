@@ -76,7 +76,22 @@
                 title: "提示"
             });
         }
-        $("#RegistrationOfAct").click(); //刷新
+        $("#activityManagement").find("#RegistrationOfActLi").click(); //刷新
+    }
+
+    function ChooseCandidateCallBack(data) {
+        if (!data.Flag) {
+            $("#ui_dialog").html(data.Msg);
+            $('#ui_dialog').dialog({
+                modal: true,
+                show: 'blind',
+                hide: 'explode',
+                resizable: false,
+                title: "提示"
+            });
+        }
+        else
+            $('#Menu', $('#PartailRegistrationOfAct')).find('#' + $('#AP_Code', $('#PartailRegistrationOfActDetail')).val()).click();
     }
 </script>
 <div id="PartailRegistrationOfActDetail">
@@ -201,7 +216,7 @@
                         @Html.Encode(HouBu[i].U_Name)
                     </td>
                     <td>
-                        @using (Ajax.BeginForm("ChooseCandidate", "Adm", null, new AjaxOptions { OnSuccess = "$('#Menu', $('#PartailRegistrationOfAct')).find('#'+$('#AP_Code', $('#PartailRegistrationOfActDetail')).val()).click();" }, new { id = "ChooseCandidateForm" }))
+                        @using (Ajax.BeginForm("ChooseCandidate", "Adm", null, new AjaxOptions { OnSuccess = "ChooseCandidateCallBack(data);" }, new { id = "ChooseCandidateForm" }))
                         {
                             @Html.Hidden("AP_Code", HouBu[i].AP_Code)
                             @Html.Hidden("User_Code", HouBu[i].U_Code)

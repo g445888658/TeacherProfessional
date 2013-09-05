@@ -29,8 +29,17 @@ namespace TeacherTitle.Models
         /// <summary>
         /// 主讲人
         /// </summary>
+        [Required(ErrorMessage = "请填写主讲人(主办方)")]
         [Display(Name = "主讲人")]
         public string ActSpeaker { get; set; }
+
+
+        /// <summary>
+        /// 学年
+        /// </summary>
+        [Required(ErrorMessage = "请选择学年")]
+        [Display(Name = "学年")]
+        public string ActSchoolYear { get; set; }
 
         /// <summary>
         /// 开始时间
@@ -63,16 +72,76 @@ namespace TeacherTitle.Models
         /// <summary>
         /// 限制人数
         /// </summary>
-        //[Required(ErrorMessage = "请填写限制人数")]
+        [Required(ErrorMessage = "请填写限制人数")]
         [Display(Name = "限制人数")]
         public string ActLimit { get; set; }
 
         /// <summary>
         /// 候选人数
         /// </summary>
-        //[Required(ErrorMessage = "请填写候选人数")]
+        [Required(ErrorMessage = "请填写候选人数")]
         [Display(Name = "候选人数")]
         public string ActCandidate { get; set; }
+    }
+
+
+    public class ApplyActivityModels
+    {
+        /// <summary>
+        /// 活动形式
+        /// </summary>
+        [Required(ErrorMessage = "请填写活动形式")]
+        [Display(Name = "活动形式")]
+        public string ActForm { get; set; }
+
+        /// <summary>
+        /// 主题
+        /// </summary>
+        [Required(ErrorMessage = "请填写活动主题")]
+        [Display(Name = "活动主题")]
+        public string ActTheme { get; set; }
+
+        /// <summary>
+        /// 主讲人
+        /// </summary>
+        [Required(ErrorMessage = "请填写主讲人(主办方)")]
+        [Display(Name = "主讲人")]
+        public string ActSpeaker { get; set; }
+
+        /// <summary>
+        /// 学年
+        /// </summary>
+        [Required(ErrorMessage = "请选择学年")]
+        [Display(Name = "学年")]
+        public string ActSchoolYear { get; set; }
+
+        /// <summary>
+        /// 开始时间
+        /// </summary>
+        [Required(ErrorMessage = "请填写开始时间")]
+        [Display(Name = "开始时间")]
+        public string ActStartTime { get; set; }
+
+        /// <summary>
+        /// 结束时间
+        /// </summary>
+        [Required(ErrorMessage = "请填写结束时间")]
+        [Display(Name = "结束时间")]
+        public string ActEndTime { get; set; }
+
+        /// <summary>
+        /// 结束时间
+        /// </summary>
+        [Required(ErrorMessage = "请填写学时")]
+        [Display(Name = "学时")]
+        public string ActClassHour { get; set; }
+
+        /// <summary>
+        /// 地点
+        /// </summary>
+        [Required(ErrorMessage = "请填写活动地点")]
+        [Display(Name = "活动地点")]
+        public string ActPlace { get; set; }
     }
 
 
@@ -141,6 +210,6 @@ namespace TeacherTitle.Models
         public string TA_PlaceValue { get; set; }
     }
 
-   
+
 
 }

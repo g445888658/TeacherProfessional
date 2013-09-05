@@ -60,5 +60,15 @@ namespace TeacherTitle.BAL.Service
             return baseDAO.GetMailConfig();
         }
 
+         /// <summary>
+        /// 获取所有的学年
+        /// </summary>
+        /// <returns></returns>
+        public List<String> GetAllSchoolYear()
+        {
+            return baseDAO.GetAllSchoolYear();
+        }
+
+
     }
 }

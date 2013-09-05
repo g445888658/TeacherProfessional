@@ -9,6 +9,7 @@ using TeacherTitle.Infrastructure;
 using TeacherTitle.Models;
 using TeacherTitle.DAL.DB;
 
+
 namespace TeacherTitle.Controllers
 {
     public class AdmController : Controller
@@ -17,6 +18,7 @@ namespace TeacherTitle.Controllers
         IUserService UserService { get; set; }
         IBaseService BaseService { get; set; }
         IClassHourService ClassHourService { get; set; }
+        IExcelService ExcelService { get; set; }
 
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
@@ -28,6 +30,8 @@ namespace TeacherTitle.Controllers
                 BaseService = new BaseService();
             if (ClassHourService == null)
                 ClassHourService = new ClassHourService();
+            if (ExcelService == null)
+                ExcelService = new ExcelService();
             base.Initialize(requestContext);
         }
 
@@ -64,9 +68,19 @@ namespace TeacherTitle.Controllers
         }
 
         /// <summary>
-        /// GET 注册
+        /// GET Excel导入教师
         /// </summary>
         /// <returns></returns>
+        public PartialViewResult RegisterByExcel()
+        {
+            return PartialView();
+        }
+
+        /// <summary>
+        /// POST Excel导入教师
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
         public ContentResult RegisterByExcel(HttpPostedFileBase fileData, string U_Code)
         {
             string result = string.Empty;
@@ -141,6 +155,47 @@ namespace TeacherTitle.Controllers
         }
 
         /// <summary>
+        /// 教师个人学时汇总
+        /// </summary>
+        /// <returns></returns>
+        public PartialViewResult TeacherClassHourSum()
+        {
+            ViewData["SearchYear"] = Basehandle.ProduceSelectList(BaseService.GetAllSchoolYear());
+            return PartialView();
+        }
+
+        /// <summary>
+        /// 教师个人学时汇总
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public PartialViewResult TeacherClassHourSumDetail(PerSearchClassHourModelsl model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = ClassHourService.PerClassHourSum(model.Teacher, model.Account, model.StartYear, model.EndYear);
+                ViewData["ClassHourResult"] = result;
+            }
+            ViewData["Teacher"] = model.Teacher;
+            ViewData["Account"] = model.Account;
+            ViewData["StartYear"] = model.StartYear;
+            ViewData["EndYear"] = model.EndYear;
+            return PartialView();
+        }
+
+
+        public FileResult ExportClassHourSumDetail(string Teacher, string Account, string StartYear, string EndYear)
+        {
+            var result = ClassHourService.PerClassHourSum(Teacher, Account, StartYear, EndYear);
+
+            string filePath = Server.MapPath("~/ExcelFile/PersonalSummary.xls");
+            var args = ExcelService.creatExcelFilePerson(filePath, result);
+
+            return File(args.Msg, "application/-excel", "PersonalSummary.xls");
+        }
+
+
+        /// <summary>
         ///GET 添加学时计算标准
         /// </summary>
         /// <returns></returns>
@@ -184,6 +239,7 @@ namespace TeacherTitle.Controllers
         public PartialViewResult AddActivity()
         {
             ViewData["AllActForm"] = Basehandle.ProduceSelectList(ActivityService.GetAllActForm());
+            ViewData["Year"] = Basehandle.ProduceSelectList(Basehandle.GetSchoolYear());
             return PartialView();
         }
 
@@ -202,6 +258,7 @@ namespace TeacherTitle.Controllers
                     TA_Code = Convert.ToInt32(addActivityModels.ActForm),
                     AP_Theme = addActivityModels.ActTheme,
                     AP_Speaker = addActivityModels.ActSpeaker,
+                    AP_SchoolYear = addActivityModels.ActSchoolYear,
                     AP_StartTime = addActivityModels.ActStartTime,
                     AP_EndTime = addActivityModels.ActEndTime,
                     AP_Place = addActivityModels.ActPlace,
@@ -238,74 +295,13 @@ namespace TeacherTitle.Controllers
             else
             {
                 ViewData["AllActForm"] = Basehandle.ProduceSelectList(ActivityService.GetAllActForm());
+                ViewData["Year"] = Basehandle.ProduceSelectList(Basehandle.GetSchoolYear());
                 return PartialView(addActivityModels);
             }
         }
 
 
-        ///// <summary>
-        ///// GET 教师活动报名列表
-        ///// </summary>
-        ///// <returns></returns>
-        //public PartialViewResult CheckTeacherApply()
-        //{
-        //    ViewData["AllTeacherName"] = Basehandle.ProduceSelectList(UserService.GetAllUserName());
-        //    return PartialView();
-        //}
 
-        ///// <summary>
-        ///// GET 教师活动报名列表
-        ///// </summary>
-        ///// <returns></returns>
-        //[HttpPost]
-        //public ActionResult CheckTeacherApply(SearchClassHourModelsl model)
-        //{
-        //    return RedirectToAction("ApplyList", "Activity", new
-        //    {
-        //        Teacher = model.Teacher,
-        //        ActivityForm = model.Account,
-        //        StartTime = model.StartTime,
-        //        EndTime = model.EndTime
-        //    });
-        //}
-
-
-
-        ///// <summary>
-        /////GET 获取还在报名状态的活动
-        ///// </summary>
-        ///// <returns></returns>
-        //public PartialViewResult Activiting()
-        //{
-        //    var result = ActivityService.GetActiveActivityPlan();
-        //    ViewData["ActiveList"] = result;
-        //    return PartialView();
-        //}
-
-
-        ///// <summary>
-        ///// POST 结束报名
-        ///// </summary>
-        ///// <returns></returns>
-        //[HttpPost]
-        //public PartialViewResult Activiting(string AP_Code)
-        //{
-        //    var args = ActivityService.AlterAP_Status(Convert.ToInt32(AP_Code), 3, "进行中");
-        //    var result = ActivityService.GetActiveActivityPlan();
-        //    ViewData["ActiveList"] = result;
-        //    return PartialView();
-        //}
-
-        ///// <summary>
-        ///// GET 获取已结束的活动
-        ///// </summary>
-        ///// <returns></returns>
-        //public PartialViewResult Activitied()
-        //{
-        //    var result = ActivityService.GetEndActivityPlan();
-        //    ViewData["ActiveList"] = result;
-        //    return PartialView();
-        //}
 
         /// <summary>
         /// GET 呈现在报名的所有活动的标题
@@ -326,8 +322,8 @@ namespace TeacherTitle.Controllers
         {
             var detail = ActivityService.GetActivityPlansById(Convert.ToInt32(ap_Code));
             ViewData["ActDetail"] = detail;
-            ViewData["AllSigUpZhenShi"] = ClassHourService.GetSignUpZhenShiByAPCode(detail.Plan.AP_Code);
-            ViewData["AllSigUpHouBu"] = ClassHourService.GetSignUpHouBuByAPCode(detail.Plan.AP_Code);
+            ViewData["AllSigUpZhenShi"] = ClassHourService.GetSignUpZhenShiByAPCode(detail.Plan.AP_Code, false, false);
+            ViewData["AllSigUpHouBu"] = ClassHourService.GetSignUpHouBuByAPCode(detail.Plan.AP_Code, false, false);
             return PartialView();
         }
 
@@ -377,11 +373,21 @@ namespace TeacherTitle.Controllers
         /// <returns></returns>
         public JsonResult ChooseCandidate(string AP_Code, string User_Code)
         {
-            var args = ActivityService.ChooseCandidate(Convert.ToInt32(AP_Code), Convert.ToInt32(User_Code));
+            var activity = ActivityService.GetActivityPlanById(Convert.ToInt32(AP_Code));
+            string msg = string.Empty;
+            bool flag = false;
+            if (activity.AP_Left == 0)
+                msg = "名额已满,操作无效";
+            else
+            {
+                var args = ActivityService.ChooseCandidate(Convert.ToInt32(AP_Code), Convert.ToInt32(User_Code));
+                flag = args.Flag;
+                msg = args.Msg;
+            }
             var jsonData = new
             {
-                Flsg = args.Flag,
-                Msg = args.Msg
+                Flsg = flag,
+                Msg = msg
             };
             return Json(jsonData);
         }
@@ -419,7 +425,7 @@ namespace TeacherTitle.Controllers
         /// <returns></returns>
         public PartialViewResult OngoingDetail(string AP_Code)
         {
-            ViewData["AllSigUpZhenShi"] = ClassHourService.GetSignUpZhenShiByAPCode(Convert.ToInt32(AP_Code));
+            ViewData["AllSigUpZhenShi"] = ClassHourService.GetSignUpZhenShiByAPCode(Convert.ToInt32(AP_Code), false, true);
             return PartialView();
         }
 
@@ -472,13 +478,29 @@ namespace TeacherTitle.Controllers
         /// </summary>
         /// <param name="AP_Code"></param>
         /// <returns></returns>
-        public JsonResult EndAlter(string AP_Code)
+        public JsonResult EndAlter(string AP_Code, string[] ASU_Code)
         {
-            var args = ActivityService.AlterAP_Status(Convert.ToInt32(AP_Code), 0, "结束");
+            //先要验证是否已保存
+            bool flag = true;
+            string msg = "提交成功";
+            for (int i = 0; i < ASU_Code.Length; i++)
+            {
+                var classHour = ClassHourService.GetClaHourInfoByASU_Code(Convert.ToInt32(ASU_Code[i]));
+                if (classHour == null)
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag)
+                ActivityService.AlterAP_Status(Convert.ToInt32(AP_Code), 0, "结束");
+            else
+                msg = "请先保存";
+
             var jsonData = new
             {
-                Flag = args.Flag,
-                Msg = "提交成功"
+                Flag = flag,
+                Msg = msg
             };
             return Json(jsonData);
         }
@@ -490,6 +512,7 @@ namespace TeacherTitle.Controllers
         /// <returns></returns>
         public PartialViewResult AlreadyEndOfAct()
         {
+            ViewData["AllInstitute"] = Basehandle.ProduceInstituteList(BaseService.GetAllInstitute());
             return PartialView();
         }
 
@@ -513,9 +536,144 @@ namespace TeacherTitle.Controllers
         /// <returns></returns>
         public PartialViewResult ActAndTeacherList(SearchClassHourModelsl model)
         {
-            ViewData["resultList"] = ClassHourService.GetAlreadyEndOfAct(model.Teacher, model.Account, model.StartTime, model.EndTime);
+            ViewData["resultList"] = ClassHourService.GetAlreadyEndOfAct(model.Teacher, model.Account, model.Institute, model.StartTime, model.EndTime);
             return PartialView();
         }
+
+        /// <summary>
+        /// 导出已结束的活动学时统计
+        /// </summary>
+        /// <param name="Teacher"></param>
+        /// <param name="Account"></param>
+        /// <param name="StartTime"></param>
+        /// <param name="EndTime"></param>
+        /// <returns></returns>
+        public FileResult ExportEndAct(string Teacher, string Account, string Institute, string StartTime, string EndTime)
+        {
+            var result = ClassHourService.GetAlreadyEndOfAct(Teacher, Account, Institute, StartTime, EndTime);
+            string filePath = Server.MapPath("~/ExcelFile/InstituteHourSummary.xls");
+
+            var args = ExcelService.creatExcelFileInstitute(filePath, result, null, StartTime, EndTime);
+
+            return File(args.Msg, "text/plain", "InstituteHourSummary.xls");
+        }
+
+        /// <summary>
+        ///GET 教师申请列表
+        /// </summary>
+        /// <returns></returns>
+        public PartialViewResult TeacherPerApply()
+        {
+            var list = ActivityService.GetSignUp(0, true, false, 2);
+            ViewData["list"] = list;
+            return PartialView();
+        }
+
+        /// <summary>
+        ///POST 教师申请列表(保存)
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult TeacherPerApply(string ASU_Code, string ClassHour, string AP_Code)
+        {
+            ClassHourSum model;
+
+            if (ClassHourService.GetClaHourInfoByASU_Code(Convert.ToInt32(ASU_Code)) != null)
+            {
+                var status = ActivityService.GetActivityPlanById(Convert.ToInt32(AP_Code));
+                if (status.AP_StatusKey == 4)
+                {
+                    return Json(new
+                    {
+                        Flag = false,
+                        Msg = "已提交,不能再操作"
+                    });
+                }
+                else
+                    ClassHourService.AlterClaHourInfo(Convert.ToInt32(ASU_Code), Convert.ToInt32(ClassHour));
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(ClassHour))
+                {
+                    model = new ClassHourSum()
+                    {
+                        ASU_Code = Convert.ToInt32(ASU_Code),
+                        CH_GetTime = DateTime.Now.ToString("yyyy/MM/dd"),
+                        CH_GetHour = Convert.ToInt32(ClassHour)
+                    };
+                    var args = ClassHourService.AddClassHourSum(model);
+                }
+
+            }
+
+            var jsonData = new
+            {
+                Flag = true,
+                Msg = "保存成功"
+            };
+            return Json(jsonData);
+        }
+
+
+        /// <summary>
+        ///POST 教师申请列表(提交)
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult SubmitTeacherPerApply(string AP_Code)
+        {
+            var args = ActivityService.AlterAP_Status(Convert.ToInt32(AP_Code), 4, "申请结束");
+            var jsonData = new
+            {
+                Flag = args.Flag,
+                Msg = "提交成功"
+            };
+            return Json(jsonData);
+        }
+
+
+        /// <summary>
+        /// GET 教师申请历史
+        /// </summary>
+        /// <returns></returns>
+        public PartialViewResult TeacherPerApplyFinishSearch()
+        {
+            ViewData["AllInstitute"] = Basehandle.ProduceInstituteList(BaseService.GetAllInstitute());
+            return PartialView();
+        }
+
+        /// <summary>
+        /// GET 教师申请历史
+        /// </summary>
+        /// <returns></returns>
+        public PartialViewResult TeacherPerApplyFinish(SearchClassHourModelsl model)
+        {
+            var list = ActivityService.GetSignUp(0, true, true, 4);
+            list = ActivityService.TeacherPerApplyFinishSearch(list, model.Teacher, model.Account, model.Institute, model.StartTime, model.EndTime);
+            ViewData["list"] = list;
+            return PartialView();
+        }
+
+        /// <summary>
+        /// 导出已结束的教师申请
+        /// </summary>
+        /// <param name="Teacher"></param>
+        /// <param name="Account"></param>
+        /// <param name="Institute"></param>
+        /// <param name="StartTime"></param>
+        /// <param name="EndTime"></param>
+        /// <returns></returns>
+        public FileResult ExportPerEndAct(string Teacher, string Account, string Institute, string StartTime, string EndTime)
+        {
+            var list = ActivityService.GetSignUp(0, true, true, 4);
+            list = ActivityService.TeacherPerApplyFinishSearch(list, Teacher, Account, Institute, StartTime, EndTime);
+            string filePath = Server.MapPath("~/ExcelFile/InstituteHourSummary.xls");
+            var args = ExcelService.creatExcelFileInstitute(filePath, null, list, StartTime, EndTime);
+
+            return File(args.Msg, "text/plain", "InstituteHourSummary.xls");
+        }
+
 
 
     }

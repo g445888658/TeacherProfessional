@@ -21,7 +21,8 @@ namespace TeacherTitle.Controllers
         IUserService UserService { get; set; }
         IBaseService BaseService { get; set; }
         IActivityService ActivityService { get; set; }
-
+        IClassHourService ClassHourService { get; set; }
+        IExcelService ExcelService { get; set; }
 
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
@@ -31,20 +32,13 @@ namespace TeacherTitle.Controllers
                 BaseService = new BaseService();
             if (ActivityService == null)
                 ActivityService = new ActivityService();
-
+            if (ClassHourService == null)
+                ClassHourService = new ClassHourService();
+            if (ExcelService == null)
+                ExcelService = new ExcelService();
             base.Initialize(requestContext);
         }
 
-
-        ///// <summary>
-        ///// 移除cookie
-        ///// </summary>
-        //private void RemoveCookie()
-        //{
-        //    HttpCookie cookie = new HttpCookie(userCookie);
-        //    cookie.Expires = DateTime.Now.AddDays(-1d);
-        //    HttpContext.Response.Cookies.Add(cookie);
-        //}
 
         /// <summary>
         /// 根据关键字查找教师
@@ -72,17 +66,8 @@ namespace TeacherTitle.Controllers
         /// <returns></returns>
         public PartialViewResult LogOn()
         {
-            //if (!string.IsNullOrEmpty(U_Code))
-            //{
-            //    UserModel userModel = new UserModel();
-
-            //    userModel.userModel = UserService.GetUserByID(Convert.ToInt32(U_Code));
-
-            //    return PartialView("_LogOutPartial", userModel);
-            //}
             return PartialView("_LogOnPartial");
         }
-
 
         /// <summary>
         /// POST 登陆
@@ -119,7 +104,6 @@ namespace TeacherTitle.Controllers
         /// <returns></returns>
         public ActionResult LogOff()
         {
-            //FormsAuthentication.SignOut();
             return PartialView("_LogOnPartial");
         }
 
@@ -282,9 +266,9 @@ namespace TeacherTitle.Controllers
         /// <returns></returns>
         public PartialViewResult UserApplyActivity(string U_Code)
         {
-
             ViewData["AllActForm"] = Basehandle.ProduceSelectList(ActivityService.GetAllActForm());
             ViewData["U_Code"] = U_Code;
+            ViewData["Year"] = Basehandle.ProduceSelectList(Basehandle.GetSchoolYear());
             return PartialView();
         }
 
@@ -293,19 +277,20 @@ namespace TeacherTitle.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public PartialViewResult UserApplyActivity(AddActivityModels addActivityModels, string U_Code, UploadModels uploadModels)
+        public PartialViewResult UserApplyActivity(ApplyActivityModels applyActivityModels, string U_Code, UploadModels uploadModels)
         {
             if (ModelState.IsValid)
             {
                 ActivityPlan ActivityPlan = new DAL.DB.ActivityPlan()
                 {
-                    TA_Code = Convert.ToInt32(addActivityModels.ActForm),
-                    AP_Theme = addActivityModels.ActTheme,
-                    AP_Speaker = addActivityModels.ActSpeaker,
-                    AP_StartTime = addActivityModels.ActStartTime,
-                    AP_EndTime = addActivityModels.ActEndTime,
-                    AP_Place = addActivityModels.ActPlace,
-                    AP_ClassHour = addActivityModels.ActClassHour,
+                    TA_Code = Convert.ToInt32(applyActivityModels.ActForm),
+                    AP_Theme = applyActivityModels.ActTheme,
+                    AP_Speaker = applyActivityModels.ActSpeaker,
+                    AP_SchoolYear = applyActivityModels.ActSchoolYear,
+                    AP_StartTime = applyActivityModels.ActStartTime,
+                    AP_EndTime = applyActivityModels.ActEndTime,
+                    AP_Place = applyActivityModels.ActPlace,
+                    AP_ClassHour = applyActivityModels.ActClassHour,
                     AP_ReleaseTime = DateTime.Now.ToString(),
                     AP_StatusKey = 2,
                     AP_StatusValue = "教师申请"
@@ -325,19 +310,31 @@ namespace TeacherTitle.Controllers
                         ASU_StatusKey = 1,
                         ASU_StatusValue = "可用"
                     };
-
                     args = ActivityService.TeacherSignUp(activitySignUp);
 
-                    for (int i = 0; i < uploadModels.FileName.Length; i++)
+
+
+                    if (uploadModels.FileName != null)
                     {
-                        ActivityMaterial activityMaterial = new ActivityMaterial()
+                        for (int i = 0; i < uploadModels.FileName.Length; i++)
                         {
-                            ASU_Code = activitySignUp.ASU_Code,
-                            AM_Name = uploadModels.FileName[i],
-                            AM_SavePath = uploadModels.SaveName[i]
-                        };
-                        args = ActivityService.AddActivityMaterial(activityMaterial);
+                            ActivityMaterial activityMaterial = new ActivityMaterial()
+                            {
+                                ASU_Code = activitySignUp.ASU_Code,
+                                AM_Name = uploadModels.FileName[i],
+                                AM_SavePath = uploadModels.SaveName[i]
+                            };
+                            args = ActivityService.AddActivityMaterial(activityMaterial);
+                        }
                     }
+
+                    //ClassHourSum classHourSum = new ClassHourSum()
+                    //{
+                    //    ASU_Code = activitySignUp.ASU_Code,
+                    //    CH_GetTime = DateTime.Now.ToString("yyyy/MM/dd"),
+                    //    CH_GetHour = Convert.ToInt32(applyActivityModels.ActClassHour)
+                    //};
+                    //ClassHourService.AddClassHourSum(classHourSum);
 
                     ViewData["result"] = args.Msg;
                     return PartialView("_ResultPartial");
@@ -384,6 +381,186 @@ namespace TeacherTitle.Controllers
             return Content(result);
         }
 
+
+        /// <summary>
+        /// 教师已报名的活动
+        /// </summary>
+        /// <returns></returns>
+        public PartialViewResult AlreadySignUp(String U_Code)
+        {
+            var list = ActivityService.GetAlreadySignUp(Convert.ToInt32(U_Code), false);
+            ViewData["list"] = list;
+            return PartialView();
+        }
+
+        /// <summary>
+        /// 进行中的活动
+        /// </summary>
+        /// <returns></returns>
+        public PartialViewResult Ongoing(String U_Code)
+        {
+            var list = ActivityService.GetSignUp(Convert.ToInt32(U_Code), false, true, 3);
+            ViewData["list"] = list;
+            return PartialView();
+        }
+
+        /// <summary>
+        /// 查询已结束的活动
+        /// </summary>
+        /// <returns></returns>
+        public PartialViewResult AlreadyEndSearch()
+        {
+            ViewData["AllInstitute"] = Basehandle.ProduceInstituteList(BaseService.GetAllInstitute());
+            return PartialView();
+        }
+
+        /// <summary>
+        /// 已结束的活动
+        /// </summary>
+        /// <returns></returns>
+        public PartialViewResult AlreadyEnd(String U_CodePer, string StartTime, string EndTime)
+        {
+            var list = ActivityService.GetSignUp(Convert.ToInt32(U_CodePer), false, true, 0);
+            list = ActivityService.TeacherPerApplyFinishSearch(list, null, null, null, StartTime, EndTime);
+            ViewData["list"] = list;
+            return PartialView();
+        }
+
+        /// <summary>
+        /// 教师参加的活动导出
+        /// </summary>
+        /// <param name="U_CodePer"></param>
+        /// <param name="StartTime"></param>
+        /// <param name="EndTime"></param>
+        /// <returns></returns>
+        public FileResult ExportAlreadyEnd(String U_CodePer, string StartTime, string EndTime)
+        {
+            var list = ActivityService.GetSignUp(Convert.ToInt32(U_CodePer), false, true, 0);
+            list = ActivityService.TeacherPerApplyFinishSearch(list, null, null, null, StartTime, EndTime);
+            string filePath = Server.MapPath("~/ExcelFile/InstituteHourSummary.xls");
+            var args = ExcelService.creatExcelFileInstitute(filePath, null, list, StartTime, EndTime);
+
+            return File(args.Msg, "text/plain", "InstituteHourSummary.xls");
+        }
+
+        /// <summary>
+        /// 教师申请活动
+        /// </summary>
+        /// <param name="U_Code"></param>
+        /// <returns></returns>
+        public PartialViewResult TeacherApply(String U_Code)
+        {
+            var list = ActivityService.GetSignUp(Convert.ToInt32(U_Code), true, false, 2);
+            ViewData["list"] = list;
+            return PartialView();
+        }
+
+        /// <summary>
+        /// 教师已审批活动导出
+        /// </summary>
+        /// <returns></returns>
+        public PartialViewResult TeacherApplyFinishSearch()
+        {
+            return PartialView();
+        }
+
+        /// <summary>
+        /// 已审批的教师申请
+        /// </summary>
+        /// <param name="U_Code"></param>
+        /// <returns></returns>
+        public PartialViewResult TeacherApplyFinish(String U_CodePerFinish, SearchClassHourModelsl model)
+        {
+            var list = ActivityService.GetSignUp(Convert.ToInt32(U_CodePerFinish), true, true, 4);
+            ViewData["list"] = list;
+            return PartialView();
+        }
+
+        /// <summary>
+        /// 导出已审批的教师申请
+        /// </summary>
+        /// <param name="U_CodePerFinish"></param>
+        /// <param name="StartTime"></param>
+        /// <param name="EndTime"></param>
+        /// <returns></returns>
+        public FileResult ExportApplyFinish(String U_CodePerFinish, string StartTime, string EndTime)
+        {
+            var list = ActivityService.GetSignUp(Convert.ToInt32(U_CodePerFinish), true, true, 4);
+            list = ActivityService.TeacherPerApplyFinishSearch(list, null, null, null, StartTime, EndTime);
+            string filePath = Server.MapPath("~/ExcelFile/InstituteHourSummary.xls");
+            var args = ExcelService.creatExcelFileInstitute(filePath, null, list, StartTime, EndTime);
+
+            return File(args.Msg, "text/plain", "InstituteHourSummary.xls");
+        }
+
+        /// <summary>
+        /// 教师活动资料上传
+        /// </summary>
+        /// <param name="dataFile"></param>
+        /// <returns></returns>
+        public ContentResult UploadMaterial(HttpPostedFileBase fileData, string U_Code, string ASU_Codes)
+        {
+            string result = string.Empty;
+            string folder = Server.MapPath("~/FileData/") + U_Code;
+            string time = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss-ff");//获取时间
+            string extension = System.IO.Path.GetExtension(fileData.FileName);//获取扩展名
+            string newFileName = time + extension;//重组成新的文件名
+            if (!System.IO.Directory.Exists(folder))
+                System.IO.Directory.CreateDirectory(folder);
+
+            fileData.SaveAs(folder + "\\" + newFileName);
+            result = folder + "\\" + newFileName;
+            ActivityMaterial activityMaterial = new ActivityMaterial()
+            {
+                ASU_Code = Convert.ToInt32(ASU_Codes),
+                AM_Name = fileData.FileName,
+                AM_SavePath = result
+            };
+            var args = ActivityService.AddActivityMaterial(activityMaterial);
+            return Content(args.Msg);
+        }
+
+        /// <summary>
+        /// 个人学时统计查询
+        /// </summary>
+        /// <returns></returns>
+        public PartialViewResult PerClassHourSum()
+        {
+            ViewData["SearchYear"] = Basehandle.ProduceSelectList(BaseService.GetAllSchoolYear());
+            return PartialView();
+        }
+
+        /// <summary>
+        /// 个人学时统计查询结果
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public PartialViewResult PerClassHourSumDetail(PerSearchClassHourModelsl model)
+        {
+            model.Account = UserService.GetUserByID(Convert.ToInt32(model.Account)).U_Account;
+
+            var result = ClassHourService.PerClassHourSum(model.Teacher, model.Account, model.StartYear, model.EndYear);
+            ViewData["ClassHourResult"] = result;
+            return PartialView();
+        }
+
+        /// <summary>
+        /// 导出个人学时统计
+        /// </summary>
+        /// <param name="Account"></param>
+        /// <param name="StartYear"></param>
+        /// <param name="EndYear"></param>
+        /// <returns></returns>
+        public FileResult ExportPerClassHourSumDetail(string Account, string StartYear, string EndYear)
+        {
+            Account = UserService.GetUserByID(Convert.ToInt32(Account)).U_Account;
+            var result = ClassHourService.PerClassHourSum(null, Account, StartYear, EndYear);
+
+            string filePath = Server.MapPath("~/ExcelFile/PersonalSummary.xls");
+            var args = ExcelService.creatExcelFilePerson(filePath, result);
+
+            return File(args.Msg, "text/plain", "PersonalSummary.xls");
+        }
 
     }
 }

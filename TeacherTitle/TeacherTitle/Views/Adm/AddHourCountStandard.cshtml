@@ -9,8 +9,54 @@
 <div id="PartailAddHourCountStandard">
     @using (Ajax.BeginForm("AddHourCountStandard", "Adm", new AjaxOptions { UpdateTargetId = "releaseNews" }, new { id = "ApplyListForm" }))
     {
-        <table>
+        <table class="myTable" cellpadding="2px" cellspacing="2px">
             <tr>
+                <td>
+                    @Html.LabelFor(m => m.TA_Form)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.TA_Form, new { @class = "text-long", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m.TA_Form)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.TA_Way)
+                </td>
+                <td>
+                    @Html.TextAreaFor(m => m.TA_Way, new { @class = "text-long", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m.TA_Way)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.TA_Material)
+                </td>
+                <td>
+                    @Html.TextAreaFor(m => m.TA_Material, new { @class = "text-long", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m.TA_Material)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.TA_ClassHour)
+                </td>
+                <td>
+                    @Html.TextAreaFor(m => m.TA_ClassHour, new { @class = "text-long", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m.TA_Form)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.TA_PlaceKey)
+                </td>
+                <td>
+                    @Html.DropDownListFor(m => m.TA_PlaceKey, ViewData["AllPlaceList"] as SelectList, new { @class = "text-long", style = "width:280px;" })
+                    @Html.ValidationMessageFor(m => m.TA_PlaceKey)
+                    @Html.HiddenFor(m => m.TA_PlaceValue)
+                </td>
+            </tr>
+            @*<tr>
                 <td>
                     <div class="editor-label">
                         @Html.LabelFor(m => m.TA_Form)
@@ -41,10 +87,13 @@
                         @Html.HiddenFor(m => m.TA_PlaceValue)
                     </div>
                     <div class="editor-label">
-                        <input type="submit" value="提交"  onclick="return checkCondition();"/>
+                        <input type="submit" value="提交" onclick="return checkCondition();" />
                     </div>
                 </td>
-            </tr>
+            </tr>*@
         </table>
+        <div class="button" style="padding-left: 150px;">
+            <input type="submit" value="提交" onclick="return checkCondition();" />
+        </div>
     }
 </div>

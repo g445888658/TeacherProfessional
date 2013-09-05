@@ -24,6 +24,7 @@
     <EntitySetMapping Name="ActivityPlan">
       <EntityTypeMapping TypeName="TTitleDBModel.ActivityPlan">
         <MappingFragment StoreEntitySet="ActivityPlan">
+          <ScalarProperty Name="AP_SchoolYear" ColumnName="AP_SchoolYear" />
           <ScalarProperty Name="AP_ClassHour" ColumnName="AP_ClassHour" />
           <ScalarProperty Name="AP_Code" ColumnName="AP_Code" />
           <ScalarProperty Name="TA_Code" ColumnName="TA_Code" />

@@ -90,6 +90,23 @@ namespace TeacherTitle.DAL.DAO
             }
         }
 
+        /// <summary>
+        /// 获取所有的学年
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetAllSchoolYear()
+        {
+            List<string> list = new List<string>();
+            using (TTitleDBEntities db = new TTitleDBEntities())
+            {
+                var result = db.ActivityPlan.AsParallel().Select(x => (new { Year = x.AP_SchoolYear })).Distinct().OrderBy(x => x.Year).ToList();
+
+                for (int i = 0; i < result.Count; i++)
+                    list.Add(result[i].Year);
+            }
+            return list;
+        }
+
 
     }
 }
